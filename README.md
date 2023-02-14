@@ -15,4 +15,10 @@
 
 - Siddharth Menon
 
-<br> <br> <br>
+<br> 
+
+## Progress/Deliverables Status:
+| Date | Deliverable(s) | Notes |
+| ----- | -------------- | -------------------- |
+| Week of: 02/13/2023 | x | y |
+
