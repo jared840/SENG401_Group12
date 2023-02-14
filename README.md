@@ -1,6 +1,5 @@
 # Business System with Logistics Warehouse
 
-<br> <br> <br> 
 ## Group 12:
 - Heidi Toews
 
@@ -15,3 +14,5 @@
 - Nolan Parmar 
 
 - Siddharth Menon
+
+<br> <br> <br>
