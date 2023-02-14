@@ -13,6 +13,5 @@ public class User{
             int cardNumber) {
     }
    
-
 }
 
