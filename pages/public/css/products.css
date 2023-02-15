@@ -1,0 +1,68 @@
+#listView {
+    padding: 10px 5px !important;
+    margin-bottom: -1px !important;
+    min-height: 510px !important;
+    /* Avoid cutout if font or line is bigger */
+    font: inherit !important;
+}
+
+.k-listview-content {
+    overflow: hidden !important;
+}
+
+.product {
+    float: left !important;
+    position: relative !important;
+    width: 111px !important;
+    height: 170px !important;
+    margin: 0 5px !important;
+    padding: 0 !important;
+}
+
+    .product img {
+        width: 110px !important;
+        height: 110px !important;
+    }
+
+    .product h3 {
+        margin: 0 !important;
+        padding: 3px 5px 0 0 !important;
+        max-width: 96px !important;
+        overflow: hidden !important;
+        line-height: 1.1em !important;
+        font-size: .9em !important;
+        font-weight: normal !important ;
+        text-transform: uppercase !important;
+        color: #999 !important;
+    }
+
+    .product p {
+        visibility: hidden !important; 
+    }
+
+    .product:hover p {
+        visibility: visible !important;
+        position: absolute !important;
+        width: 110px !important;
+        height: 110px !important;
+        top: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 110px !important;
+        vertical-align: middle !important;
+        text-align: center !important;
+        color: #fff !important;
+        background-color: rgba(0,0,0,0.75) !important;
+        transition: background .2s linear, color .2s linear !important;
+        -moz-transition: background .2s linear, color .2s linear !important;
+        -webkit-transition: background .2s linear, color .2s linear !important;
+        -o-transition: background .2s linear, color .2s linear !important;
+    }
+
+.k-listview:after {
+    content: "." !important;
+    display: block !important;
+    height: 0 !important; 
+    clear: both !important;
+    visibility: hidden !important;
+}
