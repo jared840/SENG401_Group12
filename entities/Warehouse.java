@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.ArrayList;
 
 //Warehouse entity class
 public class Warehouse {
@@ -8,13 +9,15 @@ public class Warehouse {
     //private entity variables
     private String address;
     private String name;
-    private List<Order> orders;
-    private List<Product> inventory;
+    private ArrayList<Order> orders;
+    private ArrayList<Product> inventory;
 
     //Entity Constructor
     public Warehouse(String address, String name) {
         this.address=address;
         this.name=name;
+        this.orders=new ArrayList<Order>();
+        this.inventory=new ArrayList<Product>();
     }
 
     //______________________________________________
