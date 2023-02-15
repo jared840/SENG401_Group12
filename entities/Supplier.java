@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.ArrayList;
 
 //Supplier entity class
 public class Supplier{
@@ -11,7 +12,7 @@ public class Supplier{
         private String description;
         private String username;
         private String password;
-        private List<Product> products;
+        private ArrayList<Product> products;
 
 
         /*
@@ -26,6 +27,7 @@ public class Supplier{
         this.description=desc;
         this.username=user;
         this.password = pswd;
+        products=new ArrayList<Product>();
         
 
         }
