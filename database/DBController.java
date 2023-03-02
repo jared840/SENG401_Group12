@@ -6,6 +6,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javafx.util.Pair;
 
 //jdbc:mysql://localhost/SENG401Project
 
@@ -61,15 +62,19 @@ public class DBController {
 
   //check whether the submitted username & password correspond with an account,
   //returns the appropriate user object if login is valid
-  // return (user type, user object) pair?
-  public void verifyLogin(String un, String pw) {
+  // return (user type, user object) pair
+  public Pair<char, Object> verifyLogin(String un, String pw) {
     Statement stmt = null;
 
     try {
       stmt = connect.createStatement();
       result =
         stmt.executeQuery(
-          "SELECT * FROM Login_Information WHERE username = '" + un + "' AND password = '" + pw "'";
+          "SELECT * FROM Login_Information WHERE username = '" +
+          un +
+          "' AND password = '" +
+          pw +
+          "'"
         );
     } catch (SQLException e) {
       closeAll();
@@ -232,13 +237,23 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
-        "INSERT INTO Warehouse_Inventory () VALUES () ON DUPLICATE KEY UPDATE"
-
-
-        "UPDATE Warehouse_Inventory SET Quantity = ? WHERE Item_ID = ? AND W_ID = ?";
-      stmt.setString(1, quantity);
-      stmt.setString(2, p.getID());
-      stmt.setString(3, w.getID());
+        "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID, Aisle_No) VALUES (" +
+        String.valueOF(p.getID()) +
+        ", " +
+        String.valueOf(w.getID()) +
+        ", '" +
+        p.getName() +
+        "', " +
+        String.valueOf(quantity) +
+        ", " +
+        String.valueOf(p.getSupplierID()) +
+        ", " +
+        String.valueOf(p.getAisleNo()) +
+        ") ON DUPLICATE KEY UPDATE Quantity = " +
+        String.valueOf(quantity);
+      stmt.setString(1, String.valueOf(quantity));
+      stmt.setString(2, String.valueOf(p.getID()));
+      stmt.setString(3, String.valueOf(w.getID()));
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
