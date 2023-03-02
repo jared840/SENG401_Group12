@@ -112,7 +112,7 @@ public class DBController {
     try {
       String query =
         "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address) VALUES (?, ?, ?, ?)";
-      stmt.setString(1, u.getUser_ID());
+      stmt.setString(1, String.valueOf(u.getUser_ID()));
       DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
       String date = dateFormat.format(o.getO_Date());
       stmt.setString(2, date);
@@ -232,16 +232,19 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
+        "INSERT INTO Warehouse_Inventory () VALUES () ON DUPLICATE KEY UPDATE"
+
+
         "UPDATE Warehouse_Inventory SET Quantity = ? WHERE Item_ID = ? AND W_ID = ?";
       stmt.setString(1, quantity);
-      stmt.setString(2, p.getId);
-      stmt.setString(3, w.getID);
+      stmt.setString(2, p.getID());
+      stmt.setString(3, w.getID());
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in searchItems.");
+      System.err.println("SQLException in restockItem.");
       System.exit(1);
     }
   }
@@ -284,15 +287,13 @@ public class DBController {
       stmt.close();
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in newOrder.");
+      System.err.println("SQLException in newUser (ww).");
       System.exit(1);
     }
   }
 
   //view all orders for a warehouse
   public void viewOrders(Warehouse w) {
-    //need order information where the item is in stock in the warehouse
-    //--> bypass order_info table?
     Statement stmt = null;
 
     try {
@@ -303,13 +304,27 @@ public class DBController {
         );
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in newOrder.");
+      System.err.println("SQLException in viewOrders.");
       System.exit(1);
     }
   }
 
-  public void shipOrder(Order o) {
+  public void shipItem(Order o, Product p) {
     //make ship item instead?
     //--> need to mark in db somehow
+    PreparedStatement stmt = null;
+    try {
+      String query =
+        "UPDATE Order_Items SET Shipped = true WHERE O_ID = ? AND I_ID = ?";
+      stmt.setString(1, o.getID());
+      stmt.setString(2, p.getID());
+      stmt = connect.prepareStatement(query);
+      stmt.executeUpdate();
+      stmt.close();
+    } catch (SQLException e) {
+      closeAll();
+      System.err.println("SQLException in shipItem.");
+      System.exit(1);
+    }
   }
 }
