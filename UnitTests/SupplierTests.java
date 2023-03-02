@@ -25,12 +25,12 @@ public class SupplierTests{
     @Before
     public void setup(){
         //create a supplier to test
-        tester = new Supplier("J.R.", "Lundy", "Independent electronic supplier", "JRL_2k", "abcd1234");
+        tester = new Supplier(1, "Lundy", "Independent electronic supplier", "JRL_2k", "abcd1234");
 
         //create products for testing the product list later
-        p1 = new Product("a1", "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
-        p2 = new Product("a2", "XBox One", "XBoc One Gaming System", 387.25, "Gaming", 10);
-        p3 = new Product("a3", "Sony TV", "Sony Television", 505.35, "TVs", 2);
+        p1 = new Product(23,5, "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
+        p2 = new Product(1,4, "XBox One", "XBoc One Gaming System", 387.25, "Gaming", 10);
+        p3 = new Product(56,87, "Sony TV", "Sony Television", 505.35, "TVs", 2);
         
         
 
@@ -46,9 +46,9 @@ public class SupplierTests{
     public void SupplierConstructorTest() {
         System.out.println("Testing Supplier Constructor Functionality...");
         
-        Supplier tester2 = new Supplier("J.R.", "Lundy", "Independent electronic supplier", "JRL_2k", "abcd1234");
-        Assert.assertEquals(tester.getFirstName(), tester2.getFirstName());
-        Assert.assertEquals(tester.getLastName(), tester2.getLastName());
+        Supplier tester2 = new Supplier(69, "Lundy", "Independent electronic supplier", "JRL_2k", "abcd1234");
+        Assert.assertEquals(tester.getName(), tester2.getName());
+       
         Assert.assertEquals(tester.getPassword(), tester2.getPassword());
         Assert.assertEquals(tester.getDescription(), tester2.getDescription());
 
@@ -64,9 +64,9 @@ public class SupplierTests{
     public void SupplierConstructorNotEqual(){
         System.out.println("Testing Supplier Constructor Functionality...");
 
-        Supplier tester2 = new Supplier("John", "Doe", "Unknown", "xxx", "pswd");
-        Assert.assertNotEquals(tester.getFirstName(), tester2.getFirstName());
-        Assert.assertNotEquals(tester.getLastName(), tester2.getLastName());
+        Supplier tester2 = new Supplier(8900, "Doe", "Unknown", "xxx", "pswd");
+        Assert.assertNotEquals(tester.getName(), tester2.getName());
+        
         Assert.assertNotEquals(tester.getPassword(), tester2.getPassword());
         Assert.assertNotEquals(tester.getDescription(), tester2.getDescription());
     }
@@ -80,7 +80,7 @@ public class SupplierTests{
     System.out.println("Testing Supplier First Name getter & setter Functionality...");
 
     tester.setFirstName("Joe");
-    Assert.assertTrue(tester.getFirstName().equals("Joe"));
+    Assert.assertTrue(tester.getName().equals("Joe"));
    }
 
     /**
@@ -91,8 +91,8 @@ public class SupplierTests{
    public void testLastName(){
     System.out.println("Testing Supplier Last Name getter & setter Functionality...");
 
-    tester.setLastName("Johnson");
-    Assert.assertTrue(tester.getLastName().equals("Johnson"));
+    tester.setName("Johnson");
+    Assert.assertTrue(tester.getName().equals("Johnson"));
    }   
 
    /**
@@ -162,7 +162,7 @@ public class SupplierTests{
     public void testAddProducts(){
         System.out.println("Testing Supplier Product 'add products' Functionality...");
 
-        Product p4 = new Product("a4", "Beats Headphones", "Beats Audio Headphones and Charger", 200.00, "Audio", 100);
+        Product p4 = new Product(8,9, "Beats Headphones", "Beats Audio Headphones and Charger", 200.00, "Audio", 100);
         tester.addProduct(p4);
 
      
@@ -178,7 +178,7 @@ public class SupplierTests{
     public void testRemoveProducts(){
         System.out.println("Testing Supplier Product removal Functionality...");
 
-       Product p5 = new Product("a5", "HP Pavillion", "HP Pavillion Laptop", 150.50, "Computers&Laptops", 0);
+       Product p5 = new Product(77,69, "HP Pavillion", "HP Pavillion Laptop", 150.50, "Computers&Laptops", 0);
         
        tester.addProduct(p5);
         tester.removeProduct(p5);
