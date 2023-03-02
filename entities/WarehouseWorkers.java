@@ -20,12 +20,12 @@ public class WarehouseWorkers {
         this.E_Name=e;
     }
 
-    public void setE_Username(String u)
+    public void setUsername(String u)
     {
         this.E_Username=u;
     }
 
-    public void setE_Password(String p)
+    public void setPassword(String p)
     {
         this.E_Password=p;
     }
@@ -40,12 +40,12 @@ public class WarehouseWorkers {
         return this.E_Name;
     }
 
-    public String getE_Username()
+    public String getUsername()
     {
         return this.E_Username;
     }
 
-    public String getE_Password()
+    public String getPassword()
     {
         return this.E_Password;
     }
