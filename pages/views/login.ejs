@@ -2,17 +2,36 @@
 <html>
   <head>
     <title>Login Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   </head>
   <body>
-    <form action="" method="post">
-      <h2>Login</h2>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required><br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required><br><br>
-      <input type="submit" value="Login">
-      <br>
-      <button onclick="location.href='signup.html'">Signup</button>
+    <form id="signIn" method="post">
+        <input name="userName" type="username" class ="input-box" placeholder="Enter Username">
+        <input name="password" type="password" class ="input-box" placeholder="Enter Password">
+        <input type="submit"/>
     </form>
+    <hr>
+    <!-- TODO: redirect to new page for sign up -->
+    <p>If youre not a member, click here to sign up.</p>
+    <button type = "button" class = "signup=btn">Sign up (Not implemented)</button>
+
+
     </body>
+
+    <script>         	
+      
+        $('#signIn').submit( function(e) {
+          e.preventDefault()
+          $.ajax({
+              url: 'some-url',
+              type: 'post',
+              dataType: 'json',
+              data: $('#signIn').serialize(),
+              success: function(data) {
+               
+                       }
+          });
+      });
+
+</script>
   </html>
