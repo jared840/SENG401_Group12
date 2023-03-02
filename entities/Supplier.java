@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Supplier{
 
 //private class variables
+        private int supplierID;
         private String name;
         private String description;
         private String username;
@@ -19,8 +20,9 @@ public class Supplier{
         Inputs: first name, last name, description, username, and password (all String types)
         Outputs: None - instantiates supplier object w/ inputted values
         */
-        public Supplier (String name, String desc, String user, String pswd) {
+        public Supplier (int supplierID, String name, String desc, String user, String pswd) {
 
+        this.supplierID = supplierID;
         this.name = name;
         this.description=desc;
         this.username=user;
@@ -34,6 +36,10 @@ public class Supplier{
         //Setter functions:
         //______________________________________________________________
         
+        public void setID(int supplierID) {
+            this.supplierID = supplierID;
+        }
+
         public void setFirstName(String name){
             this.name = name;
         }
@@ -62,6 +68,10 @@ public class Supplier{
         //_____________________________________________________
         // Getter methods
         //______________________________________________________
+        public int getID() {
+            return this.supplierID;
+        }
+
         public String getName(){
             return this.name;
         }
