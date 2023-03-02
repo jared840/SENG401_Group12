@@ -79,7 +79,7 @@ public class SupplierTests{
    public void testFirstName(){
     System.out.println("Testing Supplier First Name getter & setter Functionality...");
 
-    tester.setFirstName("Joe");
+    tester.setName("Joe");
     Assert.assertTrue(tester.getName().equals("Joe"));
    }
 
