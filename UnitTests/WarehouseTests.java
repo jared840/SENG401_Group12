@@ -20,7 +20,7 @@ public class WarehouseTests {
      */
     @Before 
     public void setUp(){
-        tester = new Warehouse("111 Street Ave, Calgary, AB", "XYZ Warehouse");
+        tester = new Warehouse(123,"111 Street Ave, Calgary, AB", "XYZ Warehouse");
     }
 
 /**
@@ -53,7 +53,7 @@ public void testName(){
 @Test 
 public void testInventory(){
     System.out.println("Testing Warehouse's Inventory Functionality...");
-    Product p1 = new Product("a1", "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
+    Product p1 = new Product(11,12, "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
     tester.addInventory(p1);
 
     Assert.assertTrue(tester.getInventory().contains(p1));
@@ -65,7 +65,7 @@ public void testInventory(){
 @Test 
 public void testInventoryRemoval(){
     System.out.println("Testing Warehouse's Inventory Removal Functionality...");
-    Product p1 = new Product("a1", "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
+    Product p1 = new Product(11, 12, "Playstation 5", "PS5 Gaming System", 400.50, "Gaming", 3);
     tester.addInventory(p1);
 
     tester.removeInventory(p1);
