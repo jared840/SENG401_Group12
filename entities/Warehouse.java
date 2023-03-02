@@ -7,13 +7,15 @@ import java.util.ArrayList;
 public class Warehouse {
 
     //private entity variables
+    private int warehouseID;
     private String address;
     private String name;
     private ArrayList<Order> orders;
     private ArrayList<Product> inventory;
 
     //Entity Constructor
-    public Warehouse(String address, String name) {
+    public Warehouse(int warehouseID, String address, String name) {
+        this.warehouseID = warehouseID;
         this.address=address;
         this.name=name;
         this.orders=new ArrayList<Order>();
@@ -61,6 +63,14 @@ public class Warehouse {
     }
     public List<Order> getOrders(){
         return this.orders;
+    }
+
+    //ID:
+    public void setWarehouseID(int warehouseID){
+        this.warehouseID = warehouseID;
+    }
+    public int getWarehouseID(){
+        return warehouseID;
     }
 
 }
