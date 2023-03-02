@@ -61,7 +61,7 @@ public class DBController {
 
   //check whether the submitted username & password correspond with an account,
   //returns the appropriate user object if login is valid
-  // return (user type, user object) pair?
+  // return (user type, user object) pair
   public void verifyLogin(String un, String pw) {
     Statement stmt = null;
 
@@ -88,7 +88,7 @@ public class DBController {
         "INSERT INTO Customer_Information (C_Name, C_Address) VALUES (?, ?)";
       stmt = connect.prepareStatement(query);
       stmt.setString(1, u.getName());
-      stmt.setString(2, u.getAddress());
+      stmt.setString(2, u.getUserAddress());
       stmt.executeUpdate();
 
       query =
@@ -116,7 +116,7 @@ public class DBController {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
       String date = dateFormat.format(o.getO_Date());
       stmt.setString(2, date);
-      stmt.setString(3, String.vaueOf(o.getO_Total()));
+      stmt.setString(3, String.valueOf(o.getO_Total()));
       stmt.setString(4, o.getShip_Address());
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
@@ -160,15 +160,15 @@ public class DBController {
       ArrayList<Product> searchResults = new ArrayList<Product>();
       while (result.next()) {
         Product p = new Product(
-          result.getString("Item_ID"),
+          result.getInt("Item_ID"),
           result.getString("I_Name"),
           result.getString("I_Description"),
-          result.getString("I_Cost"),
+          result.getDouble("I_Cost"),
           result.getString("I_Category"),
-          //missing supplier id
+          result.getInt("S_ID"),
           0 //stock
         );
-        searchResults.append(p);
+        searchResults.add(p);
       }
 
       stmt.close();
@@ -285,11 +285,9 @@ public class DBController {
   public void newUser(WarehouseWorkers ww) {
     PreparedStatement stmt = null;
     try {
-      String query =
-        "INSERT INTO Supplier_Information (S_Name, S_Description) VALUES (?, ?)";
+      String query = "INSERT INTO Warehouse_Employees (E_Name) VALUES (?)";
       stmt = connect.prepareStatement(query);
-      stmt.setString(1, s.getName());
-      stmt.setString(2, s.getDescription());
+      stmt.setString(1, ww.getName());
       stmt.executeUpdate();
 
       query =
