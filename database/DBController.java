@@ -6,7 +6,6 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javafx.util.Pair;
 
 //jdbc:mysql://localhost/SENG401Project
 
@@ -62,19 +61,15 @@ public class DBController {
 
   //check whether the submitted username & password correspond with an account,
   //returns the appropriate user object if login is valid
-  // return (user type, user object) pair
-  public Pair<char, Object> verifyLogin(String un, String pw) {
+  // return (user type, user object) pair?
+  public void verifyLogin(String un, String pw) {
     Statement stmt = null;
 
     try {
       stmt = connect.createStatement();
       result =
         stmt.executeQuery(
-          "SELECT * FROM Login_Information WHERE username = '" +
-          un +
-          "' AND password = '" +
-          pw +
-          "'"
+          "SELECT * FROM Login_Information WHERE username = '" + un + "' AND password = '" + pw "'";
         );
     } catch (SQLException e) {
       closeAll();
@@ -117,7 +112,7 @@ public class DBController {
     try {
       String query =
         "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address) VALUES (?, ?, ?, ?)";
-      stmt.setString(1, String.valueOf(u.getUser_ID()));
+      stmt.setString(1, u.getUser_ID());
       DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
       String date = dateFormat.format(o.getO_Date());
       stmt.setString(2, date);
@@ -237,29 +232,16 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
-        "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID, Aisle_No) VALUES (" +
-        String.valueOF(p.getID()) +
-        ", " +
-        String.valueOf(w.getID()) +
-        ", '" +
-        p.getName() +
-        "', " +
-        String.valueOf(quantity) +
-        ", " +
-        String.valueOf(p.getSupplierID()) +
-        ", " +
-        String.valueOf(p.getAisleNo()) +
-        ") ON DUPLICATE KEY UPDATE Quantity = " +
-        String.valueOf(quantity);
-      stmt.setString(1, String.valueOf(quantity));
-      stmt.setString(2, String.valueOf(p.getID()));
-      stmt.setString(3, String.valueOf(w.getID()));
+        "UPDATE Warehouse_Inventory SET Quantity = ? WHERE Item_ID = ? AND W_ID = ?";
+      stmt.setString(1, quantity);
+      stmt.setString(2, p.getId);
+      stmt.setString(3, w.getID);
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in restockItem.");
+      System.err.println("SQLException in searchItems.");
       System.exit(1);
     }
   }
@@ -302,13 +284,15 @@ public class DBController {
       stmt.close();
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in newUser (ww).");
+      System.err.println("SQLException in newOrder.");
       System.exit(1);
     }
   }
 
   //view all orders for a warehouse
   public void viewOrders(Warehouse w) {
+    //need order information where the item is in stock in the warehouse
+    //--> bypass order_info table?
     Statement stmt = null;
 
     try {
@@ -319,27 +303,13 @@ public class DBController {
         );
     } catch (SQLException e) {
       closeAll();
-      System.err.println("SQLException in viewOrders.");
+      System.err.println("SQLException in newOrder.");
       System.exit(1);
     }
   }
 
-  public void shipItem(Order o, Product p) {
+  public void shipOrder(Order o) {
     //make ship item instead?
     //--> need to mark in db somehow
-    PreparedStatement stmt = null;
-    try {
-      String query =
-        "UPDATE Order_Items SET Shipped = true WHERE O_ID = ? AND I_ID = ?";
-      stmt.setString(1, o.getID());
-      stmt.setString(2, p.getID());
-      stmt = connect.prepareStatement(query);
-      stmt.executeUpdate();
-      stmt.close();
-    } catch (SQLException e) {
-      closeAll();
-      System.err.println("SQLException in shipItem.");
-      System.exit(1);
-    }
   }
 }
