@@ -69,7 +69,11 @@ public class DBController {
       stmt = connect.createStatement();
       result =
         stmt.executeQuery(
-          "SELECT * FROM Login_Information WHERE username = '" + un + "' AND password = '" + pw "'";
+          "SELECT * FROM Login_Information WHERE username = '" +
+          un +
+          "' AND password = '" +
+          pw +
+          "'"
         );
     } catch (SQLException e) {
       closeAll();
@@ -112,7 +116,7 @@ public class DBController {
     try {
       String query =
         "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address) VALUES (?, ?, ?, ?)";
-      stmt.setString(1, u.getUser_ID());
+      stmt.setString(1, String.valueOf(u.getUser_ID()));
       DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
       String date = dateFormat.format(o.getO_Date());
       stmt.setString(2, date);
@@ -161,11 +165,11 @@ public class DBController {
       while (result.next()) {
         Product p = new Product(
           result.getInt("Item_ID"),
+          result.getInt("S_ID"),
           result.getString("I_Name"),
           result.getString("I_Description"),
           result.getDouble("I_Cost"),
           result.getString("I_Category"),
-          result.getInt("S_ID"),
           0 //stock
         );
         searchResults.add(p);
@@ -215,9 +219,9 @@ public class DBController {
         "INSERT INTO Item_Information (I_Name, I_Description, I_Cost, I_Category, S_ID) VALUES (?, ?, ?, ?, ?)";
       stmt.setString(1, p.getName());
       stmt.setString(2, p.getDescription());
-      stmt.setString(3, p.getPrice());
+      stmt.setString(3, String.valueOf(p.getPrice()));
       stmt.setString(4, p.getCategory());
-      stmt.setString(5, s.getSupplierID());
+      stmt.setString(5, String.valueOf(s.getSupplierID()));
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
@@ -232,28 +236,21 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
-<<<<<<< HEAD
-        "UPDATE Warehouse_Inventory SET Quantity = ? WHERE Item_ID = ? AND W_ID = ?";
-      stmt.setString(1, quantity);
-      stmt.setString(2, p.getId);
-      stmt.setString(3, w.getID);
-=======
         "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID) VALUES (" +
-        String.valueOF(p.getID()) +
+        String.valueOf(p.getProductId()) +
         ", " +
-        String.valueOf(w.getID()) +
+        String.valueOf(w.getWarehouseID()) +
         ", '" +
         p.getName() +
         "', " +
         String.valueOf(quantity) +
         ", " +
-        String.valueOf(p.getSupplierID()) +
+        String.valueOf(p.getSupplierId()) +
         ") ON DUPLICATE KEY UPDATE Quantity = " +
         String.valueOf(quantity);
       stmt.setString(1, String.valueOf(quantity));
-      stmt.setString(2, String.valueOf(p.getID()));
-      stmt.setString(3, String.valueOf(w.getID()));
->>>>>>> 6a6e6f59af2f0ed20cc7e1f45b681ced98787449
+      stmt.setString(2, String.valueOf(p.getProductId()));
+      stmt.setString(3, String.valueOf(w.getWarehouseID()));
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
@@ -268,7 +265,7 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query = "DELETE FROM Item_Information WHERE Item_ID = ?";
-      stmt.setString(1, p.getProductId);
+      stmt.setString(1, String.valueOf(p.getProductId()));
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
@@ -287,7 +284,7 @@ public class DBController {
     try {
       String query = "INSERT INTO Warehouse_Employees (E_Name) VALUES (?)";
       stmt = connect.prepareStatement(query);
-      stmt.setString(1, ww.getName());
+      stmt.setString(1, ww.getE_Name());
       stmt.executeUpdate();
 
       query =
@@ -315,7 +312,7 @@ public class DBController {
       stmt = connect.createStatement();
       result =
         stmt.executeQuery(
-          "SELECT * FROM Order_Items WHERE I_Location = " + w.getID()
+          "SELECT * FROM Order_Items WHERE I_Location = " + w.getWarehouseID()
         );
     } catch (SQLException e) {
       closeAll();
