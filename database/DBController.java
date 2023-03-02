@@ -222,7 +222,7 @@ public class DBController {
       stmt.setString(2, p.getDescription());
       stmt.setString(3, p.getPrice());
       stmt.setString(4, p.getCategory());
-      stmt.setString(5, s.getID());
+      stmt.setString(5, s.getSupplierID());
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
@@ -237,7 +237,7 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
-        "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID, Aisle_No) VALUES (" +
+        "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID) VALUES (" +
         String.valueOF(p.getID()) +
         ", " +
         String.valueOf(w.getID()) +
@@ -247,8 +247,6 @@ public class DBController {
         String.valueOf(quantity) +
         ", " +
         String.valueOf(p.getSupplierID()) +
-        ", " +
-        String.valueOf(p.getAisleNo()) +
         ") ON DUPLICATE KEY UPDATE Quantity = " +
         String.valueOf(quantity);
       stmt.setString(1, String.valueOf(quantity));
