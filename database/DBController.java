@@ -62,7 +62,8 @@ public class DBController {
   //check whether the submitted username & password correspond with an account,
   //returns the appropriate user object if login is valid
   // return (user type, user object) pair
-  public void verifyLogin(String un, String pw) {
+  public String verifyLogin(String un, String pw) {
+    String userType = "";
     Statement stmt = null;
 
     try {
@@ -75,11 +76,15 @@ public class DBController {
           pw +
           "'"
         );
+
+      userType = result.getString("user_type");
     } catch (SQLException e) {
       closeAll();
       System.err.println("SQLException in newOrder.");
       System.exit(1);
     }
+
+    return userType;
   }
 
   //customers
@@ -109,6 +114,8 @@ public class DBController {
       System.exit(1);
     }
   }
+
+  public User getUser(String username) {}
 
   //adds a new order to the database
   public void newOrder(User u, Order o) {
@@ -211,6 +218,8 @@ public class DBController {
     }
   }
 
+  public Supplier getSupplier(String username) {}
+
   //adds a new item to the database
   public void newItem(Product p, Supplier s) {
     PreparedStatement stmt = null;
@@ -301,6 +310,8 @@ public class DBController {
       System.exit(1);
     }
   }
+
+  public WarehouseWorkers getWarehouseWorkers(String username) {}
 
   //view all orders for a warehouse
   public void viewOrders(Warehouse w) {

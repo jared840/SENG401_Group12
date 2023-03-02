@@ -76,7 +76,9 @@ CREATE TABLE Warehouse_Inventory (
 );
 
 CREATE TABLE Login_Information (
+	User_ID int NOT NULL,
 	username varchar(25) UNIQUE NOT NULL,
     password varchar(25)  UNIQUE NOT NULL,
-    user_type enum('c', 's', 'w')
+    user_type enum('c', 's', 'w'),
+    CONSTRAINT PK_Login PRIMARY KEY (username)
 );
