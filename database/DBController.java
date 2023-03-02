@@ -217,7 +217,7 @@ public class DBController {
       stmt.setString(2, p.getDescription());
       stmt.setString(3, p.getPrice());
       stmt.setString(4, p.getCategory());
-      stmt.setString(5, s.getID());
+      stmt.setString(5, s.getSupplierID());
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();
@@ -232,10 +232,28 @@ public class DBController {
     PreparedStatement stmt = null;
     try {
       String query =
+<<<<<<< HEAD
         "UPDATE Warehouse_Inventory SET Quantity = ? WHERE Item_ID = ? AND W_ID = ?";
       stmt.setString(1, quantity);
       stmt.setString(2, p.getId);
       stmt.setString(3, w.getID);
+=======
+        "INSERT INTO Warehouse_Inventory (Item_ID, W_ID, I_Name, Quantity, S_ID) VALUES (" +
+        String.valueOF(p.getID()) +
+        ", " +
+        String.valueOf(w.getID()) +
+        ", '" +
+        p.getName() +
+        "', " +
+        String.valueOf(quantity) +
+        ", " +
+        String.valueOf(p.getSupplierID()) +
+        ") ON DUPLICATE KEY UPDATE Quantity = " +
+        String.valueOf(quantity);
+      stmt.setString(1, String.valueOf(quantity));
+      stmt.setString(2, String.valueOf(p.getID()));
+      stmt.setString(3, String.valueOf(w.getID()));
+>>>>>>> 6a6e6f59af2f0ed20cc7e1f45b681ced98787449
       stmt = connect.prepareStatement(query);
       stmt.executeUpdate();
       stmt.close();

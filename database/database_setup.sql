@@ -63,13 +63,12 @@ CREATE TABLE Warehouse_Employees (
     CONSTRAINT PK_Emp PRIMARY KEY (Employee_ID)
 );
 
-CREATE TABLE Warehouse_Inventory (    #not done
+CREATE TABLE Warehouse_Inventory (
 	Item_ID int NOT NULL,
     W_ID int NOT NULL,
     I_Name varchar(255),
     Quantity int,
     S_ID int NOT NULL,					#foreign key
-    Aisle_No int,
     CONSTRAINT PK_WIN PRIMARY KEY (Item_ID, W_ID),
     CONSTRAINT PK_WIN_IID FOREIGN KEY (Item_ID) REFERENCES Item_Information(Item_ID),
     CONSTRAINT PK_WIN_WID FOREIGN KEY (W_ID) REFERENCES Warehouse_Information(Warehouse_ID),
