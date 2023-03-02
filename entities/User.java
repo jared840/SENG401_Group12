@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User{
-    private String firstName;
-    private String lastName;
+    private int userId;
+    private String name;
     private String userAddress;
     private String userEmail;
     private String password;
@@ -14,10 +14,10 @@ public class User{
     private List<Order> orders;  
 
 
-    public User(String firstName, String lastName, String userAddress, String userEmail, String password,
+    public User(int userId, String name, String userAddress, String userEmail, String password,
             int cardNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.userId = userId;
+        this.name = name;
         this.userAddress = userAddress;
         this.userEmail = userEmail;
         this.password = password;
@@ -27,13 +27,12 @@ public class User{
     }
    
     // Getter and Setter methods
-        
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUser_ID(int userId) {
+        this.userId = userId;
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setUserAddress(String userAddress) {
@@ -52,12 +51,12 @@ public class User{
         this.cardNumber = cardNumber;
     }
 
-    public String getFirstName(){
-	    return firstName;
+    public int getUser_ID(){
+	    return userId;
 	}
 
-	public String getLastName(){
-		return lastName;
+    public String getName(){
+	    return name;
 	}
 
 	public String getUserAddress(){

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Supplier{
 
 //private class variables
-        private String firstName;
-        private String lastName;
+        private int supplierID;
+        private String name;
         private String description;
         private String username;
         private String password;
@@ -20,10 +20,10 @@ public class Supplier{
         Inputs: first name, last name, description, username, and password (all String types)
         Outputs: None - instantiates supplier object w/ inputted values
         */
-        public Supplier (String fname, String lname, String desc, String user, String pswd) {
+        public Supplier (int supplierID, String name, String desc, String user, String pswd) {
 
-        this.firstName=fname;
-        this.lastName=lname;
+        this.supplierID = supplierID;
+        this.name = name;
         this.description=desc;
         this.username=user;
         this.password = pswd;
@@ -36,12 +36,12 @@ public class Supplier{
         //Setter functions:
         //______________________________________________________________
         
-        public void setFirstName(String fname){
-            this.firstName=fname;
+        public void setSupplierID(int supplierID) {
+            this.supplierID = supplierID;
         }
 
-        public void setLastName(String lname){
-            this.lastName=lname;
+        public void setFirstName(String name){
+            this.name = name;
         }
 
         public void setDescription(String descripString){
@@ -68,12 +68,12 @@ public class Supplier{
         //_____________________________________________________
         // Getter methods
         //______________________________________________________
-        public String getFirstName(){
-            return this.firstName;
+        public int getSupplierID() {
+            return this.supplierID;
         }
-        
-        public String getLastName(){
-            return this.lastName;
+
+        public String getName(){
+            return this.name;
         }
 
         public String getDescription(){
@@ -91,8 +91,5 @@ public class Supplier{
         public String getPassword(){
             return this.password;
         }
-
-
-
 }
 
