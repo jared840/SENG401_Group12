@@ -36,7 +36,7 @@ public class Supplier{
         //Setter functions:
         //______________________________________________________________
         
-        public void setID(int supplierID) {
+        public void setSupplierID(int supplierID) {
             this.supplierID = supplierID;
         }
 
@@ -68,7 +68,7 @@ public class Supplier{
         //_____________________________________________________
         // Getter methods
         //______________________________________________________
-        public int getID() {
+        public int getSupplierID() {
             return this.supplierID;
         }
 
