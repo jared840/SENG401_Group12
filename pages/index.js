@@ -18,6 +18,10 @@ app.get("/login", (request, response) => {
     response.render("login")
 })
 
+app.get("/signup", (request, response) => {
+    response.render("signup")
+})
+
 app.get("/Test", (request, response) => {
     response.render("Test", {testData :{ data:"This is my test data", data2:"hej" } })
 })
