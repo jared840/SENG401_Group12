@@ -40,7 +40,7 @@ public class Supplier{
             this.supplierID = supplierID;
         }
 
-        public void setFirstName(String name){
+        public void setName(String name){
             this.name = name;
         }
 
