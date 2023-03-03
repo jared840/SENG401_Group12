@@ -48,7 +48,7 @@ public class UserTests {
         System.out.println("Testing User add to cart functionality ....");
         tester.addProductToCart(testProduct);
 
-        Assert.assertTrue(tester.getCartProducts().contains(testOrder));
+        Assert.assertTrue(tester.getCartProducts().contains(testProduct));
     }
 
     /**
@@ -62,7 +62,7 @@ public class UserTests {
         tester.addProductToCart(testProduct);
 
         tester.removeProductFromCart(testProduct);
-        Assert.assertFalse(tester.getCartProducts().contains(testOrder));
+        Assert.assertFalse(tester.getCartProducts().contains(testProduct));
 
     }
 
@@ -72,12 +72,69 @@ public class UserTests {
      */
     @Test 
     public void orderTests(){
+        System.out.println("Testing user's order functionality...");
         tester.addOrder(testOrder);
 
         Assert.assertTrue(tester.getOrders().contains(testOrder));
         
         
     }
+
+
+    //Setter & Getter Tests:
+    //---------------------------------------------------
+
+    /**
+     * Test case: testing the ID of a user
+     * Idea is to retrieve the current ID, increment it by arbitrary value (10) to ensure ID is changed, then assert that the ID is changed to that value
+     */
+    @Test 
+    public void testID(){
+        System.out.println("Testing users' ID functionality...");
+        int prev_ID = tester.getUser_ID();
+        tester.setUser_ID(prev_ID+10);
+
+        Assert.assertEquals(prev_ID+10, tester.getUser_ID());
+
+    }
+
+/**
+ * Test case: testing the ability to change the name of a user
+ */
+    @Test 
+    public void testName(){
+        System.out.println("Testing user name functionality...");
+        tester.setName("ASDFG");
+
+        Assert.assertEquals(tester.getName(), "ASDFG");
+    }
+
+    /**
+     * Test case: Ensure exception thrown when setting name to blank string
+     */
+    /* 
+    @Test(expected=Exception.class)
+    public void testNameException(){
+        System.out.println("Testing user name exception handling...");
+        
+        tester.setName("");
+        
+        
+        
+    }*/
+
+    /**
+     * Test case: testing address of user
+     */
+    @Test 
+    public void testAddress(){
+        System.out.println("Testing user address functionality...");
+        tester.setUserAddress("111 Road");
+
+        Assert.assertEquals(tester.getUserAddress(), "111 Road");
+    }
+    
+
 
 
     @After
