@@ -24,8 +24,17 @@ public class UserTests {
 
     @Before
     public void startUp(){
+        //sample user to test:
         tester=new User(0, "A B", "888 Road", "A@email.com", "pswd", 10);
+        
+        //sample order object to test:
         testOrder=new Order();
+        testOrder.setO_Date(1, 12, 2022);
+        testOrder.setO_Total(100);
+        testOrder.setOrder_ID(0);
+        testOrder.setShip_Address("101 University Road, Calgary, AB");
+
+        //sample product to test:
         testProduct=new Product(345, 14, "Joe", "Computer System", 1284.56, "Laptops", 100);
     }
 
@@ -55,6 +64,19 @@ public class UserTests {
         tester.removeProductFromCart(testProduct);
         Assert.assertFalse(tester.getCartProducts().contains(testOrder));
 
+    }
+
+    /**
+     * Test case: testing order functionality of a user
+     * Tests ability to add an otder, as well as the getter for orders
+     */
+    @Test 
+    public void orderTests(){
+        tester.addOrder(testOrder);
+
+        Assert.assertTrue(tester.getOrders().contains(testOrder));
+        
+        
     }
 
 
