@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.*;
 import org.junit.Assert.*;
 
+//Note: need to add an order constructor other than the default constructor before adding order testing functionalities
+
 public class UserTests {
     public User tester;
     public Order testOrder;
