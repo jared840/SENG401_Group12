@@ -7,6 +7,7 @@ CREATE TABLE Customer_Information (
     C_Name varchar(255),
     C_Address varchar(255),
     C_Card_Number int,
+    C_Username varchar(255) UNIQUE NOT NULL,
     CONSTRAINT PK_Customer PRIMARY KEY (Customer_ID)
 );
 
@@ -14,6 +15,7 @@ CREATE TABLE Supplier_Information (
 	Supplier_ID int AUTO_INCREMENT,
     S_Name varchar(255),
     S_Description varchar(400),
+    S_Username varchar(255) UNIQUE NOT NULL,
     CONSTRAINT PK_Supplier PRIMARY KEY (Supplier_ID)
 );
 
@@ -60,6 +62,7 @@ CREATE TABLE Order_Items (
 CREATE TABLE Warehouse_Employees (
 	Employee_ID int NOT NULL AUTO_INCREMENT,
     E_Name varchar(255),
+    E_Username varchar(255) UNIQUE NOT NULL,
     CONSTRAINT PK_Emp PRIMARY KEY (Employee_ID)
 );
 
@@ -76,7 +79,6 @@ CREATE TABLE Warehouse_Inventory (
 );
 
 CREATE TABLE Login_Information (
-	User_ID int NOT NULL,
 	username varchar(25) UNIQUE NOT NULL,
     password varchar(25)  UNIQUE NOT NULL,
     user_type enum('c', 's', 'w'),
