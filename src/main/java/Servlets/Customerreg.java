@@ -50,6 +50,11 @@ public class Customerreg extends HttpServlet {
 		User u=new user(1,name,address,email,password,creditCard);
 		d.newUser(u);
 		
+		
+		HttpSession mysession=request.getSession();
+		mysession.setAttribute("currentUser", u);
+		request.getRequestDispatcher("UserHome.jsp").forward(request,response);
+		
 	}catch(exception e)
 	{
 		out.println("user registration in servlet error");
