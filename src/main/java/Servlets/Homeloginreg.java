@@ -42,6 +42,18 @@ public class Homeloginreg extends HttpServlet {
 		String description=request.getParameter("descriptionsupplier");
 	
 		//TODO database functionality
+				try {
+			
+			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
+			Supplier s=new Supplier(1,name,description,username,password);
+			d.newUser(s);
+			
+		}catch(Exception E)
+		{
+			out.println(E.getMessage());
+		}
+		
+		
 	}
 
 	/**
