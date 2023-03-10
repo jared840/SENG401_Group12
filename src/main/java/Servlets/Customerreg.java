@@ -48,7 +48,7 @@ public class Customerreg extends HttpServlet {
 		
 		DBcontroller d= new DBcontroller("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 		User u=new user(1,name,address,email,password,creditCard);
-		newUser(u);
+		d.newUser(u);
 		
 	}catch(exception e)
 	{
