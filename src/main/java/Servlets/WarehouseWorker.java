@@ -49,7 +49,7 @@ public class WarehouseWorker extends HttpServlet {
 			
 			
 			HttpSession mysession=request.getSession();
-		mysession.setAttribute("currentUser", w);
+		mysession.setAttribute("currentWarehouseWorker", w);
 		request.getRequestDispatcher("WarehouseWorkerHome.jsp").forward(request,response);
 			
 		}catch(Exception E)
