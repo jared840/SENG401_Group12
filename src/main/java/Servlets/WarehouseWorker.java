@@ -46,6 +46,12 @@ public class WarehouseWorker extends HttpServlet {
 			WarehouseWorkers w=new WarehouseWorkers(1,name,username,password);
 			d.newUser(w);
 			
+			
+			
+			HttpSession mysession=request.getSession();
+		mysession.setAttribute("currentUser", w);
+		request.getRequestDispatcher("WarehouseWorkerHome.jsp").forward(request,response);
+			
 		}catch(Exception E)
 		{
 			out.println(E.getMessage());
