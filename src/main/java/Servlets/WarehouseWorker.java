@@ -1,5 +1,6 @@
 package servlets;
-
+import entities.*;
+import database.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
