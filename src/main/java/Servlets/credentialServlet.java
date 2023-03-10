@@ -49,7 +49,7 @@ public class credentialServlet extends HttpServlet {
 		
 		
 		try {
-			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
+			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 		
 		//---------------------------------------------------------------------------------
 		//First: Lets verify the login credentials using DBController's verifyLogin():
