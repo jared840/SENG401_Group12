@@ -10,9 +10,16 @@
 <body>
 <%
 
-WarehouseWorkers currentUser=(WarehouseWorkers)request.getAttribute("currentWorker");
-out.println("Welcome to the system: " + currentUser.getE_Name());
+//WarehouseWorkers currentUser=(WarehouseWorkers)request.getAttribute("currentWorker");
+//out.println("Welcome to the system: " //+ currentUser.getE_Name());
+
+
+WarehouseWorkers currentUser=(WarehouseWorkers)request.getSession().getAttribute("currentWarehouseWorker");
+out.println("Your name is: "+currentUser.getE_Name());
+
 
 %>
+
+
 </body>
 </html>
