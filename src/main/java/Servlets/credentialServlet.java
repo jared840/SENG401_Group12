@@ -42,19 +42,48 @@ public class credentialServlet extends HttpServlet {
 		String username=request.getParameter("userin");
 		String pswd = request.getParameter("pswd_in");
 		
+		boolean correctLogin=true;
+		
 		request.setAttribute("userback",request.getParameter("userin"));
 		
 		
-		//TODO dB functionality
+		try {
+			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
 		
-		if(user_type.equals("Supplier")) {
-			request.setAttribute("ParsedUser", user_type);
-			Supplier s = new Supplier(1, "a", "b", "c", "d");
-			request.getRequestDispatcher("SupplierHome.jsp").forward(request, response);
-		}
-		else if(user_type.equals("WarehouseWorker")) {
+		//---------------------------------------------------------------------------------
+		//First: Lets verify the login credentials using DBController's verifyLogin():
+		//----------------------------------------------------------------------------------
 			try {
-				DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
+				db.verifyLogin(username, pswd);
+				out.println("Success");
+				correctLogin=true;
+			}catch(Exception e) {
+				out.println("<center><b>Incorrect login information!<\b>"+"<br> Please Try Again with correct credentials: "
+			+ "<a href=SelectionPage.jsp>TRY AGAIN</a>");
+				//request.getRequestDispatcher("IncorrectLogin.jsp").forward(request,response);
+				correctLogin=false;
+				
+			}
+			
+			
+			request.setAttribute("ParsedUser", user_type);
+		
+		if(user_type.equals("Supplier")&&correctLogin==true) {
+			
+			//Supplier s = new Supplier(1, "a", "b", "c", "d");
+			//request.getRequestDispatcher("SupplierHome.jsp").forward(request, response);//
+			
+			
+				Supplier supplierloggedin=db.getSupplier(username, pswd);
+				
+				request.setAttribute("currentSupplier", supplierloggedin);
+				request.getRequestDispatcher("SupplierHome.jsp").forward(request, response);
+				
+			
+		}
+		else if(user_type.equals("WarehouseWorker")&&correctLogin==true) {
+			try {
+				
 				WarehouseWorkers loggedin = db.getWarehouseWorkers(username, pswd);
 				
 				//out.println("Welcome "+loggedin.getE_Name());
@@ -65,13 +94,26 @@ public class credentialServlet extends HttpServlet {
 				out.println(e.getMessage());
 			}
 		}
-		else if(user_type.equals("Customer")) {
+		else if(user_type.equals("Customer")&&correctLogin==true) {
+			
+		 User customerloggedin=db.getUser(username, pswd);
+			
+			request.setAttribute("currentUser", customerloggedin);
+			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
 			
 		}
+		else if(correctLogin==false) {
+			request.getRequestDispatcher("IncorrectLogin.jsp").forward(request,response);
+		}
 		
+		
+		}catch(Exception e) {
+			out.println("Error present!" + "<a href=SelectionPage.jsp>Go Back</a>");
+		}
+	}
 		/*
 		request.setAttribute("Clinics", toSend);
-		request.getRequestDispatcher("PatClins.jsp").forward(request, response);*/
+		request.getRequestDispatcher("PatClins.jsp").forward(request, response);
 		
 	}
 
