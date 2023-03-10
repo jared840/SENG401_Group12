@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method=get action=WarehouseWorker.java>
+<form method=get action=WarehouseWorker>
 
 <label>
 complete the form
