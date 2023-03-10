@@ -44,7 +44,16 @@ public class Customerreg extends HttpServlet {
 		out.println(username+ password+ name+ name+ address+ email+ creditCard);
 	//out.println("<body style = 'background-colour: #dedede; '>");
 	
-	
+	try {
+		
+		DBcontroller d= new DBcontroller("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
+		User u=new user(1,name,address,email,password,creditCard);
+		newUser(u);
+		
+	}catch(exception e)
+	{
+		out.println("user registration in servlet error");
+	}
 	
 	
 	
