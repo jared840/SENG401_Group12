@@ -49,7 +49,7 @@ public class Homeloginreg extends HttpServlet {
 			d.newUser(s);
 					
 					HttpSession mysession=request.getSession();
-		mysession.setAttribute("currentUser", s);
+		mysession.setAttribute("currentSupplier", s);
 		request.getRequestDispatcher("SupplierHome.jsp").forward(request,response);
 			
 		}catch(Exception E)
