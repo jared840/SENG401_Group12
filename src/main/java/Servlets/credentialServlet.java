@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class credentialServlet
@@ -76,6 +77,14 @@ public class credentialServlet extends HttpServlet {
 			
 				Supplier supplierloggedin=db.getSupplier(username, pswd);
 				
+				//session data:
+				HttpSession mysession=request.getSession();
+				
+				mysession.setAttribute("currentSupplier", supplierloggedin);
+			
+			
+				//---------------------
+				
 				request.setAttribute("currentSupplier", supplierloggedin);
 				request.getRequestDispatcher("SupplierHome.jsp").forward(request, response);
 				
@@ -88,6 +97,14 @@ public class credentialServlet extends HttpServlet {
 				
 				//out.println("Welcome "+loggedin.getE_Name());
 				request.setAttribute("currentWorker", loggedin);
+				HttpSession mysession=request.getSession();
+				
+				mysession.setAttribute("currentWarehouseWorker", loggedin);
+			
+			
+				//---------------------
+				
+				
 				request.getRequestDispatcher("WarehouseWorkerHome.jsp").forward(request, response);
 				
 			} catch(Exception e) {
@@ -99,6 +116,14 @@ public class credentialServlet extends HttpServlet {
 		 User customerloggedin=db.getUser(username, pswd);
 			
 			request.setAttribute("currentUser", customerloggedin);
+			HttpSession mysession=request.getSession();
+			
+			mysession.setAttribute("currentUser", customerloggedin);
+		
+		
+			//---------------------
+			
+			
 			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
 			
 		}
