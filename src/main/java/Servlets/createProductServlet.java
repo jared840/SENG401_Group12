@@ -57,9 +57,16 @@ public class createProductServlet extends HttpServlet {
 		
 		db.closeAll();
 		
+		//forward user to jsp
+		request.setAttribute("productSuccess", "true");
+		mysession.setAttribute("currentProduct", newproduct);
+		request.getRequestDispatcher("CreatedProduct.jsp").forward(request, response);
+		
+		
 		}catch(Exception e) {
-			out.println("Unable to create");
-			out.println(e.getMessage());
+			request.setAttribute("productSuccess","false");
+			request.getRequestDispatcher("CreatedProduct.jsp").forward(request, response);
+			
 		}
 	}
 
