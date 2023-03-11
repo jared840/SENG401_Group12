@@ -36,7 +36,7 @@ public class createProductServlet extends HttpServlet {
 				response.setContentType("text/html");
 				PrintWriter out=response.getWriter();
 		try {
-			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");		//obtain parameters submitted via html form:
+			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");		//obtain parameters submitted via html form:
 		String item_name=request.getParameter("itemName");
 		String item_desc=request.getParameter("itemDesc");
 		double item_cost=Double.parseDouble(request.getParameter("itemCost"));
