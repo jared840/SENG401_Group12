@@ -212,6 +212,39 @@ public class DBController {
             System.exit(1);
         }
     }
+    
+    public ArrayList<Product> getAllProducts() {
+        Statement stmt = null;
+        ArrayList<Product> searchResults = new ArrayList<Product>();
+        try {
+        	// TODO
+            String query = "SELECT * FROM Item_Information"; // WHERE STOCK > 0
+            stmt = connect.createStatement();
+            result = stmt.executeQuery(query);
+
+           
+            while (result.next()) {
+                Product p = new Product(
+                        result.getInt("Item_ID"),
+                        result.getInt("S_ID"),
+                        result.getString("I_Name"),
+                        result.getString("I_Description"),
+                        result.getDouble("I_Cost"),
+                        result.getString("I_Category"),
+                        0 // stock
+                );
+                searchResults.add(p);
+            }
+            
+            stmt.close();
+            
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in searchItems.");
+            System.exit(1);
+        }
+        return searchResults;
+    }
 
     // --------------------
     // Suppliers
