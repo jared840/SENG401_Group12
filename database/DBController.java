@@ -222,10 +222,11 @@ public class DBController {
     public void newUser(Supplier s) {
         PreparedStatement stmt = null;
         try {
-            String query = "INSERT INTO Supplier_Information (S_Name, S_Description) VALUES (?, ?)";
+            String query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
             stmt = connect.prepareStatement(query);
             stmt.setString(1, s.getName());
             stmt.setString(2, s.getDescription());
+            stmt.setString(3, s.getUsername());
             stmt.executeUpdate();
 
             query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
