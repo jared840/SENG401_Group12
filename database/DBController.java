@@ -332,6 +332,35 @@ public class DBController {
         }
     }
 
+    // returns all items associated with a given supplier
+    public ArrayList<Product> getSupplierItems(int s_id) {
+        ArrayList<Product> products = new ArrayList<>();
+        Statement stmt = null;
+        try {
+            stmt = connect.createStatement();
+            String query = "SELECT * FROM Item_Information WHERE S_ID = " + s_id;
+            result = stmt.executeQuery(query);
+
+            while (result.next()) {
+                Product p = new Product(
+                        result.getInt("Item_ID"),
+                        result.getInt("S_ID"),
+                        result.getString("I_Name"),
+                        result.getString("I_Description"),
+                        result.getDouble("I_Cost"),
+                        result.getString("I_Category"),
+                        0 // stock
+                );
+                products.add(p);
+            }
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in getSupplierItems.");
+        }
+
+        return products;
+    }
+
     // --------------------
     // Warehouse Employees
     // --------------------
