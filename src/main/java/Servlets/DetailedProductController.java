@@ -45,7 +45,7 @@ public class DetailedProductController extends HttpServlet {
 		try {
 			Integer id = Integer.parseInt((String)request.getParameter("productId"));
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root", "Admin");
-			Product product = db.getProductById(1);
+			Product product = db.getProductById(id);
 			request.setAttribute("product", product);		
 			Supplier supplier = db.getSupplierBySupplierId(product.getSupplierId());
 			request.setAttribute("supplierName", supplier.getName());	

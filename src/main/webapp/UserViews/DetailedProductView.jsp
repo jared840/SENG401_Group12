@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
  <link rel="stylesheet" type="text/css" href="navbar.css">
+ <link rel="stylesheet" type="text/css" href="css/detailedProductCss.css">
 <title>Product details</title>
 </head>
 <body>
@@ -24,15 +25,30 @@ String supplierName = (String) request.getAttribute("supplierName");
         <li><a href="SelectionPage.jsp">Logout</a></li>  
       </ul>
 
-<% out.print("Name:"+product.getName());%>
-<br>
-<% out.print("Desc:"+product.getDescription());%>
-<br>
-<% out.print("Price:"+product.getPrice());%>
-<br>
-<% out.print("Items in stock:"+product.getStock());%>
-<br>
-<% out.print("Seller:"+supplierName);%>
+<div id="product">
+    <div class="product_images">
+    	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG8Ogg1R2WkRRVnsxMlr_WqdNwhVzo9vvW_42SZm8&s" alt="No image found"/>
+    </div>
+    <div class="product_details">
+
+        <% out.print("<h2>"+product.getName()+"</h2>");%>
+        <% out.print("<h3>$"+product.getPrice()+"</h3>");%>
+        
+
+        <div class="about">          
+            <% out.print("<p>Availability :<span>"+product.getStock()+"</span></p>");%>
+            <% out.print("<p>Category: <span>"+product.getCategory()+"</span> </p>");%>  
+            <% out.print("<p>Seller: <span>"+supplierName+"</span> </p>");%> 
+        </div>
+
+       <% out.print("<p>"+product.getDescription()+"</p>");%>
+        
+        <div class="cta">
+            <div class="btn btn_primary">Add to cart</div>
+    	</div>
+</div>
+
+</div>
 
 </body>
 </html>
