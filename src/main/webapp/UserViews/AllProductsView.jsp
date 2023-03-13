@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <title>View all products</title>
 
-    <link rel="stylesheet" type="text/css" href="navbar.css">
+
     <!-- script for table -->
     <link rel="stylesheet" type="text/css" href="css/products.css">
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css"/>
@@ -27,15 +27,20 @@
 ArrayList<Product> data = (ArrayList<Product>)request.getAttribute("orders");
 
 %>
+<div id="navbar"></div>
+<script>
+$( document ).ready(function() {
+	$.ajax({
+	    type: 'GET',
+	    url: 'NavbarController',
+	    // other settings
+	    success: function (result) {
+	        $('#navbar').html(result);
+	    }
+	});
+});
 
-<!-- Navigation bar -->
-      <ul id="navbar">
-        
-        <li><a href="SupplierHome.jsp">Home</a></li> 
-        <li><a href="CreateProduct.jsp">Create New Product</a></li>
-        <li><a href="allProductsController">View products</a></li>
-        <li><a href="SelectionPage.jsp">Logout</a></li>  
-      </ul>
+</script>
       
 
     <div id="example">
