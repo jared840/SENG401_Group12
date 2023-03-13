@@ -25,6 +25,7 @@
 
 <%
 ArrayList<Product> data = (ArrayList<Product>)request.getAttribute("orders");
+
 %>
 
 <!-- Navigation bar -->
@@ -44,37 +45,39 @@ ArrayList<Product> data = (ArrayList<Product>)request.getAttribute("orders");
     <script type="text/x-kendo-template" id="template">
         <div class="product">
 
-			<img src="http://via.placeholder.com/640x360" alt="Sorry, we can not display the image"/>
+			<img src=#:Uri# alt="Sorry, we can not display the image"/>
             <h3>#:Name#</h3>
             <h4>#:kendo.toString(Price, "c")#</h4>  
 			<h3>#:Stock# left</h3> 
 			<button>BUY</button>
+			<form action=DetailedProduct method="post" >
+ 				<input type="hidden" name=productId value=#:ProductId# />
+				<button type="submit">View more</button>
+			</form>
+			
         </div>
     </script>
+    
+    
     
     <script>
     var colArray = []
 
+	console.log(x)
     <% for (int i=0; i<data.size(); i++) { %>
     	var x = {
-    			
+    			"ProductId":<%= data.get(i).getProductId() %>,
     			"Description":"<%= data.get(i).getDescription() %>",
     			"Category":"<%= data.get(i).getCategory() %>",
     			"Name":"<%= data.get(i).getName().length() > 35 ? data.get(i).getName().substring(0,35)+"...":data.get(i).getName() %>",
     			"Price":<%= data.get(i).getPrice() %>,
-    			"Stock":"<%= data.get(i).getStock()%>"
-    			
+    			"Stock":"<%= data.get(i).getStock()%>",
+    			"Uri": "http://via.placeholder.com/640x360"
     			}
     	
     	colArray[<%= i %>] = x
     <% } %>
-    var jsVariable='<%=data.size()%>';
-    
-        let product = []
-        for(let i = 0; i < colArray.length; i++) {
-            product.push({Src:`https://picsum.photos/id/${i}/200/300`,UnitPrice: i*9, ProductName:" - a name", ProductID : i })
-        }
-      
+
         $(function () {
             $("#listView").kendoListView({
                 dataSource: {

@@ -43,8 +43,6 @@ public class AllProductsController extends HttpServlet {
 
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root", "Admin");
 			ArrayList<Product> products = db.getAllProducts();
-			
-
 			request.setAttribute("orders", products);
 			request.getRequestDispatcher("UserViews/AllProductsView.jsp").forward(request, response);
 			

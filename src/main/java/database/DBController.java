@@ -273,6 +273,30 @@ public class DBController {
             System.exit(1);
         }
     }
+    
+    // returns the supplier object associated with a id
+    public Supplier getSupplierBySupplierId(int id) {
+        Statement stmt = null;
+        Supplier s = null;
+
+        try {
+            String query = "SELECT * FROM Supplier_Information WHERE Supplier_ID  = " + id;
+            stmt = connect.createStatement();
+            result = stmt.executeQuery(query);
+            while (result.next()) {
+            s = new Supplier(result.getInt("Supplier_ID"),
+                    result.getString("S_Name"),
+                    result.getString("S_Description"),
+                    result.getString("S_Username"),"");
+            }
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in newOrder.");
+            System.exit(1);
+        }
+
+        return s;
+    }
 
     // returns the supplier object associated with a username and password
     public Supplier getSupplier(String username, String password) {
@@ -298,6 +322,29 @@ public class DBController {
         return s;
     }
 
+    public Product getProductById(int id) {        
+    	Product product = null;
+    	try {
+        	String query = "SELECT * FROM Item_Information WHERE Item_ID = " + id;
+        	PreparedStatement stmt = connect.prepareStatement(query);
+        	result = stmt.executeQuery();
+            while (result.next()) {
+                product = new Product(
+                        result.getInt("Item_ID"),
+                        result.getInt("S_ID"),
+                        result.getString("I_Name"),
+                        result.getString("I_Description"),
+                        result.getDouble("I_Cost"),
+                        result.getString("I_Category"),
+                        0 // stock
+                );
+            }
+    	}catch(Exception e) {
+    		
+    	}
+
+    	return product;
+    }
     // adds a new item to the database
     public void newItem(Product p, Supplier s) {
         PreparedStatement stmt = null;
