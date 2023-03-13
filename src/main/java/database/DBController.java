@@ -476,8 +476,24 @@ public class DBController {
             closeAll();
             System.err.println("SQLException in newOrder.");
             System.exit(1);
+        }   
+    }
+    
+    //getting ALL orders--------------------------
+    public ArrayList<Order> viewAllOrders()throws SQLException 
+    {
+    Statement st = connect.createStatement();
+        result = st.executeQuery(
+            "SELECT * FROM Order_Information");
+        public ArrayList <Order> OD= new ArrayList<Order>();
+        
+        while(result.next())
+        {
+         OD.add(new Order(result.getInt(Order_ID), result.getInt(C_ID),result.getDate(O_Date),result.getDouble(O_Total),result.getString(Ship_Address)));   
         }
     }
+    //--------------------------------------------
+    
 
     public void shipOrder(Order o) {
         // make ship item instead?
