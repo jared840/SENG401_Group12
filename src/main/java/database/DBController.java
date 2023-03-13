@@ -480,7 +480,7 @@ public class DBController {
     }
     
     //getting ALL orders--------------------------
-    public ArrayList<Order> viewAllOrders()throws SQLException 
+    public ArrayList<Order> viewAllOrders() throws SQLException 
     {
     Statement st = connect.createStatement();
         result = st.executeQuery(
@@ -489,8 +489,9 @@ public class DBController {
         
         while(result.next())
         {
-         OD.add(new Order(result.getInt(Order_ID), result.getInt(C_ID),result.getDate(O_Date),result.getDouble(O_Total),result.getString(Ship_Address)));   
+         OD.add(new Order(result.getInt(1),result.getDate(3),result.getDouble(4),result.getString(5)));   
         }
+        return OD;
     }
     //--------------------------------------------
     
