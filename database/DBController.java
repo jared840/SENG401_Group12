@@ -31,7 +31,7 @@ public class DBController {
             System.err.print(
                     ", username " + USERNAME + ", and password " + PASSWORD + "\n");
             e.printStackTrace();
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -42,7 +42,7 @@ public class DBController {
                 connect.close();
             } catch (SQLException e) {
                 System.err.print("Failed to close connection to database.");
-                System.exit(1);
+                // System.exit(1);
             }
         }
         if (result != null) {
@@ -50,7 +50,7 @@ public class DBController {
                 result.close();
             } catch (SQLException e) {
                 System.err.print("Failed to close ResultSet object.");
-                System.exit(1);
+                // System.exit(1);
             }
         }
     }
@@ -73,11 +73,12 @@ public class DBController {
                             pw +
                             "'");
 
+            result.next();
             userType = result.getString("user_type");
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
 
         return userType;
@@ -103,15 +104,15 @@ public class DBController {
             stmt = null;
             query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'c')";
             stmt = connect.prepareStatement(query);
-            stmt.setString(3, u.getuserEmail());
-            stmt.setString(4, u.getPassword());
+            stmt.setString(1, u.getuserEmail());
+            stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
 
             stmt.close();
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -124,6 +125,7 @@ public class DBController {
             stmt = connect.createStatement();
             result = stmt.executeQuery(query);
 
+            result.next();
             u = new User(result.getInt("Customer_ID"),
                     result.getString("C_Name"),
                     result.getString("C_Address"),
@@ -133,7 +135,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
 
         return u;
@@ -159,7 +161,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -175,7 +177,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in cancelOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -208,7 +210,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in searchItems.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -228,15 +230,15 @@ public class DBController {
 
             query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
             stmt = connect.prepareStatement(query);
-            stmt.setString(3, s.getUsername());
-            stmt.setString(4, s.getPassword());
+            stmt.setString(1, s.getUsername());
+            stmt.setString(2, s.getPassword());
             stmt.executeUpdate();
 
             stmt.close();
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -250,6 +252,7 @@ public class DBController {
             stmt = connect.createStatement();
             result = stmt.executeQuery(query);
 
+            result.next();
             s = new Supplier(result.getInt("Supplier_ID"),
                     result.getString("S_Name"),
                     result.getString("S_Description"),
@@ -258,7 +261,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
 
         return s;
@@ -280,7 +283,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newItem.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -301,15 +304,15 @@ public class DBController {
                     ") ON DUPLICATE KEY UPDATE Quantity = " +
                     String.valueOf(quantity);
             stmt = connect.prepareStatement(query);
-            stmt.setString(1, String.valueOf(quantity));
-            stmt.setString(2, String.valueOf(p.getProductId()));
-            stmt.setString(3, String.valueOf(w.getWarehouseID()));
+            // stmt.setString(1, String.valueOf(quantity));
+            // stmt.setString(2, String.valueOf(p.getProductId()));
+            // stmt.setString(3, String.valueOf(w.getWarehouseID()));
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in searchItems.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -325,7 +328,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in removeItem.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -337,23 +340,24 @@ public class DBController {
     public void newUser(WarehouseWorkers ww) {
         PreparedStatement stmt = null;
         try {
-            String query = "INSERT INTO Warehouse_Employees (E_Name) VALUES (?)";
+            String query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
             stmt = connect.prepareStatement(query);
             stmt.setString(1, ww.getE_Name());
+            stmt.setString(2, ww.getUsername());
             stmt.executeUpdate();
             stmt.close();
 
             query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'w')";
             stmt = connect.prepareStatement(query);
-            stmt.setString(3, ww.getUsername());
-            stmt.setString(4, ww.getPassword());
+            stmt.setString(1, ww.getUsername());
+            stmt.setString(2, ww.getPassword());
             stmt.executeUpdate();
 
             stmt.close();
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
@@ -368,6 +372,7 @@ public class DBController {
             stmt = connect.createStatement();
             result = stmt.executeQuery(query);
 
+            result.next();
             w = new WarehouseWorkers(result.getInt("Employee_ID"),
                     result.getString("E_Name"),
                     username,
@@ -375,7 +380,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
 
         return w;
@@ -394,7 +399,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            // System.exit(1);
         }
     }
 
