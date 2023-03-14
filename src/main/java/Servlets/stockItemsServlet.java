@@ -39,7 +39,7 @@ public class stockItemsServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 try {
-	DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");		//obtain parameters submitted via html form:
+	DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");		//obtain parameters submitted via html form:
 
 
 //retrieve logged in supplier's information:
