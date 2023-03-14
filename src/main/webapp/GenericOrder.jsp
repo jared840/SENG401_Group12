@@ -44,7 +44,8 @@ for(int i=0;i<ODL.size();i++)
 out.println("<tr>Order Info</tr>");
 for(int i=0;i<ODL.size();i++)
 {
-	out.println("<td>"+"<a href=orderStuff?param="+ODL.get(i).getOrder_ID()+"</a>" + "</td>");
+		out.println("<td>"+"<a href=orderStuff?param="+ODL.get(i).getOrder_ID()+">View Order Products</a>" + "</td>");
+
 	
 }
 
