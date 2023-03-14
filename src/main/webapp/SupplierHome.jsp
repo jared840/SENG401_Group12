@@ -21,10 +21,8 @@
         <li><a href="SupplierHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
         <li><a href="CreateProduct.jsp">Create Product</a></li>
         <li><a href=allProductsController>View Products</a></li> 
-       
-        <li><a href="#cart">View Cart</a></li>
-        <li><a href="#orders">View Orders</a></li>
-        <li><a href="inventory">Inventory</a></li>
+       <li><a href=stockItemsServlet>Stock Items</a></li>
+        
         <li><a href="CreateReport.jsp">Create Report</a></li>
         <li><a href="SelectionPage.jsp">Log Out</a></li>
       </ul>
