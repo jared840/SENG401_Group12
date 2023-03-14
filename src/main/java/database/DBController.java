@@ -163,6 +163,40 @@ public class DBController {
             System.exit(1);
         }
     }
+    
+    
+    //retrieves items from order
+    public ArrayList<Product> getOrderItems(int ID) throws SQLException
+    {
+        
+        String query="SELECT * FROM ORDER_ITEMS,ITEM_INFORMATION WHERE O_ID=ID AND I_ID=ITEM_ID";
+          Statement stmt = connect.createStatement();
+            result = stmt.executeQuery(query);
+        
+        ArrayList <Product> arr = new ArrayList<Product>();
+        while(result.next())
+        {
+         int o_ID=result.getInt(1);
+            int i_ID=result.getInt(2);
+            String i_name=result.getString(3);
+            int quantity=result.getInt(4);
+            int location=result.getInt(5);
+            boolean shipped=result.getBoolean(6);
+            String description=result.getString(9);
+            int supplier_ID=result.getInt(12);
+            double cost=result.getDouble(10);
+            String category=result.getString(11);
+            int stock=0;
+            
+            Product p=new Product(i_ID,supplier_ID,i_name,description,cost,category,stock);
+            arr.add(p);
+            
+            
+        
+        }
+        return arr;
+        
+    }
 
     // cancels an existing order
     public void cancelOrder(Order o) {
