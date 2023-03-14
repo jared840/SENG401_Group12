@@ -533,4 +533,17 @@ public class DBController {
         // make ship item instead?
         // --> need to mark in db somehow
     }
+    
+    public ArrayList<Warehouse> getWarehouses() throws SQLException{
+    	 Statement st = connect.createStatement();
+         result = st.executeQuery(
+             "SELECT * FROM warehouse_information");
+         ArrayList <Warehouse> OD= new ArrayList<Warehouse>();
+
+         while(result.next())
+         {
+          OD.add(new Warehouse(result.getInt(1),result.getString(2), "x"));   
+         }
+         return OD;
+    }
 }
