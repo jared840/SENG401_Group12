@@ -1,4 +1,6 @@
 package servlets;
+import entities.*;
+import database.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,9 +39,11 @@ public class GenericViewOrder extends HttpServlet {
 		
 		try
 		{
-			DBcontroller d= new DBcontroller("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
-			public ArrayList<Order> OD = new ArrayList <Order>();
+			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
+			ArrayList<Order> OD = new ArrayList <Order>();
 			OD=d.viewAllOrders();
+			request.setAttribute("OrderList",OD);
+			request.getRequestDispatcher("GenericOrder.jsp").forward(request,response);
 			
 		}catch(Exception E)
 		{
