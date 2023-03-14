@@ -1,7 +1,9 @@
-<% @page import="java.util.ArrayList" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.ArrayList" %>
+        <%@page import="entities.*" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +13,14 @@
 <body>
 
 <%
+
 ArrayList <Order> ODL=new ArrayList<Order>();
-ODL= request.getAttribute("OrderList");
+ODL= (ArrayList)request.getAttribute("OrderList");
 out.println("<table>");
 out.println("<tr>Order ID</tr>");
 for(int i=0;i<ODL.size();i++)
 {
-	out.println("<td>"+ODL.get(i).getOrderID()+"</td>");
+	out.println("<td>"+ODL.get(i).getOrder_ID()+"</td>");
 	
 }
 out.println("<tr>Date</tr>");
@@ -41,11 +44,12 @@ for(int i=0;i<ODL.size();i++)
 out.println("<tr>Order Info</tr>");
 for(int i=0;i<ODL.size();i++)
 {
-	out.println("<td>"+"<a href=orderStuff?param="+ODL.getOrder_ID+"</a>" + "</td>");
+	out.println("<td>"+"<a href=orderStuff?param="+ODL.get(i).getOrder_ID()+"</a>" + "</td>");
 	
 }
 
 out.println("</table>");
+
 %>
 
 
