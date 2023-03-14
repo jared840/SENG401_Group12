@@ -168,8 +168,7 @@ public class DBController {
     //retrieves items from order
     public ArrayList<Product> getOrderItems(int ID) throws SQLException
     {
-        
-        String query="SELECT * FROM ORDER_ITEMS,ITEM_INFORMATION WHERE O_ID=ID AND I_ID=ITEM_ID";
+        String query="SELECT * FROM ORDER_ITEMS,ITEM_INFORMATION WHERE O_ID="+ID+ " AND I_ID=ITEM_ID";
           Statement stmt = connect.createStatement();
             result = stmt.executeQuery(query);
         
