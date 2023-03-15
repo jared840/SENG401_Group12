@@ -557,4 +557,15 @@ public class DBController {
         
         return OD;
    }
+    
+    public boolean getOrderStatus(int customer_ID, int order_ID) throws SQLException
+    {
+        Statement s=connect.createStatement();
+        result=s.executeQuery("SELECT SHIPPED FROM ORDER_ITEMS,ORDER_INFORMATION WHERE O_ID=ORDER_ID AND C_ID="+customer_ID+" AND ORDER_ID="+order_ID+";");
+        result.next();
+        boolean b=result.getBoolean(1);
+        
+        return b;
+    }
+        
 }
