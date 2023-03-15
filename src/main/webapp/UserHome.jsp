@@ -25,12 +25,13 @@ out.println("Your name is: "+in.getName());
       <ul id="navbar">
         <li><a href="/">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
         <li><a href="#about">Search</a></li>
+        <li><a href=allProductsController>View Products</a></li> 
         <li><a href="#services">My Orders</a></li> <!-- get different permissions depending on user type for all the rest of these-->
         <li><a href="#cart">View Cart</a></li>
         <li><a href="#orders">View Orders</a></li>
         <li><a href="inventory">Inventory</a></li>
         <li><a href="#report">Create Report</a></li>
-        <li><a href="#article">Articles</a></li>
+        <li><a href="TrackOrder.jsp">Track an Order</a></li>
       </ul>
 
       <h1>Warehouse Website Placeholder</h1>
