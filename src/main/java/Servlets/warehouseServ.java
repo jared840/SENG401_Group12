@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DBController;
+import entities.Product;
+import entities.Warehouse;
 
 /**
  * Servlet implementation class warehouseServ
@@ -42,12 +44,19 @@ public class warehouseServ extends HttpServlet {
 			int w_id = Integer.parseInt(Character.toString(warehouse.charAt(0)));
 			DBController db=new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");		//obtain parameters submitted via html form:
 		
+			Warehouse w = db.getWarehouse(w_id);
+			Product p = db.getProductById(prodid);
 			//TODO continue here, but the data transferred shouldve been objects!
 			//TODO make db return warehouse by id, use product by id method to pass to below method
-			//db.restockItem(null, null, w_id)
+			db.restockItem(w,p,stock);
+			
+			request.setAttribute("stockSuccess", "true");
+			request.getRequestDispatcher("stockedOutcome.jsp").forward(request, response);
 			
 		}catch(Exception e) {
-			out.print(e.getMessage());
+			request.setAttribute("stockSuccess", "false");
+			request.getRequestDispatcher("stockedOutcome.jsp").forward(request, response);
+
 		}
 	
 	}
