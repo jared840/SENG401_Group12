@@ -546,4 +546,15 @@ public class DBController {
          }
          return OD;
     }
+     public Warehouse getWarehouse(int w_id) throws SQLException{
+   	 Statement st = connect.createStatement();
+        result = st.executeQuery(
+            "SELECT * FROM warehouse_information where Warehouse_id="+w_id);
+        
+        result.next();
+        Warehouse OD= new Warehouse(result.getInt(1), result.getString(2),"N/A");
+
+        
+        return OD;
+   }
 }
