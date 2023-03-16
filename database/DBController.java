@@ -433,8 +433,40 @@ public class DBController {
         }
     }
 
-    public void shipOrder(Order o) {
-        // make ship item instead?
-        // --> need to mark in db somehow
+    public void shipOrder(int orderID) {
+        Statement stmt = null;
+        PreparedStatement pstmt = null;
+        try {
+            // get all items from the order
+            String query = "SELECT * FROM Order_Items WHERE O_ID = " + orderID;
+            stmt = connect.createStatement();
+            result = stmt.executeQuery(query);
+
+            while (result.next()) {
+                query = "UPDATE Order_Items SET Shipped = True WHERE O_ID = " + orderID + " AND I_ID = "
+                        + result.getInt("I_ID");
+                pstmt = connect.prepareStatement(query);
+                pstmt.executeUpdate();
+            }
+
+            stmt.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in shipOrder.");
+        }
+    }
+
+    public void shipItem(int orderID, int itemID) {
+        PreparedStatement stmt = null;
+        try {
+            String query = "UPDATE Order_Items SET Shipped = True WHERE O_ID = " + orderID + " AND I_ID = " + itemID;
+            stmt = connect.prepareStatement(query);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in shipItem.");
+        }
     }
 }
