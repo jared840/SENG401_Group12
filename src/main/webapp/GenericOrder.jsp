@@ -54,6 +54,7 @@ out.println("<th>Date</th>");
 out.println("<th>Total Cost</th>");
 out.println("<th>Shipping Address</th>");
 out.println("<th>Order Information</th>");
+out.println("<th>Ship This Order</th>");
 
 out.println("</tr>");
 out.println("</th");
