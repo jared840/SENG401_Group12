@@ -68,7 +68,7 @@ for(int i=0;i<ODL.size();i++)
 	out.println("<td>"+ODL.get(i).getO_Total()+"</td>");
 	out.println("<td>"+ODL.get(i).getShip_Address()+"</td>");
 	out.println("<td>"+"<a href=orderStuff?param="+ODL.get(i).getOrder_ID()+">view products</a>" + "</td>");
-	out.println("<td>"+"<a href=shipServlet?param="+ODL.get(i).getOrder_ID()+">Ship This Order</a>" + "</td>");
+	out.println("<td>"+"<a href=shipServlet?order_ID="+ODL.get(i).getOrder_ID()+">Ship This Order</a>" + "</td>");
 	out.println("</tr");
 		
 }
