@@ -50,7 +50,7 @@ CREATE TABLE Order_Items (
 	O_ID int NOT NULL,
     I_ID int NOT NULL,
     I_Name varchar(255),
-    I_Quantity int,
+    #I_Quantity int,
     I_Location int,
     Shipped boolean DEFAULT false,
     CONSTRAINT PK_OrderItem PRIMARY KEY (O_ID, I_ID),

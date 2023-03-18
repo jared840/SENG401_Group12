@@ -3,6 +3,7 @@ package database;
 import entities.*;
 import java.sql.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -92,22 +93,21 @@ public class DBController {
     public void newUser(User u) {
         PreparedStatement stmt = null;
         try {
-            String query = "INSERT INTO Customer_Information (C_Name, C_Address, C_Card_Number, C_Username) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'c')";
+            stmt = connect.prepareStatement(query);
+            stmt.setString(1, u.getuserEmail());
+            stmt.setString(2, u.getPassword());
+            stmt.executeUpdate();
+            stmt.close();
+            
+            stmt = null;
+            query = "INSERT INTO Customer_Information (C_Name, C_Address, C_Card_Number, C_Username) VALUES (?, ?, ?, ?)";
             stmt = connect.prepareStatement(query);
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getUserAddress());
             stmt.setString(3, String.valueOf(u.getcardNumber()));
             stmt.setString(4, u.getuserEmail());
             stmt.executeUpdate();
-            stmt.close();
-
-            stmt = null;
-            query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'c')";
-            stmt = connect.prepareStatement(query);
-            stmt.setString(1, u.getuserEmail());
-            stmt.setString(2, u.getPassword());
-            stmt.executeUpdate();
-
             stmt.close();
         } catch (SQLException e) {
             closeAll();
@@ -144,18 +144,37 @@ public class DBController {
     // adds a new order to the database
     public void newOrder(User u, Order o) {
         PreparedStatement stmt = null;
+        PreparedStatement getItemLoc = null;
         try {
             String query = "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address) VALUES (?, ?, ?, ?)";
             stmt = connect.prepareStatement(query);
-            stmt.setString(1, String.valueOf(u.getUser_ID()));
+            stmt.setInt(1, u.getUser_ID());
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String date = dateFormat.format(o.getO_Date());
             stmt.setString(2, date);
-            stmt.setString(3, String.valueOf(o.getO_Total()));
+            stmt.setDouble(3, o.getO_Total());
             stmt.setString(4, o.getShip_Address());
             stmt.executeUpdate();
+            stmt.close();
 
-            // need a section to also add each item in the order
+            // add each item in the order to Order_Items
+            query = "INSERT INTO Order_Items (O_ID, I_ID, I_Name, I_Location) VALUES (?, ?, ?, ?)";
+            stmt = connect.prepareStatement(query);
+            ArrayList<Product> p = o.getProducts();
+
+            getItemLoc = connect.prepareStatement("SELECT * FROM Item_Information WHERE Item_ID = ?");
+
+            for (Product pr : p) {
+                getItemLoc.setInt(1, pr.getProductId());
+                result = getItemLoc.executeQuery();
+                result.next();
+
+                stmt.setInt(1, o.getOrder_ID());
+                stmt.setInt(2, pr.getProductId());
+                stmt.setString(3, pr.getName());
+                stmt.setInt(4, result.getInt("I_Location"));
+                stmt.executeUpdate();
+            }
 
             stmt.close();
         } catch (SQLException e) {
@@ -163,6 +182,37 @@ public class DBController {
             System.err.println("SQLException in newOrder.");
             // System.exit(1);
         }
+    }
+
+    // retrieves the information for an existing order
+    public Order getOrder(int orderID) {
+        PreparedStatement stmt = null;
+        Order o = null;
+
+        try {
+            String query = "SELECT * FROM Order_Information WHERE Order_ID = " + String.valueOf(orderID);
+            stmt = connect.prepareStatement(query);
+            result = stmt.executeQuery();
+            java.util.Date date = null;
+
+            try {
+                date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(result.getString("O_Date"));
+            } catch (ParseException e) {
+                System.err.println("ParseException in gtOrder");
+                return o;
+            }
+
+            o = new Order(result.getInt("Order_ID"), date, result.getDouble("O_Total"),
+                    result.getString("Ship_Address"));
+
+            query = "";
+
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in getOrder.");
+        }
+
+        return o;
     }
 
     // cancels an existing order
@@ -174,6 +224,16 @@ public class DBController {
             stmt.setString(1, String.valueOf(o.getOrder_ID()));
             stmt.executeUpdate();
             stmt.close();
+
+            query = "DELETE FROM Order_Items WHERE I_ID = ? AND O_ID = ?";
+            stmt = connect.prepareStatement(query);
+            stmt.setInt(2, o.getOrder_ID());
+
+            for (Product p : o.getProducts()) {
+                stmt.setInt(1, p.getProductId());
+                stmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in cancelOrder.");
@@ -222,19 +282,19 @@ public class DBController {
     public void newUser(Supplier s) {
         PreparedStatement stmt = null;
         try {
-            String query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
+            String query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
+            stmt = connect.prepareStatement(query);
+            stmt.setString(1, s.getUsername());
+            stmt.setString(2, s.getPassword());
+            stmt.executeUpdate();
+            stmt.close();
+            
+            query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
             stmt = connect.prepareStatement(query);
             stmt.setString(1, s.getName());
             stmt.setString(2, s.getDescription());
             stmt.setString(3, s.getUsername());
             stmt.executeUpdate();
-
-            query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
-            stmt = connect.prepareStatement(query);
-            stmt.setString(1, s.getUsername());
-            stmt.setString(2, s.getPassword());
-            stmt.executeUpdate();
-
             stmt.close();
         } catch (SQLException e) {
             closeAll();
@@ -370,19 +430,18 @@ public class DBController {
     public void newUser(WarehouseWorkers ww) {
         PreparedStatement stmt = null;
         try {
-            String query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
-            stmt = connect.prepareStatement(query);
-            stmt.setString(1, ww.getE_Name());
-            stmt.setString(2, ww.getUsername());
-            stmt.executeUpdate();
-            stmt.close();
-
-            query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'w')";
+            String query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'w')";
             stmt = connect.prepareStatement(query);
             stmt.setString(1, ww.getUsername());
             stmt.setString(2, ww.getPassword());
             stmt.executeUpdate();
-
+            stmt.close();
+            
+            query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
+            stmt = connect.prepareStatement(query);
+            stmt.setString(1, ww.getE_Name());
+            stmt.setString(2, ww.getUsername());
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             closeAll();
@@ -418,10 +477,7 @@ public class DBController {
 
     // view all orders for a warehouse
     public void viewOrders(Warehouse w) {
-        // need order information where the item is in stock in the warehouse
-        // --> bypass order_info table?
         Statement stmt = null;
-
         try {
             stmt = connect.createStatement();
             result = stmt.executeQuery(
