@@ -86,7 +86,7 @@ public class DBController {
         return userType;
     }
 	
-	//retrieves items from order
+/*	//retrieves items from order
     public ArrayList<Product> getOrderItems(int ID) throws SQLException
     {
         String query="SELECT * FROM ORDER_ITEMS,ITEM_INFORMATION WHERE O_ID="+ID+ " AND I_ID=ITEM_ID";
@@ -116,7 +116,7 @@ public class DBController {
         }
         return arr;
 
-    }
+    }*/
 
 
     // --------------------
