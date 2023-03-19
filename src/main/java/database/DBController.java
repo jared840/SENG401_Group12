@@ -3,6 +3,7 @@ package database;
 import entities.*;
 import java.sql.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -24,15 +25,15 @@ public class DBController {
         PASSWORD = pw;
         Class.forName("com.mysql.cj.jdbc.Driver");
         connect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-       /* try {
+      /*  try {
             connect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
+      } catch (SQLException e) {
             closeAll();
             System.err.print("Failed to connect to database with url " + DBURL);
             System.err.print(
                     ", username " + USERNAME + ", and password " + PASSWORD + "\n");
             e.printStackTrace();
-            System.exit(1);
+           // System.exit(1);
         }*/
     }
 
@@ -43,7 +44,7 @@ public class DBController {
                 connect.close();
             } catch (SQLException e) {
                 System.err.print("Failed to close connection to database.");
-                System.exit(1);
+               // System.exit(1);
             }
         }
         if (result != null) {
@@ -51,7 +52,7 @@ public class DBController {
                 result.close();
             } catch (SQLException e) {
                 System.err.print("Failed to close ResultSet object.");
-                System.exit(1);
+               // System.exit(1);
             }
         }
     }
@@ -76,16 +77,16 @@ public class DBController {
                             "'");
             result.next();
             userType = result.getString("user_type");
-       /* } catch (SQLException e) {
+      /* } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            //System.exit(1);
         }*/
 
         return userType;
     }
-    
-    //retrieves items from order
+	
+	//retrieves items from order
     public ArrayList<Product> getOrderItems(int ID) throws SQLException
     {
         String query="SELECT * FROM ORDER_ITEMS,ITEM_INFORMATION WHERE O_ID="+ID+ " AND I_ID=ITEM_ID";
@@ -116,7 +117,7 @@ public class DBController {
         return arr;
 
     }
-    
+
 
     // --------------------
     // Customers
@@ -169,7 +170,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            //System.exit(1);
         }
 
         return u;
@@ -178,25 +179,80 @@ public class DBController {
     // adds a new order to the database
     public void newOrder(User u, Order o) {
         PreparedStatement stmt = null;
+		 PreparedStatement getItemLoc = null;
         try {
             String query = "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address) VALUES (?, ?, ?, ?)";
             stmt = connect.prepareStatement(query);
-            stmt.setString(1, String.valueOf(u.getUser_ID()));
+            //stmt.setString(1, String.valueOf(u.getUser_ID()));
+			 stmt.setInt(1, u.getUser_ID());
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String date = dateFormat.format(o.getO_Date());
             stmt.setString(2, date);
-            stmt.setString(3, String.valueOf(o.getO_Total()));
+            //stmt.setString(3, String.valueOf(o.getO_Total()));
+			stmt.setDouble(3, o.getO_Total());
             stmt.setString(4, o.getShip_Address());
             stmt.executeUpdate();
 
-            // need a section to also add each item in the order
+           
 
+            stmt.close();
+			 // add each item in the order to Order_Items
+            query = "INSERT INTO Order_Items (O_ID, I_ID, I_Name, I_Location) VALUES (?, ?, ?, ?)";
+            stmt = connect.prepareStatement(query);
+            ArrayList<Product> p = o.getProducts();
+
+            getItemLoc = connect.prepareStatement("SELECT * FROM Item_Information WHERE Item_ID = ?");
+
+            // need a section to also add each item in the order
+            for (Product pr : p) {
+                getItemLoc.setInt(1, pr.getProductId());
+                result = getItemLoc.executeQuery();
+                result.next();
+
+                stmt.setInt(1, o.getOrder_ID());
+                stmt.setInt(2, pr.getProductId());
+                stmt.setString(3, pr.getName());
+                stmt.setInt(4, result.getInt("I_Location"));
+                stmt.executeUpdate();
+            }
+			
             stmt.close();
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newOrder.");
-            System.exit(1);
+            //System.exit(1);
         }
+    }
+
+    // retrieves the information for an existing order
+    public Order getOrder(int orderID) {
+        PreparedStatement stmt = null;
+        Order o = null;
+
+        try {
+            String query = "SELECT * FROM Order_Information WHERE Order_ID = " + String.valueOf(orderID);
+            stmt = connect.prepareStatement(query);
+            result = stmt.executeQuery();
+            java.util.Date date = null;
+
+            try {
+                date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(result.getString("O_Date"));
+            } catch (ParseException e) {
+                System.err.println("ParseException in gtOrder");
+                return o;
+            }
+
+            o = new Order(result.getInt("Order_ID"), date, result.getDouble("O_Total"),
+                    result.getString("Ship_Address"));
+
+            query = "";
+
+        } catch (SQLException e) {
+            closeAll();
+            System.err.println("SQLException in getOrder.");
+        }
+
+        return o;
     }
 
     // cancels an existing order
@@ -208,10 +264,20 @@ public class DBController {
             stmt.setString(1, String.valueOf(o.getOrder_ID()));
             stmt.executeUpdate();
             stmt.close();
+			
+            query = "DELETE FROM Order_Items WHERE I_ID = ? AND O_ID = ?";
+            stmt = connect.prepareStatement(query);
+            stmt.setInt(2, o.getOrder_ID());
+
+            for (Product p : o.getProducts()) {
+                stmt.setInt(1, p.getProductId());
+                stmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in cancelOrder.");
-            System.exit(1);
+            //System.exit(1);
         }
     }
 
@@ -244,7 +310,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in searchItems.");
-            System.exit(1);
+            //System.exit(1);
         }
     }
     
@@ -276,7 +342,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in searchItems.");
-            System.exit(1);
+           // System.exit(1);
         }
         return searchResults;
     }
@@ -388,7 +454,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println(e.getMessage());
-            System.exit(1);
+            //System.exit(1);
         }
 
         return s;
@@ -435,7 +501,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in newItem.");
-            System.exit(1);
+          //  System.exit(1);
         }
     }
 
@@ -480,7 +546,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println("SQLException in removeItem.");
-            System.exit(1);
+            //System.exit(1);
         }
     }
     
@@ -539,7 +605,7 @@ public class DBController {
         } catch (SQLException e) {
             closeAll();
             System.err.println(e.getMessage());
-            System.exit(1);
+           // System.exit(1);
         }
     }
 
@@ -549,7 +615,7 @@ public class DBController {
         Statement stmt = null;
         WarehouseWorkers w = null;
 
-      //  try {
+       // try {
             String query = "SELECT * FROM Warehouse_Employees WHERE E_Username = '" + username + "'";
             stmt = connect.createStatement();
             result = stmt.executeQuery(query);
