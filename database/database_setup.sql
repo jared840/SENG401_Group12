@@ -84,3 +84,15 @@ CREATE TABLE Login_Information (
     user_type enum('c', 's', 'w'),
     CONSTRAINT PK_Login PRIMARY KEY (username)
 );
+
+CREATE TABLE Order_Event (
+	eventId int NOT NULL AUTO_INCREMENT,
+    	orderId int,
+	timeStamp DATE,
+    	eventInitiatedByUser varchar(250),
+	eventInitiatedOnPage varchar(100),
+	classType varchar(100),
+	jsonClob varchar(10000),
+    	CONSTRAINT PK_Event PRIMARY KEY (eventId),
+	CONSTRAINT FK_Order FOREIGN KEY (orderId) REFERENCES Order_Information (Order_ID)
+);
