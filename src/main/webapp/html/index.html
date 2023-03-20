@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <style>
+      /* CSS styles for the navigation bar */
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+      }
+      li {
+        float: left;
+      }
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      li a:hover {
+        background-color: #111;
+      }
+      .right {
+        float: right;
+      }
+      .button {
+        background-color: #333;
+        color: white;
+        border-radius: 20px;
+        border: none;
+        padding: 10px 20px;
+        margin-left: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .button:hover {
+        background-color: #111;
+      }
+      /* CSS styles for the home page */
+      #search-bar {
+        margin-top: 150px;
+        text-align: center;
+      }
+      #search-box {
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        width: 500px;
+        font-size: 20px;
+        outline: none;
+      }
+      #search-btn {
+        background-color: #333;
+        color: white;
+        border-radius: 20px;
+        border: none;
+        padding: 10px 20px;
+        margin-left: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Search</a></li>
+      <li><a href="#services">My Orders</a></li>
+      <li><a href="#cart">View Cart</a></li>
+      <li><a href="#orders">View Orders</a></li>
+      <li><a href="#inventory">Inventory</a></li>
+      <li><a href="#report">Create Report</a></li>
+      <li><a href="#article">Articles</a></li>
+      <li class="right"><a href="login.html"><button class="button">Login</button></a></li>
+      <li class="right"><a href="signup.html"><button class="button">Sign Up</button></a></li>
+    </ul>
+    
+    <!-- Page content -->
+    <div id="search-bar">
+      <h1>Welcome to our Warehouse Website</h1>
+      <form>
+        <input type="text" id="search-box" placeholder="Search for products...">
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+    </div>
+    
+  </body>
+</html>
