@@ -31,6 +31,8 @@ public class DBController {
 
 	private Connection connect = null;
 	private ResultSet result = null;
+	private ResultSet result2 = null;
+	private ResultSet result3 = null;
 
 	// constructor
 	public DBController(String url, String un, String pw) throws SQLException, ClassNotFoundException {
@@ -242,6 +244,69 @@ public class DBController {
 		} catch (SQLException e) {
 			closeAll();
 			System.err.println("SQLException in getOrder.");
+		}
+
+		return o;
+	}
+
+	//
+	public Order getOrderInCartStage (int userID) {
+		Order o = null;
+		Statement stmt = null;
+		PreparedStatement getItem = null;
+		PreparedStatement getStock = null;
+
+		try {
+			String query = "SELECT * FROM order_information WHERE O_ID = " + String.valueOf(userID);
+			stmt = connect.createStatement();
+			result = stmt.executeQuery(query);
+			result.next();
+
+			java.util.Date date = null;
+
+			try {
+				date = new SimpleDateFormat("yyyy-MM-dd").parse(result.getString("O_Date"));
+			} catch (ParseException e) {
+				closeAll();
+				System.err.println("ParseException in getOrderInCartStage.");
+			}
+
+			o = new Order (result.getInt("O_ID"), date, result.getDouble("O_Total"), result.getString("Ship_Address"));
+
+			query = "SELECT * FROM order_items WHERE O_ID = " + String.valueOf(result.getInt("O_ID"));
+			result = stmt.executeQuery(query);
+
+			String query2 = "SELECT * FROM item_information WHERE Item_ID = ?";
+			getItem = connect.prepareStatement(query2);
+
+			String query3 = "SELECT * FROM warehouse_inventory WHERE I_ID = ?";
+			getStock = connect.prepareStatement(query3);
+
+
+			while (result.next()) {
+				getItem.setInt(1, result.getInt("I_ID"));
+				result2 = getItem.executeQuery();
+				result2.next();
+
+				getStock.setInt(1, result.getInt("I_ID"));
+				result3 = getStock.executeQuery();
+				result3.next();
+
+				Product p = new Product(
+					result.getInt("I_ID"),
+					result2.getInt("S_ID"),
+					result2.getString("I_Name"),
+					result2.getString("I_Description"),
+					result2.getDouble("I_Cost"),
+					result2.getString("I_Category"),
+					result3.getInt("Quantity")
+				);
+				o.add(p);
+			}
+
+		} catch (SQLException e) {
+			closeAll();
+			System.err.println("SQLException in getOrderInCartStage.");
 		}
 
 		return o;
