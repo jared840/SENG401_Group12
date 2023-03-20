@@ -9,21 +9,33 @@
 <meta charset="UTF-8">
  <link rel="stylesheet" type="text/css" href="navbar.css">
  <link rel="stylesheet" type="text/css" href="css/detailedProductCss.css">
+ <script src="js/triggerEventSourcing.js"></script> 
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <title>Product details</title>
 </head>
 <body>
 <%
 Product product = (Product)request.getAttribute("product");
 String supplierName = (String) request.getAttribute("supplierName");
+User currentUser=(User)request.getSession().getAttribute("currentUser");
 
 %>
-<!-- Navigation bar -->
-      <ul id="navbar">
-        <li><a href="SupplierHome.jsp">Home</a></li> 
-        <li><a href="CreateProduct.jsp">Create New Product</a></li>
-        <li><a href="allProductsController">View products</a></li>
-        <li><a href="SelectionPage.jsp">Logout</a></li>  
-      </ul>
+
+
+<div id="navbar"></div>
+<script>
+$( document ).ready(function() {
+	$.ajax({
+	    type: 'GET',
+	    url: 'NavbarController',
+	    // other settings
+	    success: function (result) {
+	        $('#navbar').html(result);
+	    }
+	});
+
+});
+</script>
 
 <div id="product">
     <div class="product_images">
@@ -44,11 +56,31 @@ String supplierName = (String) request.getAttribute("supplierName");
        <% out.print("<p>"+product.getDescription()+"</p>");%>
         
         <div class="cta">
-            <div class="btn btn_primary">Add to cart</div>
+            <div id="addToCart" class="btn btn_primary">Add to cart</div>
+            <input type="number" value=1 id="quantity" name="quantity" min="1" max="<%= product.getStock()%>">
     	</div>
 </div>
 
 </div>
+<script>
+$(window).load(function () {
+	$("#addToCart").click(function(e){
+		
+		var event = {
+						userId:<%= currentUser.getUser_ID() %>,
+						page:"DetailedPage", 
+						productId: '<%= product.getProductId() %>',
+						quantity:$("#quantity").val(),
+						eventType: EventTypes.Add
+					}
+	    e.preventDefault(); // avoid to execute the actual submit of the form.
+		$.post("EventController", $.param(event), function(response) {
+		    alert("Item(s) added to the cart")
+		    $("#quantity").val(1)
+		});
+	}); 
+});
+</script>
 
 </body>
 </html>

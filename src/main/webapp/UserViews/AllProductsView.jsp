@@ -11,9 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>View all products</title>
-
-
-    <!-- script for table -->
+	 <script src="js/triggerEventSourcing.js"></script> 
     <link rel="stylesheet" type="text/css" href="css/products.css">
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css"/>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -25,6 +23,7 @@
 
 <%
 ArrayList<Product> data = (ArrayList<Product>)request.getAttribute("orders");
+User currentUser=(User)request.getSession().getAttribute("currentUser");
 
 %>
 <div id="navbar"></div>
@@ -38,6 +37,24 @@ $( document ).ready(function() {
 	        $('#navbar').html(result);
 	    }
 	});
+
+});
+
+$(window).load(function () {
+	$(".addToCart").click(function(e){
+		
+		var event = {
+						userId:'<%= currentUser.getUser_ID() %>',
+						page:"ViewAll", 
+						productId: e.target.id,
+						quantity:1,
+						eventType: EventTypes.Add
+					}
+	    e.preventDefault(); // avoid to execute the actual submit of the form.
+		$.post("EventController", $.param(event), function(response) {
+		    // handle response here if you have one
+		});
+	}); 
 });
 
 </script>
@@ -54,7 +71,7 @@ $( document ).ready(function() {
             <h3>#:Name#</h3>
             <h4>#:kendo.toString(Price, "c")#</h4>  
 			<h3>#:Stock# left</h3> 
-			<button>BUY</button>
+			<button id=#:ProductId# class="addToCart">BUY</button>
 			<form action=DetailedProduct method="post" >
  				<input type="hidden" name=productId value=#:ProductId# />
 				<button type="submit">View more</button>

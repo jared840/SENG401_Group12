@@ -7,10 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.DBController;
 import entities.Product;
 import entities.Supplier;
+import entities.User;
 
 /**
  * Servlet implementation class DetailedProductController
@@ -48,7 +50,14 @@ public class DetailedProductController extends HttpServlet {
 			Product product = db.getProductById(id);
 			request.setAttribute("product", product);		
 			Supplier supplier = db.getSupplierBySupplierId(product.getSupplierId());
-			request.setAttribute("supplierName", supplier.getName());	
+			HttpSession mysession=request.getSession();
+			
+			// TODO: TEST CODE FIX LATER
+			User u = db.getUser("E","E");
+			mysession.setAttribute("currentUser", u);
+			request.setAttribute("supplierName", supplier.getName());
+			// TODO: TEST CODE FIX LATER
+			
 			request.getRequestDispatcher("UserViews/DetailedProductView.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.print("");

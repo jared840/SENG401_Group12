@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.DefaultStyledDocument;
+
 import entities.*;
 import database.*;
 /**
@@ -47,16 +49,15 @@ public class Customerreg extends HttpServlet {
 	
 	try {
 		
-		DBcontroller d= new DBcontroller("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
-		User u=new user(1,name,address,email,password,creditCard);
+		DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "Admin");
+		User u=new User(0,name,address,email,password,creditCard);
 		d.newUser(u);
-		
-		
+		User user = d.getUser(username, password);
 		HttpSession mysession=request.getSession();
-		mysession.setAttribute("currentUser", u);
+		mysession.setAttribute("currentUser", user);
 		request.getRequestDispatcher("UserHome.jsp").forward(request,response);
 		
-	}catch(exception e)
+	}catch(Exception e)
 	{
 		out.println("user registration in servlet error");
 	}
