@@ -42,7 +42,7 @@ CREATE TABLE Order_Information (
     O_Date date,
     O_Total double,
     Ship_Address varchar(255),
-    O_Status varchar(25),
+    O_Status enum('cart', 'placed', 'processing', 'shipped'),
     CONSTRAINT PK_Order PRIMARY KEY (Order_ID),
     CONSTRAINT FK_CID_Order FOREIGN KEY (C_ID) REFERENCES Customer_Information(Customer_ID)
 );
@@ -54,7 +54,7 @@ CREATE TABLE Order_Items (
     #I_Quantity int,
     I_Location int,
     Shipped boolean DEFAULT false,
-    O_Status enum('cart', 'placed', 'processing', 'shipped'),
+    #O_Status enum('cart', 'placed', 'processing', 'shipped'),
     CONSTRAINT PK_OrderItem PRIMARY KEY (O_ID, I_ID),
     CONSTRAINT FK_OrderItem_OID FOREIGN KEY (O_ID) REFERENCES Order_Information(Order_ID),
     CONSTRAINT FK_OrderItem_IID FOREIGN KEY (I_ID) REFERENCES Item_Information(Item_ID),
