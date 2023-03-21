@@ -313,7 +313,7 @@ public class DBController {
 	}
 
 	// returns all items in the database that match a given search term
-	public void searchItems(String searchTerm) {
+	public ArrayList<Product> searchItems(String searchTerm) {
 		Statement stmt = null;
 		try {
 			String query = "SELECT * FROM Item_Information WHERE I_Name LIKE '" + searchTerm
@@ -328,8 +328,9 @@ public class DBController {
 				);
 				searchResults.add(p);
 			}
-
+			
 			stmt.close();
+			return searchResults;
 		} catch (SQLException e) {
 			closeAll();
 			System.err.println("SQLException in searchItems.");
