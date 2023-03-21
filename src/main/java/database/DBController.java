@@ -375,13 +375,13 @@ public class DBController {
 			int o_ID = result.getInt(1);
 			int i_ID = result.getInt(2);
 			String i_name = result.getString(3);
-			int quantity = result.getInt(4);
-			int location = result.getInt(5);
-			boolean shipped = result.getBoolean(6);
-			String description = result.getString(9);
-			int supplier_ID = result.getInt(12);
-			double cost = result.getDouble(10);
-			String category = result.getString(11);
+			//int quantity = result.getInt(4);
+			int location = result.getInt(4);
+			boolean shipped = result.getBoolean(5);
+			String description = result.getString(8);
+			int supplier_ID = result.getInt(11);
+			double cost = result.getDouble(9);
+			String category = result.getString(10);
 			int stock = 0;
 
 			Product p = new Product(i_ID, supplier_ID, i_name, description, cost, category, stock);
