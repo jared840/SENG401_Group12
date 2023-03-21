@@ -817,4 +817,25 @@ public class DBController {
 		}
 		return getOrderInCartStage(u.getUser_ID());
 	}
+	public ArrayList<String> getWarehouseInventory(int wid){
+		String query = "SELECT * FROM WAREHOUSE_INFORMATION,WAREHOUSE_INVENTORY WHERE Warehouse_ID=W_ID AND W_ID=" +wid;
+		PreparedStatement stmt = null;
+		ArrayList<String> toReturn=new ArrayList<String>();
+		try {
+		stmt = connect.prepareStatement(query);
+		result = stmt.executeQuery();
+		
+		while(result.next()) {
+			toReturn.add(result.getString(2));
+			toReturn.add(String.valueOf(result.getInt(3)));
+			toReturn.add(result.getString(5));
+			toReturn.add(String.valueOf(result.getInt(6)));
+
+
+		}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return toReturn;
+	}
 }
