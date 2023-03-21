@@ -87,16 +87,17 @@ $(window).load(function () {
 </script>
 <div class="m-4">
   <h3>Your cart</h3>
-
-    
-    	<%
-	if(data.getProductsOrdered().size() != 0){
-		
-		out.println("  <table class=\"table table-bordered table-striped\">     <thead>       <tr>         <th width=\"200\">Name</th>         <th>Quantity</th>         <th>Price</th>         <th>Total</th>         <th width=\"150\">Action</th>       </tr>     </thead>     <tbody>");
-	}
-	
-	%>
-	
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th width="200">Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th width="150">Action</th>
+      </tr>
+    </thead>
+    <tbody>
     
       <%
       for(OrderItemLine item : data.getProductsOrdered()){
@@ -153,16 +154,20 @@ $(window).load(function () {
         <td></td>
       </tr>		
       <% } %>
-	<%
-	if(data.getProductsOrdered().size() != 0){
-		String val = String.format("            <tr>         <td class=\"align-middle\" colspan=\"3\">Total price</td>         <td class=\"align-middle\" >                   </td>         <td>%s</td>       </tr>     </tbody>   </table>   <p>     <button type=\"button\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>Place order</button>   </p>",data.getO_Total());
-		out.println(val);
-	}
-	
-	%>
-
-
-
+            <tr>
+        <td class="align-middle" colspan="3">Total price</td>
+        <td class="align-middle" >
+         
+        </td>
+        <td><%= data.getO_Total() %></td>
+      </tr>
+    </tbody>
+  </table>
+  <% if(data.getProductsOrdered().size() != 0){
+	  out.println("<p>     <button type=\"button\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>Place order</button>   </p>");
+}%>
+  
+ 
 </div>
 </body>
 </html>
