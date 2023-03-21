@@ -74,6 +74,8 @@
     </style>
   </head>
   <body>
+    <jsp:include page = "background.jsp"/>
+
     <% 
     User in=(User)request.getSession().getAttribute("currentUser");
     out.println("Your name is: "+in.getName());
@@ -88,8 +90,6 @@
       <li><a href="#inventory">Inventory</a></li>
       <li><a href="#report">Create Report</a></li>
       <li><a href="#article">Articles</a></li>
-      <li class="right"><a href="login.html"><button class="button">Login</button></a></li>
-      <li class="right"><a href="signup.html"><button class="button">Sign Up</button></a></li>
     </ul>
     
     <!-- Page content -->
