@@ -18,6 +18,8 @@
         <li><a href=allProductsController>View Products</a></li> 
         <li><a href="shipItems.jsp">Ship Orders</a></li>
      <!--    <li><a href="#cart">View Cart</a></li>	-->
+                    <li><a href=SearchProducts.jsp>Search</a></li>
+     
         <li><a href=GenericViewOrder>View Orders</a></li>
         <li><a href=findAllWarehouses>Inventory</a></li>
         <li><a href="CreateReport.jsp">Create Report</a></li>
