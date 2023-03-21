@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.DefaultStyledDocument;
 
-import entities.*;
-import database.*;
+import database.DBController;
+import entities.User;
+
 /**
  * Servlet implementation class Customerreg
  */
@@ -20,56 +20,57 @@ import database.*;
 public class Customerreg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public Customerreg() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public Customerreg() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
+		PrintWriter out = response.getWriter();
 		out.println("<body style = 'background-colour: #dedede; '>");
 
-		String username=request.getParameter("usernameuser");
-		String password=request.getParameter("passworduser");
-		String name=request.getParameter("nameuser");
-		String address=request.getParameter("addressuser");
-		String email=request.getParameter("emailuser");
-		int creditCard=Integer.parseInt(request.getParameter("creditcarduser"));
-		
-		out.println(username+ password+ name+ name+ address+ email+ creditCard);
-	//out.println("<body style = 'background-colour: #dedede; '>");
-	
-	try {
-		
-		DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "Admin");
-		User u=new User(0,name,address,email,password,creditCard);
-		d.newUser(u);
-		User user = d.getUser(username, password);
-		HttpSession mysession=request.getSession();
-		mysession.setAttribute("currentUser", user);
-		request.getRequestDispatcher("UserHome.jsp").forward(request,response);
-		
-	}catch(Exception e)
-	{
-		out.println("user registration in servlet error");
-	}
-	
-	
-	
+		String username = request.getParameter("usernameuser");
+		String password = request.getParameter("passworduser");
+		String name = request.getParameter("nameuser");
+		String address = request.getParameter("addressuser");
+		String email = request.getParameter("emailuser");
+		int creditCard = Integer.parseInt(request.getParameter("creditcarduser"));
+
+		out.println(username + password + name + name + address + email + creditCard);
+		// out.println("<body style = 'background-colour: #dedede; '>");
+
+		try {
+
+			DBController d = new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "password");
+			User u = new User(0, name, address, email, password, creditCard);
+			d.newUser(u);
+			User user = d.getUser(username, password);
+			HttpSession mysession = request.getSession();
+			mysession.setAttribute("currentUser", user);
+			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			out.println("user registration in servlet error");
+		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

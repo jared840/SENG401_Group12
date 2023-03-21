@@ -20,51 +20,54 @@ import entities.User;
 @WebServlet("/DetailedProduct")
 public class DetailedProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DetailedProductController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DetailedProductController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String x= (String)request.getParameter("productId");
+		String x = (String) request.getParameter("productId");
 		request.setAttribute("test", x);
 		request.getRequestDispatcher("UserViews/DetailedProductView.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			Integer id = Integer.parseInt((String)request.getParameter("productId"));
-			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root", "Admin");
+			Integer id = Integer.parseInt((String) request.getParameter("productId"));
+			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
+					"password");
 			Product product = db.getProductById(id);
-			request.setAttribute("product", product);		
+			request.setAttribute("product", product);
 			Supplier supplier = db.getSupplierBySupplierId(product.getSupplierId());
-			HttpSession mysession=request.getSession();
-			
+			HttpSession mysession = request.getSession();
+
 			// TODO: TEST CODE FIX LATER
-			User u = db.getUser("E","E");
+			User u = db.getUser("E", "E");
 			mysession.setAttribute("currentUser", u);
 			request.setAttribute("supplierName", supplier.getName());
 			// TODO: TEST CODE FIX LATER
-			
+
 			request.getRequestDispatcher("UserViews/DetailedProductView.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.print("");
 		}
-		
-		
-		
+
 	}
 
 }

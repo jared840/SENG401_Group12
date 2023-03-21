@@ -35,7 +35,7 @@ public class DemoController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
-					"Admin");
+					"password");
 			Order o = db.getOrderById(1);
 			for (OrderItemLine e : o.getProductsOrdered()) {
 				System.out.println(e.getProduct().getName() + " q: " + e.getQuantity());

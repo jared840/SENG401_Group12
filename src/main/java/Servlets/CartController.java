@@ -37,7 +37,7 @@ public class CartController extends HttpServlet {
 
 		try {
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
-					"Admin");
+					"password");
 
 			HttpSession mysession = request.getSession();
 			User user = (User) mysession.getAttribute("currentUser");

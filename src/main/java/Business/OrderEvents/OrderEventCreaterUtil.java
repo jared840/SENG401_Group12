@@ -23,10 +23,6 @@ public class OrderEventCreaterUtil {
 			throws Exception {
 		OrderEventTypes eventType = OrderEventCreaterUtil.GetOrderEventType(paramMap.get("eventType")[0]);
 
-		// TODO: FAKE ORDER ID
-		// Order order = db.getOrder(1);
-		// TODO: FAKE ORDER ID
-
 		Order order = db.getOrderInCartStage(user.getUser_ID());
 		if (order == null)
 			order = db.createDefaultOrderInCartStage(user);

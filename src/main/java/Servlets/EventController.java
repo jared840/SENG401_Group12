@@ -38,7 +38,7 @@ public class EventController extends HttpServlet {
 		try {
 
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
-					"Admin");
+					"password");
 			OrderEventCreaterUtil eventCreator = new OrderEventCreaterUtil();
 			HttpSession mysession = request.getSession();
 			User user = (User) mysession.getAttribute("currentUser");
