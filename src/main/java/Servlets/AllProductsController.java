@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import database.DBController;
 import entities.Product;
-import entities.User;
 
 /**
  * Servlet implementation class productsController
@@ -39,10 +37,7 @@ public class AllProductsController extends HttpServlet {
 
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
 					"Admin");
-			// FOR TEST
-			User u = db.getUser("E", "E");
-			HttpSession mysession = request.getSession();
-			mysession.setAttribute("currentUser", u);
+
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.setHeader("Access-Control-Allow-Headers",
 					"Origin, X-Requested-With, Content-Type, Accept, Authorization");

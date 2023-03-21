@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Business.OrderEvents.OrderEventParserUtil;
 import Business.OrderEvents.OrderEventProjectionUtil;
@@ -255,10 +256,11 @@ public class DBController {
 		Statement stmt = null;
 
 		try {
-			String query = "SELECT * FROM order_information WHERE O_Status = 'cart' AND Order_ID = "
+			String query = "SELECT * FROM order_information WHERE O_Status = 'cart' AND C_ID = "
 					+ String.valueOf(userID);
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
+
 			result.next();
 
 			java.util.Date date = null;
@@ -274,9 +276,12 @@ public class DBController {
 					result.getString("Ship_Address"));
 
 		} catch (SQLException e) {
-			closeAll();
-			System.err.println("SQLException in getOrderInCartStage.");
+			return null;
 		}
+		ArrayList<OrderEvent> parsedOrders = OrderEventParserUtil
+				.ConvertOrderEventListFromClob(GetOrderEventByOrderId(o.getOrder_ID()));
+		o.setOrderEvents(parsedOrders);
+		o.setProductsOrdered(OrderEventProjectionUtil.ParseEventsToProducts(parsedOrders));
 
 		return o;
 	}
@@ -781,5 +786,32 @@ public class DBController {
 		}
 
 		return o;
+	}
+
+	// adds a new order to the database
+	public Order createDefaultOrderInCartStage(User u) {
+		PreparedStatement stmt = null;
+		try {
+			String query = "INSERT INTO Order_Information (C_ID, O_Date, O_Total, Ship_Address,O_Status) VALUES (?, ?, ?, ?, ?)";
+			stmt = connect.prepareStatement(query);
+
+			stmt.setInt(1, u.getUser_ID());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String date = dateFormat.format(new Date());
+			stmt.setString(2, date);
+			// stmt.setString(3, String.valueOf(o.getO_Total()));
+			stmt.setDouble(3, 0);
+			stmt.setString(4, "");
+			stmt.setString(5, "cart");
+			stmt.executeUpdate();
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			closeAll();
+			System.err.println("SQLException in newOrder.");
+			// System.exit(1);
+		}
+		return getOrderInCartStage(u.getUser_ID());
 	}
 }
