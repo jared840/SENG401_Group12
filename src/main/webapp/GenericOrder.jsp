@@ -10,7 +10,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View All Orders</title>
-
+<link rel="stylesheet" type="text/css" href="navbar.css">
 <style>
 
 
