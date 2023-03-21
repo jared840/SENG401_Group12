@@ -46,7 +46,7 @@ public class trackOrderServlet extends HttpServlet {
 		
 		// User customerloggedin=db.getUser(username, pswd);
 		try {
-		DBController db= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
+		DBController db= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 		inuser=db.getUser(inuser.getuserEmail(),inuser.getPassword());
 		boolean status = db.getOrderStatus(inuser.getUser_ID(),oid);
 		if(status) {
