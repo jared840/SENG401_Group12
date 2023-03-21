@@ -315,13 +315,14 @@ public class DBController {
 	// returns all items in the database that match a given search term
 	public ArrayList<Product> searchItems(String searchTerm) {
 		Statement stmt = null;
+		ArrayList<Product> searchResults = new ArrayList<Product>();
 		try {
 			String query = "SELECT * FROM Item_Information WHERE I_Name LIKE '" + searchTerm
 					+ "' OR I_Description LIKE '" + searchTerm;
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
 
-			ArrayList<Product> searchResults = new ArrayList<Product>();
+			//ArrayList<Product> searchResults = new ArrayList<Product>();
 			while (result.next()) {
 				Product p = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
 						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"), 0 // stock
@@ -330,12 +331,13 @@ public class DBController {
 			}
 			
 			stmt.close();
-			return searchResults;
+			//return searchResults;
 		} catch (SQLException e) {
 			closeAll();
 			System.err.println("SQLException in searchItems.");
 			// System.exit(1);
 		}
+		return searchResults;
 	}
 
 	public ArrayList<Product> getAllProducts() {
