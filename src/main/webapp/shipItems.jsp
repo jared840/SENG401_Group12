@@ -5,11 +5,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="navbar.css">
+
 </head>
 <body>
-
-    
-    <!-- Navigation bar -->
+  <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="WarehouseWorkerHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
       <!--  <li><a href="CreateProduct.jsp">Create Product</a></li> -->
