@@ -42,7 +42,7 @@ public class orderStuff extends HttpServlet {
 		
 		try {
 			
-			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
+			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 			ArrayList<Product> items = new ArrayList<Product>();
 			items=d.getOrderItems(order);
 			request.setAttribute("items",items);
