@@ -5,9 +5,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Shipping Update</title>
+ <link rel="stylesheet" type="text/css" href="navbar.css">
 </head>
 <body>
-
+<!-- Navigation bar -->
+      <ul id="navbar">
+        <li><a href="UserHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
+         <li><a href="CartController">View your cart</a></li>
+        <li><a href=allProductsController>View Products</a></li> 
+         <li><a href=SearchProducts.jsp>Search</a></li>
+         <li><a href="TrackOrder.jsp">Track an Order</a></li>
+          <li><a href="SelectionPage.jsp">Logout</a></li> 
+           
+      </ul>
 
 <%
 String result=(String)request.getAttribute("ship_progress");
