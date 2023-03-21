@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User Registration</title>
+<link rel="stylesheet" href="CustomerReg.css">
 </head>
 <body>
 
