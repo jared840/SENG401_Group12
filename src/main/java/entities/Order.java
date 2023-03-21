@@ -14,7 +14,7 @@ public class Order {
 	private Date o_Date;
 	private double o_Total;
 	private String ship_Address;
-	private ArrayList<OrderItemLine> productsOrdered;
+	private ArrayList<OrderItemLine> productsOrdered = new ArrayList<>();
 
 	// OLD -- Remove?
 	private ArrayList<OrderEvent> orderEvents = new ArrayList<>();

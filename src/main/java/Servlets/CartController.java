@@ -39,15 +39,17 @@ public class CartController extends HttpServlet {
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
 					"Admin");
 
-			// hard coded id
-			Order order = db.getOrderById(1);
-			request.setAttribute("order", order);
-
 			// FOR TEST
-			User u = db.getUser("E", "E");
+			User u = db.getUser("C1", "C1");
 			HttpSession mysession = request.getSession();
 			mysession.setAttribute("currentUser", u);
 			// FOR TEST
+
+			// hard coded id
+			Order order = db.getOrderInCartStage(u.getUser_ID());
+			if (order == null)
+				order = null; // create new order
+			request.setAttribute("order", order);
 
 			request.getRequestDispatcher("UserViews/Cart.jsp").forward(request, response);
 
