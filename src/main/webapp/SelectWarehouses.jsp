@@ -19,7 +19,7 @@
         <li><a href=allProductsController>View Products</a></li> 
        <li><a href=stockItemsServlet>Stock Items</a></li>
         
-        <li><a href="CreateReport.jsp">Create Report</a></li>
+       
         <li><a href="SelectionPage.jsp">Log Out</a></li>
       </ul>
 
