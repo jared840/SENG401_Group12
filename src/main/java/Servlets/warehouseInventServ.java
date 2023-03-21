@@ -46,7 +46,7 @@ public class warehouseInventServ extends HttpServlet {
 		int wid=Integer.parseInt(x);
 		try {
 			
-			DBController db= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
+			DBController db= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 
 		ArrayList<String> returned = new ArrayList<String>();
 		returned = db.getWarehouseInventory(wid);
