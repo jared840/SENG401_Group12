@@ -1,0 +1,25 @@
+.content{
+	text-align: center;
+}
+.content h1{
+	font-size: 100px;
+	color: #fff;
+	font-weight: 600;
+}
+
+.content p{
+	font-size: 50px;
+	color: #fff;
+	font-weight: 600;	
+}
+
+.content a{
+	text-decoration: none;
+	display: inline-block;
+	color: #fff;
+	font-size: 24px;
+	border: 2px solid #fff;
+	padding: 14px 70px;
+	border-radius: 50px;
+	margin-top: 20px;
+}

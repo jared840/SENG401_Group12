@@ -4,16 +4,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Incorrect Login</title>
+<link rel="stylesheet" href="css/incorrectLogin.css">
 </head>
 <body>
 
-<center><b>
-Incorrect login, Try again!
-
-<a href=SelectionPage.jsp>TRY AGAIN</a>
-
-</b>
-</center>
+	<jsp:include page = "background.jsp"/>
+	<div class="content">
+	<h1>Incorrect login</h1>
+	<p> Your username or password is incorrect. Please try again!</p>
+	<a href=SelectionPage.jsp>Back to Login page</a>
+	</div>
+	
 </body>
 </html>
