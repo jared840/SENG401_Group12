@@ -172,6 +172,30 @@ public class DBController {
 		return u;
 	}
 
+	// checks that the provided credit card number matches the one in the database 
+	public boolean verifyCardNumber(int userID, int card) {
+		boolean match = false;
+		Statement stmt = null;
+
+		try {
+			String query = "SELECT card_number FROM Customer_Information WHERE Customer_ID = " + 
+				String.valueOf(userID);
+			stmt = connect.createStatement();
+			result = stmt.executeQuery(query);
+			result.next();
+
+			if (result.getInt("C_Card_Number") == card) {
+				match = true;
+			} else {
+				match = false;
+			}
+		} catch (SQLException e) {
+			System.err.println("SQLException in verifyCardNumber.");
+		}
+
+		return match;
+	}
+
 	// adds a new order to the database
 	public void newOrder(User u, Order o) {
 		PreparedStatement stmt = null;
