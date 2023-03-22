@@ -473,6 +473,8 @@ public class DBController {
 		Product product = null;
 		try {
 			String query = "SELECT * FROM Item_Information WHERE Item_ID = " + id;
+			//String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where ite.Item_ID = "+ id;
+
 			PreparedStatement stmt = connect.prepareStatement(query);
 			result = stmt.executeQuery();
 			while (result.next()) {
@@ -840,34 +842,4 @@ public class DBController {
 		return toReturn;
 	}
 
-	public ArrayList<Product> XXXgetAllProducts() {
-		Statement stmt = null;
-		ArrayList<Product> searchResults = new ArrayList<Product>();
-		try {
-
-			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join seng401project.warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where ite.Item_ID = 36;"; // WHERE
-																																																																// STOCK
-																																																																// >
-																																																																// 0
-			stmt = connect.createStatement();
-			result = stmt.executeQuery(query);
-
-			while (result.next()) {
-				Product p = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
-						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"),
-						result.getInt("Quantity") // stock
-				);
-				searchResults.add(p);
-			}
-
-			stmt.close();
-
-		} catch (SQLException e) {
-			closeAll();
-			System.err.println("SQLException in searchItems.");
-			// System.exit(1);
-		}
-		return searchResults;
-
-	}
 }

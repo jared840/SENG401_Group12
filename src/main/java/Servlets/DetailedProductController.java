@@ -57,11 +57,8 @@ public class DetailedProductController extends HttpServlet {
 			Supplier supplier = db.getSupplierBySupplierId(product.getSupplierId());
 			HttpSession mysession = request.getSession();
 
-			// TODO: TEST CODE FIX LATER
-			User u = db.getUser("E", "E");
-			mysession.setAttribute("currentUser", u);
+			mysession.setAttribute("currentUser", (User) mysession.getAttribute("currentUser"));
 			request.setAttribute("supplierName", supplier.getName());
-			// TODO: TEST CODE FIX LATER
 
 			request.getRequestDispatcher("UserViews/DetailedProductView.jsp").forward(request, response);
 		} catch (Exception e) {
