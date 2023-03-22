@@ -15,7 +15,7 @@ User in=(User)request.getSession().getAttribute("currentUser");
 <!-- Navigation bar -->
       <ul id="navbar">
         
-        <li><a href="SupplierHome.jsp">Home</a></li> 
+        <li><a href="UserHome.jsp">Home</a></li> 
         <li><a href="CreateProduct.jsp">Create New Product</a></li>
         <li><a href="allProductsController">View products</a></li>
         <li><a href="CartController">View your cart</a></li>

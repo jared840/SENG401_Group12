@@ -322,16 +322,16 @@ public class DBController {
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
 
-			//ArrayList<Product> searchResults = new ArrayList<Product>();
+			// ArrayList<Product> searchResults = new ArrayList<Product>();
 			while (result.next()) {
 				Product p = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
 						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"), 0 // stock
 				);
 				searchResults.add(p);
 			}
-			
+
 			stmt.close();
-			//return searchResults;
+			// return searchResults;
 		} catch (SQLException e) {
 			closeAll();
 			System.err.println("SQLException in searchItems.");
@@ -344,15 +344,15 @@ public class DBController {
 		Statement stmt = null;
 		ArrayList<Product> searchResults = new ArrayList<Product>();
 		try {
-			// TODO
-			String query = "SELECT * FROM Item_Information"; // WHERE STOCK > 0
+			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID;";
+
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
 
 			while (result.next()) {
 				Product p = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
-						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"), 0 // stock
-				);
+						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"),
+						result.getInt("Quantity"));
 				searchResults.add(p);
 			}
 
@@ -378,7 +378,7 @@ public class DBController {
 			int o_ID = result.getInt(1);
 			int i_ID = result.getInt(2);
 			String i_name = result.getString(3);
-			//int quantity = result.getInt(4);
+			// int quantity = result.getInt(4);
 			int location = result.getInt(4);
 			boolean shipped = result.getBoolean(5);
 			String description = result.getString(8);
@@ -817,25 +817,57 @@ public class DBController {
 		}
 		return getOrderInCartStage(u.getUser_ID());
 	}
-	public ArrayList<String> getWarehouseInventory(int wid){
-		String query = "SELECT * FROM WAREHOUSE_INFORMATION,WAREHOUSE_INVENTORY WHERE Warehouse_ID=W_ID AND W_ID=" +wid;
+
+	public ArrayList<String> getWarehouseInventory(int wid) {
+		String query = "SELECT * FROM WAREHOUSE_INFORMATION,WAREHOUSE_INVENTORY WHERE Warehouse_ID=W_ID AND W_ID="
+				+ wid;
 		PreparedStatement stmt = null;
-		ArrayList<String> toReturn=new ArrayList<String>();
+		ArrayList<String> toReturn = new ArrayList<String>();
 		try {
-		stmt = connect.prepareStatement(query);
-		result = stmt.executeQuery();
-		
-		while(result.next()) {
-			toReturn.add(result.getString(2));
-			toReturn.add(String.valueOf(result.getInt(3)));
-			toReturn.add(result.getString(5));
-			toReturn.add(String.valueOf(result.getInt(6)));
+			stmt = connect.prepareStatement(query);
+			result = stmt.executeQuery();
 
+			while (result.next()) {
+				toReturn.add(result.getString(2));
+				toReturn.add(String.valueOf(result.getInt(3)));
+				toReturn.add(result.getString(5));
+				toReturn.add(String.valueOf(result.getInt(6)));
 
-		}
-		}catch(Exception e) {
+			}
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return toReturn;
+	}
+
+	public ArrayList<Product> XXXgetAllProducts() {
+		Statement stmt = null;
+		ArrayList<Product> searchResults = new ArrayList<Product>();
+		try {
+
+			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join seng401project.warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where ite.Item_ID = 36;"; // WHERE
+																																																																// STOCK
+																																																																// >
+																																																																// 0
+			stmt = connect.createStatement();
+			result = stmt.executeQuery(query);
+
+			while (result.next()) {
+				Product p = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
+						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"),
+						result.getInt("Quantity") // stock
+				);
+				searchResults.add(p);
+			}
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			closeAll();
+			System.err.println("SQLException in searchItems.");
+			// System.exit(1);
+		}
+		return searchResults;
+
 	}
 }

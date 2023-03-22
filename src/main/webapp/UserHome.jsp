@@ -74,7 +74,7 @@
     </style>
   </head>
   <body>
-    <jsp:include page = "background.jsp"/>
+   
 
     <% 
     User in=(User)request.getSession().getAttribute("currentUser");
