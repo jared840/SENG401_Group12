@@ -473,7 +473,10 @@ public class DBController {
 		Product product = null;
 		try {
 			String query = "SELECT * FROM Item_Information WHERE Item_ID = " + id;
-			//String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where ite.Item_ID = "+ id;
+			// String query = "SELECT ite.Item_ID,
+			// ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity
+			// FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID =
+			// inv.Item_ID where ite.Item_ID = "+ id;
 
 			PreparedStatement stmt = connect.prepareStatement(query);
 			result = stmt.executeQuery();
@@ -842,4 +845,24 @@ public class DBController {
 		return toReturn;
 	}
 
+	public Product getProductByIdWithStock(int id) {
+		Product product = null;
+		try {
+			// String query = "SELECT * FROM Item_Information WHERE Item_ID = " + id;
+			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where ite.Item_ID = "
+					+ id;
+
+			PreparedStatement stmt = connect.prepareStatement(query);
+			result = stmt.executeQuery();
+			while (result.next()) {
+				product = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
+						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"), 0 // stock
+				);
+			}
+		} catch (Exception e) {
+
+		}
+
+		return product;
+	}
 }

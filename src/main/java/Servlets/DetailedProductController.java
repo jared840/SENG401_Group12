@@ -52,7 +52,7 @@ public class DetailedProductController extends HttpServlet {
 			Integer id = Integer.parseInt((String) request.getParameter("productId"));
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
 					"password");
-			Product product = db.getProductById(id);
+			Product product = db.getProductByIdWithStock(id);
 			request.setAttribute("product", product);
 			Supplier supplier = db.getSupplierBySupplierId(product.getSupplierId());
 			HttpSession mysession = request.getSession();
