@@ -856,7 +856,8 @@ public class DBController {
 			result = stmt.executeQuery();
 			while (result.next()) {
 				product = new Product(result.getInt("Item_ID"), result.getInt("S_ID"), result.getString("I_Name"),
-						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"), 0 // stock
+						result.getString("I_Description"), result.getDouble("I_Cost"), result.getString("I_Category"),
+						result.getInt("Quantity") // stock
 				);
 			}
 		} catch (Exception e) {

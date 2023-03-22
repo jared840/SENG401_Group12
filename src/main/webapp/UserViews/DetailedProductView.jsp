@@ -64,6 +64,21 @@ $( document ).ready(function() {
 </div>
 <script>
 $(window).load(function () {
+
+	
+	$('#quantity').on('input', function(e) {
+        var max = parseInt($(this).attr('max'));
+        var min = parseInt($(this).attr('min'));
+        if ($(this).val() > max)
+        {
+            $(this).val(max);
+        }
+        else if ($(this).val() < min)
+        {
+            $(this).val(min);
+        } 
+	});
+	
 	$("#addToCart").click(function(e){
 		
 		var event = {
