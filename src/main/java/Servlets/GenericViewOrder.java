@@ -1,4 +1,4 @@
-package servlets;
+package Servlets;
 import entities.*;
 import database.*;
 

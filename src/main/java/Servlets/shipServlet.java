@@ -53,16 +53,19 @@ public class shipServlet extends HttpServlet {
 		 */
 
 		try {
+			
+			
+			
+			
 			int order_id = Integer.parseInt(request.getParameter("order_ID"));
-			DBController d = new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "password");
+			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","vick-newton7.1");
 			d.shipOrder(order_id);
 			request.setAttribute("shipSuccess", "true");
-			request.getRequestDispatcher("Shipped.jsp").forward(request, response);
-		} catch (Exception e) {
+			request.getRequestDispatcher("showShippedStatus.jsp").forward(request,response);
+		}catch(Exception e) {
 			out.println(e.getMessage());
 			request.setAttribute("shipSuccess", "false");
-			request.getRequestDispatcher("Shipped.jsp").forward(request, response);
-
+			request.getRequestDispatcher("showShippedStatus.jsp").forward(request,response);
 		}
 	}
 

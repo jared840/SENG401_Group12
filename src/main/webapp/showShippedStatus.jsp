@@ -18,7 +18,7 @@
         <li><a href="#cart">View Cart</a></li>
         <li><a href=GenericViewOrder>View Orders</a></li>
         <li><a href="inventory">Inventory</a></li>
-        <li><a href="CreateReport.jsp">Create Report</a></li>
+      
         <li><a href="SelectionPage.jsp">Log Out</a></li>
       </ul>
 

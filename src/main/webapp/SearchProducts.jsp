@@ -9,8 +9,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Search For Product</title>
+<link rel="stylesheet" type="text/css" href="navbar.css">
 </head>
 <body>
+
+
 
 <form method=get action=SearchProduct>
 

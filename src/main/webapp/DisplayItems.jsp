@@ -8,6 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Order Items</title>
+<link rel="stylesheet" type="text/css" href="navbar.css">
 </head>
 
 <style>
@@ -40,9 +41,26 @@ table.GeneratedTable thead {
 
 <body>
 
-
+<!-- Navigation bar -->
+      <ul id="navbar">
+        <li><a href="WarehouseWorkerHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
+      <!--  <li><a href="CreateProduct.jsp">Create Product</a></li> -->
+        <li><a href=allProductsController>View Products</a></li> 
+        <li><a href="shipItems.jsp">Ship Orders</a></li>
+     <!--    <li><a href="#cart">View Cart</a></li>	-->
+                    <li><a href=SearchProducts.jsp>Search</a></li>
+     
+        <li><a href=GenericViewOrder>View Orders</a></li>
+        <li><a href=findAllWarehouses>Inventory</a></li>
+       
+        <li><a href="SelectionPage.jsp">Log Out</a></li>
+      </ul>
 
 <%
+
+
+
+
 ArrayList <Product> item=new ArrayList<Product>();
 item= (ArrayList)request.getAttribute("items");
 
