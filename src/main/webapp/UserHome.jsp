@@ -3,138 +3,72 @@
     <%@page import="entities.*" %>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Website</title>
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-    <link rel="stylesheet" type="text/css" href="products.css">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css"/>
-      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script src="https://kendo.cdn.telerik.com/2023.1.117/js/kendo.all.min.js"></script>
-    <style>
-      /* CSS styles for the navigation bar */
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: black;
-      }
-      li {
-        float: left;
-      }
-      li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-      li a:hover {
-        background-color: #111;
-      }
-      .right {
-        float: right;
-      }
-      .button {
-        background-color: #333;
-        color: white;
-        border-radius: 20px;
-        border: none;
-        padding: 10px 20px;
-        margin-left: 10px;
-        font-size: 20px;
-        cursor: pointer;
-      }
-      .button:hover {
-        background-color: #111;
-      }
-      /* CSS styles for the home page */
-      #search-bar {
-        margin-top: 150px;
-        text-align: center;
-      }
-      #search-box {
-        padding: 10px;
-        border-radius: 20px;
-        border: none;
-        width: 500px;
-        font-size: 20px;
-        outline: none;
-      }
-      #search-btn {
-        background-color: #333;
-        color: white;
-        border-radius: 20px;
-        border: none;
-        padding: 10px 20px;
-        margin-left: 10px;
-        font-size: 20px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-   
+<head>
+<meta charset="ISO-8859-1">
+<title>My Website</title>
+ <link rel="stylesheet" type="text/css" href="navbar.css">
+ <link rel="stylesheet" type="text/css" href="products.css">
+   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+ 
+ <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css"/>
+   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.1.117/js/kendo.all.min.js"></script>
+<style>
 
-    <% 
-    User in=(User)request.getSession().getAttribute("currentUser");
-    out.println("Your name is: "+in.getName());
-    %>
-    <!-- Navigation bar -->
+
+.center{
+height: 20vh;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: 'Piazzolla', serif;
+font-weight: bold;
+font-sie: 41px;
+text-align:center;
+
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+
+ <!-- Navigation bar -->
       <ul id="navbar">
-        <li><a href="/">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
-        <li><a href="#about">Search</a></li>
+        <li><a href="UserHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
+         <li><a href="CartController">View your cart</a></li>
         <li><a href=allProductsController>View Products</a></li> 
-        <li><a href="#services">My Orders</a></li> <!-- get different permissions depending on user type for all the rest of these-->
-        <li><a href="#cart">View Cart</a></li>
-        <li><a href="#orders">View Orders</a></li>
-        <li><a href="inventory">Inventory</a></li>
-        <li><a href="#report">Create Report</a></li>
-                       <li><a href=SearchProducts.jsp>Search</a></li>
-        
-        <li><a href="TrackOrder.jsp">Track an Order</a></li>
+         <li><a href=SearchProducts.jsp>Search</a></li>
+         <li><a href="TrackOrder.jsp">Track an Order</a></li>
+          <li><a href="SelectionPage.jsp">Logout</a></li> 
+           
       </ul>
-    
-    <!-- Page content -->
-    <div id="search-bar">
-      <h1>Welcome to our Warehouse Website</h1>
-      <form>
-        <input type="text" id="search-box" placeholder="Search for products...">
-        <button type="submit" id="search-btn">Search</button>
-      </form>
-    </div>
-    <div id="example">
-      <div id="listView"></div>
       
-      <script type="text/x-kendo-template" id="template">
-          <div class="product">
-              <img src="#:Src#" alt="Kendo UI for jQuery ListView #: ProductName #" />
-              <h3>#:ProductName#</h3>
-              <h5>#:kendo.toString(UnitPrice, "c")#</h5>
-              <p>#:kendo.toString(UnitPrice, "c")#</p>        
-          </div>
-          
-      </script>
-      <script>
-          let product = []
-          for(let i = 0; i < 100; i++) {
-              product.push({Src:`https://picsum.photos/id/${i}/200/300`,UnitPrice: i*9, ProductName:" - a name", ProductID : i })
-          }
-        
-          $(function () {
-              $("#listView").kendoListView({
-                  dataSource: {
-                      data: product,
-                      pageSize: 30
-                  },
-                  template: kendo.template($("#template").html()),
-                  pageable: true,
-                  navigatable: true
-              });
-          });
-      </script>
-    </div>
-    
-  </body>
-</html>
+      <% 
 
+User in=(User)request.getSession().getAttribute("currentUser");
+out.println("Welcome: "+in.getName());
+
+%>
+
+      <h1>Warehouse Website</h1>
+     <div class='fullscreen'>
+     <div class="center">
+     
+     <p class="smallfirst">Have a look around using the navigation bar.<br>
+     Select View Products to see all products and start your shopping experience.
+     <br>Select View Your Cart to see your items and edit your cart.
+     <br>Select Search to search for the availability of a product by name.
+     <br>If you want to track the progress of your order(s), select Track an Order.
+     </p>
+     </div>
+     </div>
+    
+
+</body>
+</html>
