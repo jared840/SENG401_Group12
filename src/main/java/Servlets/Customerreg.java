@@ -54,7 +54,7 @@ public class Customerreg extends HttpServlet {
 			DBController d = new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "password");
 			User u = new User(0, name, address, email, password, creditCard);
 			d.newUser(u);
-			User user = d.getUser(username, password);
+			User user = d.getUser(email, password);
 			HttpSession mysession = request.getSession();
 			mysession.setAttribute("currentUser", user);
 			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
