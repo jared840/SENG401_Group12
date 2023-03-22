@@ -4,46 +4,46 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Registration</title>
-<link rel="stylesheet" href="CustomerReg.css">
+<title>Customer Registration</title>
+<link rel="stylesheet" href="css/registration.css">
 </head>
 <body>
 
-<form method=get action=Customerreg>
-
-<label>Please enter the required fields</label>
-<br>
-<label>enter your name</label>
-<input type = text placeholder="name" name=nameuser>
-<br>
-<label>enter a username</label>
-<input type=text placeholder="Username" name=usernameuser required>
-<br>
-<label>enter a password</label>
-<br>
-<input type=password placeholder="password" name=passworduser>
-<br>
-
-<label>enter your email</label>
-<br>
-<input type=text placeholder="email" name=emailuser>
-<br>
-
-<label>enter your address</label>
-<br>
-<input type=text placeholder="address" name=addressuser>
-<br>
-
-
-<label>enter your credit card number</label>
-<br>
-<input type=text placeholder="credit card number" name=creditcarduser>
-<br>
-
-<input type=submit value="register">
-</form>
-
-
+	<jsp:include page = "background.jsp"/>
+	<h1>Customer SignUp!</h1><br>
+	<div class="Signup">
+	<form method=get action=Customerreg>
+		<label>Please enter the required fields</label>
+		<br>
+		<br>
+		<label>Name:</label>
+		<input type = text placeholder="Name" name=nameuser class="box">
+		<br>
+		<br>
+		<label>Username:</label>
+		<input type=text placeholder="Username" name=usernameuser required class="box">
+		<br>
+		<br>
+		<label>Password:</label>
+		<input type=password placeholder="Password" name=passworduser class="box">
+		<br>
+		<br>
+		<label>Email:</label>
+		<input type=text placeholder="Email" name=emailuser class="box">
+		<br>
+		<br>
+		<label>Address:</label>
+		<input type=text placeholder="Address" name=addressuser class="box">
+		<br>
+		<br>
+		<label>Credit Card Number:</label>
+		<input type=text placeholder="Credit Card Number" name=creditcarduser class="box">
+		<br>
+		<br>
+		
+		<input type=submit value="Register" class="button">
+	</form>
+	</div>
 
 
 </body>

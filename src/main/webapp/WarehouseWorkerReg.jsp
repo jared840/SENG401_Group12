@@ -4,35 +4,35 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Warehouse worker Registration</title>
+<title>Warehouse Worker Registration</title>
+<link rel="stylesheet" href="css/registration.css">
 </head>
 <body>
 
-<form method=get action=WarehouseWorker>
-
-<label>
-complete the form
-</label>
-
-<label>enter your name</label>
-<br>
-<input type=text placeholder="name" name=nameww required>
-<br>
-<label>enter a username</label>
-<br>
-<input type=text placeholder="Username" name=usernameww required>
-<br>
-<label>enter your password</label>
-<br>
-<input type=password placeholder="password" name=passwordww required>
-<br>
-
-<input type= submit value="register">
-
-
-
-
-</form>
+	<jsp:include page = "background.jsp"/>
+	<h1>Warehouse Worker SignUp!</h1><br>
+	<div class="Signup">
+	<form method=get action=WarehouseWorker>
+	
+	<label>Please enter the required fields</label>
+			<br>
+			<br>
+			<label>Name:</label>
+			<input type = text placeholder="Name" name=nameuser class="box">
+			<br>
+			<br>
+			<label>Username:</label>
+			<input type=text placeholder="Username" name=usernameuser required class="box">
+			<br>
+			<br>
+			<label>Password:</label>
+			<input type=password placeholder="Password" name=passworduser class="box">
+			<br>
+			<br>
+	
+	<input type=submit value="Register" class="button">
+	</form>
+	</div>
 
 </body>
 </html>
