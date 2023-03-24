@@ -930,7 +930,7 @@ public class DBController {
 		PreparedStatement stmt = null;
 		try {
 			
-			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= shipped WHERE ORDER_ID="+orderID;
+			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID="+orderID;
 			stmt = connect.prepareStatement(query);
 			stmt.executeUpdate();
 
