@@ -8,6 +8,8 @@
 <title>Product Creation</title>
 <link rel="stylesheet" type="text/css" href="navbar.css">
  <link rel="stylesheet" type="text/css" href="products.css">
+   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+ 
 </head>
 <body>
 
@@ -22,17 +24,18 @@
 <%
 try{
 if(request.getAttribute("productSuccess").equals("true")){
-	out.println("<b>Successfully created Product!</b>");
+	out.println("<b>Successfully created Product!</b><br>");
 	Product createdProduct=(Product)request.getSession().getAttribute("currentProduct");
-	out.println("Product name: "+createdProduct.getName());
-	out.println("Product price: "+createdProduct.getPrice());
-	out.println("Product description: "+createdProduct.getDescription());
-	out.println("Product category: "+createdProduct.getCategory());
+	out.println("<br>Product name: "+createdProduct.getName());
+	out.println("<br>Product price: "+createdProduct.getPrice());
+	out.println("<br>Product description: "+createdProduct.getDescription());
+	out.println("<br>Product category: "+createdProduct.getCategory());
 //TODO allow option to stock the product they just made
 
-	/*
-	out.println("Would you like to stock this product?")
-out.println("<a href=stockItemServlet?param=createdProduct>Stock this Product</a>"); */
+	
+	out.println("<br><b>STEP 2: Stock this Product:</b><br> Look for this product in your unique product listing with the below link:");
+
+out.println("<br><a href=stockItemsServlet>Stock this Product</a>"); 
 
 
 }
