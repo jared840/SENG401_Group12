@@ -890,4 +890,34 @@ public class DBController {
 
 		return product;
 	}
+	
+	public boolean checkShipped(Order o)throws SQLException
+	{
+	int ID=o.getOrder_ID;
+		
+		
+		try
+		{
+			String query = "SELECT O_Status FROM ORDER_INFORMATION  WHERE ORDER_ID="+ID;
+			PreparedStatement st=connect.prepareStatement(query);
+			result=st.executeQuery();
+			result.next();
+			String b=result.getString(6);
+			if(b.equalsIgnoreCase("shipped"))
+			{
+			return true;	
+			}
+			else
+			{
+			return false;	
+			}
+		}catch(Exception E)
+		{
+		
+		}
+		return false;
+	}
+	
+	
+	
 }
