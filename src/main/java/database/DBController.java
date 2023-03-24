@@ -920,4 +920,31 @@ public class DBController {
 	
 	
 	
+	
+	
+	
+	
+	
+		public void shipOrder2(int orderID)throws SQLException {
+		
+		PreparedStatement stmt = null;
+		try {
+			
+			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= shipped WHERE ORDER_ID="+orderID;
+			stmt = connect.prepareStatement(query);
+			stmt.executeUpdate();
+
+		
+
+			stmt.close();
+			
+		} catch (SQLException e) {
+		
+		}
+	}
+	
+	
+	
+	
+	
 }
