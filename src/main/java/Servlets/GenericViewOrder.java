@@ -41,7 +41,18 @@ public class GenericViewOrder extends HttpServlet {
 		{
 			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 			ArrayList<Order> OD = new ArrayList <Order>();
+			ArrayList<Boolean> bools = new ArrayList<Boolean>();
 			OD=d.viewAllOrders();
+			//check the status of every order in OD:
+			for(int i=0; i<OD.size(); i++) {
+				if(d.checkShipped(OD.get(i))==true) {
+					bools.add(true);
+				}
+				else {
+					bools.add(false);
+				}
+			}
+			request.setAttribute("shippedHash", bools);
 			request.setAttribute("OrderList",OD);
 			request.getRequestDispatcher("GenericOrder.jsp").forward(request,response);
 			
