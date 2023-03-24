@@ -893,7 +893,7 @@ public class DBController {
 	
 	public boolean checkShipped(Order o)throws SQLException
 	{
-	int ID=o.getOrder_ID;
+	int ID=o.getOrder_ID();
 		
 		
 		try
