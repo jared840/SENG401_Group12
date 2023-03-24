@@ -18,15 +18,15 @@
 			<br>
 			<br>
 			<label>Name:</label>
-			<input type = text placeholder="Name" name=nameuser class="box">
+			<input type = text placeholder="Name" name=nameww class="box">
 			<br>
 			<br>
 			<label>Username:</label>
-			<input type=text placeholder="Username" name=usernameuser required class="box">
+			<input type=text placeholder="Username" name=usernameww required class="box">
 			<br>
 			<br>
 			<label>Password:</label>
-			<input type=password placeholder="Password" name=passworduser class="box">
+			<input type=password placeholder="Password" name=passwordww class="box">
 			<br>
 			<br>
 	
