@@ -17,29 +17,18 @@
 		<br>
 		<br>
 		<label>Name:</label>
-		<input type = text placeholder="Name" name=nameuser class="box">
+		<input type = text placeholder="Name" name=namesupplier class="box">
 		<br>
 		<br>
 		<label>Username:</label>
-		<input type=text placeholder="Username" name=usernameuser required class="box">
+		<input type=text placeholder="Username" name=usernamesupplier required class="box">
 		<br>
 		<br>
 		<label>Password:</label>
-		<input type=password placeholder="Password" name=passworduser class="box">
+		<input type=password placeholder="Password" name=passwordsupplier class="box">
 		<br>
 		<br>
-		<label>Email:</label>
-		<input type=text placeholder="Email" name=emailuser class="box">
-		<br>
-		<br>
-		<label>Address:</label>
-		<input type=text placeholder="Address" name=addressuser class="box">
-		<br>
-		<br>
-		<label>Credit Card Number:</label>
-		<input type=text placeholder="Credit Card Number" name=creditcarduser class="box">
-		<br>
-		<br>
+		
 		<label>Please tell us about yourself:</label>
 		<input type=text placeholder=Description name=descriptionsupplier class="desbox">
 		<br>
