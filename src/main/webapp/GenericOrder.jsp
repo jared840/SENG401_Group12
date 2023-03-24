@@ -11,6 +11,8 @@
 <meta charset="ISO-8859-1">
 <title>View All Orders</title>
 <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+
 <style>
 
 
@@ -40,8 +42,6 @@ table.GeneratedTable thead {
 
 </head>
 <body>
-
-	
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="WarehouseWorkerHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
@@ -55,15 +55,12 @@ table.GeneratedTable thead {
         <li><a href=findAllWarehouses>Inventory</a></li>
        
         <li><a href="SelectionPage.jsp">Log Out</a></li>
-      </ul>	
-	
-	
-	
-	
-	
+      </ul>
 <%
 ArrayList <Order> ODL=new ArrayList<Order>();
 ODL= (ArrayList)request.getAttribute("OrderList");
+        		ArrayList <Boolean> bools=new ArrayList<Boolean>();
+        		bools= (ArrayList)request.getAttribute("shippedHash");
 
 out.println("<table class=GeneratedTable>");
 out.println("<th>");
@@ -89,7 +86,14 @@ for(int i=0;i<ODL.size();i++)
 	out.println("<td>"+ODL.get(i).getO_Total()+"</td>");
 	out.println("<td>"+ODL.get(i).getShip_Address()+"</td>");
 	out.println("<td>"+"<a href=orderStuff?param="+ODL.get(i).getOrder_ID()+">view products</a>" + "</td>");
+	if(bools.get(i)==false){
 	out.println("<td>"+"<a href=shipServlet?order_ID="+ODL.get(i).getOrder_ID()+">Ship This Order</a>" + "</td>");
+	}
+	else{
+		out.println("<td>"+"ORDER SHIPPED" + "</td>");
+	}
+	
+
 	out.println("</tr");
 		
 }
