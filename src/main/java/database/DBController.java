@@ -341,8 +341,8 @@ public class DBController {
 		Statement stmt = null;
 		ArrayList<Product> searchResults = new ArrayList<Product>();
 		try {
-			String query = "SELECT * FROM Item_Information WHERE I_Name LIKE '" + searchTerm
-					+ "' OR I_Description LIKE '" + searchTerm + "'";
+			String query = "SELECT * FROM Item_Information WHERE I_Name LIKE '%" + searchTerm
+					+ "%' OR I_Description LIKE '%" + searchTerm + "%'";
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
 
