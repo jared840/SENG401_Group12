@@ -902,7 +902,7 @@ public class DBController {
 			PreparedStatement st=connect.prepareStatement(query);
 			result=st.executeQuery();
 			result.next();
-			String b=result.getString(6);
+			String b=result.getString(1);
 			if(b.equalsIgnoreCase("shipped"))
 			{
 			return true;	
