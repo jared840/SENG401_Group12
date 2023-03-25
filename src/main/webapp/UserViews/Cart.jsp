@@ -17,7 +17,7 @@
 <%
 Order data = (Order)request.getAttribute("order");
 User currentUser=(User)request.getSession().getAttribute("currentUser");
-
+request.setAttribute("order", data);
 %>
 <div id="navbar"></div>
 <script>
@@ -135,7 +135,7 @@ $(window).load(function () {
         <td>
         <div>
         <form>
-         	<button id='<%= data.getProductsOrdered().get(i).getProduct().getProductId() %>' type="submit" class="btn btn-success changeInput" >Add or remove</button>
+         	<button id='<%= data.getProductsOrdered().get(i).getProduct().getProductId() %>' type="submit" class="btn btn-success changeInput" >Change quantity</button>
         	<input id='spinner<%= data.getProductsOrdered().get(i).getProduct().getProductId()%>' type="number" class="form-control" min="0" max='<%= data.getProductsOrdered().get(i).getProduct().getStock()%>' value='<%= data.getProductsOrdered().get(i).getQuantity()%>'>
         </form>
 		                  
@@ -162,11 +162,24 @@ $(window).load(function () {
         <td><%= data.getO_Total() %></td>
       </tr>
     </tbody>
+    
   </table>
   <% if(data.getProductsOrdered().size() != 0){
-	  out.println("<p>     <button type=\"button\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>Place order</button>   </p>");
+	  out.println("<p><a href=\"ProcessOrderController\"> Place order</a>");
 }%>
   
+<script>
+$( "#placeOrder" ).ready(function() {
+	<% 
+	request.setAttribute("order", data);
+	%>
+	$.ajax({
+	    type: 'GET',
+	    url: 'ProcessOrderController',
+	});
+
+});
+</script>
  
 </div>
 </body>

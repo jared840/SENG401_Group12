@@ -172,14 +172,13 @@ public class DBController {
 		return u;
 	}
 
-	// checks that the provided credit card number matches the one in the database 
+	// checks that the provided credit card number matches the one in the database
 	public boolean verifyCardNumber(int userID, int card) {
 		boolean match = false;
 		Statement stmt = null;
 
 		try {
-			String query = "SELECT card_number FROM Customer_Information WHERE Customer_ID = " + 
-				String.valueOf(userID);
+			String query = "SELECT card_number FROM Customer_Information WHERE Customer_ID = " + String.valueOf(userID);
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
 			result.next();
@@ -890,61 +889,70 @@ public class DBController {
 
 		return product;
 	}
-	
-	public boolean checkShipped(Order o)throws SQLException
-	{
-	int ID=o.getOrder_ID();
-		
-		
-		try
-		{
-			String query = "SELECT O_Status FROM ORDER_INFORMATION  WHERE ORDER_ID="+ID;
-			PreparedStatement st=connect.prepareStatement(query);
-			result=st.executeQuery();
+
+	public boolean checkShipped(Order o) throws SQLException {
+		int ID = o.getOrder_ID();
+
+		try {
+			String query = "SELECT O_Status FROM ORDER_INFORMATION  WHERE ORDER_ID=" + ID;
+			PreparedStatement st = connect.prepareStatement(query);
+			result = st.executeQuery();
 			result.next();
-			String b=result.getString(1);
-			if(b.equalsIgnoreCase("shipped"))
-			{
-			return true;	
+			String b = result.getString(1);
+			if (b.equalsIgnoreCase("shipped")) {
+				return true;
+			} else {
+				return false;
 			}
-			else
-			{
-			return false;	
-			}
-		}catch(Exception E)
-		{
-		
+		} catch (Exception E) {
+
 		}
 		return false;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-		public void shipOrder2(int orderID)throws SQLException {
-		
+
+	public void shipOrder2(int orderID) throws SQLException {
+
 		PreparedStatement stmt = null;
 		try {
-			
-			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID="+orderID;
+
+			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID=" + orderID;
 			stmt = connect.prepareStatement(query);
 			stmt.executeUpdate();
 
-		
-
 			stmt.close();
-			
+
 		} catch (SQLException e) {
-		
+
 		}
 	}
-	
-	
-	
-	
-	
+
+	public void updateOrderStatusByOrderId(int id, O_Status status) {
+		PreparedStatement stmt = null;
+		try {
+			String query = "UPDATE ORDER_INFORMATION SET O_Status= '" + status.toString() + "' WHERE Order_ID=" + id;
+			stmt = connect.prepareStatement(query);
+
+			// stmt = connect.prepareStatement(query);
+			stmt.executeUpdate();
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateOrderInventory(int quantity, int id) {
+		PreparedStatement stmt = null;
+		try {
+			String query = "UPDATE warehouse_inventory SET Quantity= '" + quantity + "' WHERE Item_ID=" + id;
+			stmt = connect.prepareStatement(query);
+			stmt.executeUpdate();
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

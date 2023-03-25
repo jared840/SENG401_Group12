@@ -62,7 +62,7 @@ public class DetailedProductController extends HttpServlet {
 
 			request.getRequestDispatcher("UserViews/DetailedProductView.jsp").forward(request, response);
 		} catch (Exception e) {
-			System.out.print("");
+			response.sendRedirect("SelectionPage.jsp");
 		}
 
 	}

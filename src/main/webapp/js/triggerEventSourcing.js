@@ -12,4 +12,5 @@ function sendEventToServer(event){
 const EventTypes = {
   Add: "AddToCart",
   Remove: "RemoveFromCart",
+  PlaceOrder:"OrderPlaced",
 };

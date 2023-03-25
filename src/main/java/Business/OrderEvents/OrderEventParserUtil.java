@@ -38,6 +38,11 @@ public class OrderEventParserUtil {
 			} else if (e.getClassType().equalsIgnoreCase(RemoveFromCartEvent.class.getCanonicalName())) {
 				RemoveFromCartEvent parsed = JSON_PARSER.fromJson(e.getjsonClob(), RemoveFromCartEvent.class);
 				parsedEvents.add(new AddToCartEvent(e, parsed.getProduct(), parsed.getQuantity()));
+			} else if (e.getClassType().equalsIgnoreCase(ProcessOrderEvent.class.getCanonicalName())) {
+				ProcessOrderEvent parsed = JSON_PARSER.fromJson(e.getjsonClob(), ProcessOrderEvent.class);
+				parsedEvents.add(new ProcessOrderEvent(parsed.getCreditCardUsed(), e));
+			} else if (e.getClassType().equalsIgnoreCase(OrderShippedEvent.class.getCanonicalName())) {
+				parsedEvents.add(new OrderShippedEvent(e));
 			}
 		}
 		return parsedEvents;
@@ -51,6 +56,11 @@ public class OrderEventParserUtil {
 		} else if (e.getClassType().equalsIgnoreCase(RemoveFromCartEvent.class.getCanonicalName())) {
 			RemoveFromCartEvent parsed = JSON_PARSER.fromJson(e.getjsonClob(), RemoveFromCartEvent.class);
 			return new RemoveFromCartEvent(e, parsed.getProduct(), parsed.getQuantity());
+		} else if (e.getClassType().equalsIgnoreCase(ProcessOrderEvent.class.getCanonicalName())) {
+			ProcessOrderEvent parsed = JSON_PARSER.fromJson(e.getjsonClob(), ProcessOrderEvent.class);
+			return new ProcessOrderEvent(parsed.getCreditCardUsed(), e);
+		} else if (e.getClassType().equalsIgnoreCase(OrderShippedEvent.class.getCanonicalName())) {
+			return new OrderShippedEvent(e);
 		} else {
 
 			throw new Exception(

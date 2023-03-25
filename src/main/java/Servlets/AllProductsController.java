@@ -41,7 +41,9 @@ public class AllProductsController extends HttpServlet {
 					"password");
 
 			HttpSession mysession = request.getSession();
-			mysession.setAttribute("currentUser", (User) mysession.getAttribute("currentUser"));
+			User user = (User) mysession.getAttribute("currentUser");
+
+			mysession.setAttribute("currentUser", user);
 
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.setHeader("Access-Control-Allow-Headers",
@@ -55,6 +57,7 @@ public class AllProductsController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("SelectionPage.jsp");
 		}
 	}
 

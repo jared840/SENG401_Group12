@@ -10,45 +10,41 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import database.DBController;
+import database.O_Status;
 import entities.Order;
+import entities.OrderItemLine;
 import entities.User;
 
 /**
- * Servlet implementation class CartController
+ * Servlet implementation class ProcessOrderController
  */
-@WebServlet("/CartController")
-public class CartController extends HttpServlet {
+@WebServlet("/ProcessOrderController")
+public class ProcessOrderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CartController() {
+	public ProcessOrderController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		try {
+			// response.sendRedirect("UserViews/OrderComp.jsp");
+
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
 					"password");
-
 			HttpSession mysession = request.getSession();
 			User user = (User) mysession.getAttribute("currentUser");
-
 			Order order = db.getOrderInCartStage(user.getUser_ID());
 			if (order == null)
 				order = db.createDefaultOrderInCartStage(user); // create new order
 			request.setAttribute("order", order);
 
-			request.getRequestDispatcher("UserViews/Cart.jsp").forward(request, response);
-
+			request.getRequestDispatcher("UserViews/ProcessOrderView.jsp").forward(request, response);
 		} catch (Exception e) {
 			response.sendRedirect("SelectionPage.jsp");
 		}
@@ -61,8 +57,24 @@ public class CartController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			int orderId = Integer.parseInt(request.getParameterMap().get("orderId")[0]);
+			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
+					"password");
+			db.updateOrderStatusByOrderId(orderId, O_Status.TRANSACTION_PROCESSED);
+			Order order = db.getOrderById(orderId);
+			for (OrderItemLine o : order.getProductsOrdered()) {
+				db.updateOrderInventory(
+						db.getProductByIdWithStock(o.getProduct().getProductId()).getStock() - o.getQuantity(),
+						o.getProduct().getProductId());
+			}
+
+		} catch (Exception e) {
+
+			response.sendRedirect("SelectionPage.jsp");
+			e.printStackTrace();
+		}
+		// doGet(request, response);
 	}
 
 }

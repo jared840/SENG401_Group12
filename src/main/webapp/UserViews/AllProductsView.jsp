@@ -71,10 +71,10 @@ $(window).load(function () {
             <h3>#:Name#</h3>
             <h4>#:kendo.toString(Price, "c")#</h4>  
 			<h3>#:Stock# left</h3> 
-			<button id=#:ProductId# class="addToCart">BUY</button>
+			
 			<form action=DetailedProduct method="post" >
  				<input type="hidden" name=productId value=#:ProductId# />
-				<button type="submit">View more</button>
+				<button type="submit">View details</button>
 			</form>
 			
         </div>

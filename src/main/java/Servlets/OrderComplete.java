@@ -7,23 +7,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import database.DBController;
-import entities.Order;
-import entities.User;
 
 /**
- * Servlet implementation class CartController
+ * Servlet implementation class OrderComplete
  */
-@WebServlet("/CartController")
-public class CartController extends HttpServlet {
+@WebServlet("/OrderComplete")
+public class OrderComplete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CartController() {
+	public OrderComplete() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,22 +29,12 @@ public class CartController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		try {
-			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
-					"password");
 
-			HttpSession mysession = request.getSession();
-			User user = (User) mysession.getAttribute("currentUser");
-
-			Order order = db.getOrderInCartStage(user.getUser_ID());
-			if (order == null)
-				order = db.createDefaultOrderInCartStage(user); // create new order
-			request.setAttribute("order", order);
-
-			request.getRequestDispatcher("UserViews/Cart.jsp").forward(request, response);
-
+			request.getRequestDispatcher("UserViews/OrderComp.jsp").forward(request, response);
 		} catch (Exception e) {
+
 			response.sendRedirect("SelectionPage.jsp");
 		}
 
