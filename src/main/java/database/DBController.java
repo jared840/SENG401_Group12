@@ -735,13 +735,23 @@ public class DBController {
 	}
 
 	public boolean getOrderStatus(int customer_ID, int order_ID) throws SQLException {
-		Statement s = connect.createStatement();
+		/*Statement s = connect.createStatement();
 		result = s.executeQuery("SELECT Shipped FROM ORDER_ITEMS,ORDER_INFORMATION WHERE O_ID=ORDER_ID AND C_ID="
 				+ customer_ID + " AND ORDER_ID=" + order_ID + ";");
 		result.next();
 		boolean b = result.getBoolean(1);
 
-		return b;
+		return b;*/
+		Statement s = connect.createStatement();
+		result = s.executeQuery("SELECT O_Status FROM ORDER_INFORMATION WHERE C_ID="
+				+ customer_ID + " AND ORDER_ID=" + order_ID + ";");
+	result.next();
+	if(result.getString(1).equals("shipped")){
+		return true;
+	}
+	else {
+		return false;
+	}
 	}
 
 	public void InsertOrderEvent(OrderEvent event) throws SQLException {
