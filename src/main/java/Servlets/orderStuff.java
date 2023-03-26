@@ -44,7 +44,21 @@ public class orderStuff extends HttpServlet {
 			
 			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 			ArrayList<Product> items = new ArrayList<Product>();
-			items=d.getOrderItems(order);
+
+			ArrayList<OrderItemLine> items2 = new ArrayList<OrderItemLine>();
+			//items=d.getOrderItems(order);
+			ArrayList<Order> orders = new ArrayList<Order>();
+			orders=d.getAllOrdes();
+			for(int i=0;i<orders.size(); i++) {
+				if(orders.get(i).getOrder_ID()==order) {
+					
+					items2=orders.get(i).getProductsOrdered();
+					
+				}
+			}
+			for(int i=0;i<items2.size();i++) {
+				items.add(items2.get(i).getProduct());
+			}
 			request.setAttribute("items",items);
 			request.getRequestDispatcher("DisplayItems.jsp").forward(request,response);
 
