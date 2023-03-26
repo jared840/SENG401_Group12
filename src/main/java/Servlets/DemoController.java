@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +41,7 @@ public class DemoController extends HttpServlet {
 			for (OrderItemLine e : o.getProductsOrdered()) {
 				System.out.println(e.getProduct().getName() + " q: " + e.getQuantity());
 			}
-			// ArrayList<Product> x = db.XXXgetAllProducts();
+			ArrayList<Order> od = db.getAllOrdes();
 			request.setAttribute("order", o);
 			request.getRequestDispatcher("UserViews/tempDemoView.jsp").forward(request, response);
 

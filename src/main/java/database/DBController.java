@@ -819,6 +819,38 @@ public class DBController {
 		return o;
 	}
 
+	public ArrayList<Order> getAllOrdes() {
+		PreparedStatement stmt = null;
+		Order order = null;
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			String query = "SELECT * FROM Order_Information";// WHERE O_Status = XX OR ID == x
+			stmt = connect.prepareStatement(query);
+			result = stmt.executeQuery();
+			result.next();
+			java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(result.getString("O_Date"));
+			while (result.next()) {
+				order = new Order(result.getInt("Order_ID"), date, result.getDouble("O_Total"),
+						result.getString("Ship_Address"));
+
+				orders.add(order);
+			}
+			for (Order o : orders) {
+
+				ArrayList<OrderEvent> parsedOrders = OrderEventParserUtil
+						.ConvertOrderEventListFromClob(GetOrderEventByOrderId(o.getOrder_ID()));
+				o.setOrderEvents(parsedOrders);
+				o.setProductsOrdered(OrderEventProjectionUtil.ParseEventsToProducts(parsedOrders));
+			}
+
+		} catch (Exception e) {
+			closeAll();
+			System.err.println("SQLException in getOrder.");
+		}
+
+		return orders;
+	}
+
 	// adds a new order to the database
 	public Order createDefaultOrderInCartStage(User u) {
 		PreparedStatement stmt = null;
@@ -931,6 +963,25 @@ public class DBController {
 		try {
 			String query = "UPDATE ORDER_INFORMATION SET O_Status= '" + status.toString() + "' WHERE Order_ID=" + id;
 			stmt = connect.prepareStatement(query);
+
+			// stmt = connect.prepareStatement(query);
+			stmt.executeUpdate();
+
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateOrderStatusProcessed(Order order, String address, O_Status status) {
+		PreparedStatement stmt = null;
+		try {
+			String q = String.format(
+					"UPDATE ORDER_INFORMATION SET O_Status='%s' AND O_total = %f AND Ship_Address = '%s' WHERE Order_ID = %s",
+					status.toString(), order.getO_Total(), address, order.getOrder_ID());
+			q = q.replace(",", ".");
+			stmt = connect.prepareStatement(q.replaceAll(",", "."));
 
 			// stmt = connect.prepareStatement(query);
 			stmt.executeUpdate();
