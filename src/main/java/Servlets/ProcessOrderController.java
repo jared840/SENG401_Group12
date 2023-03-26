@@ -61,8 +61,12 @@ public class ProcessOrderController extends HttpServlet {
 			int orderId = Integer.parseInt(request.getParameterMap().get("orderId")[0]);
 			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project?useSSL=false", "root",
 					"password");
-			db.updateOrderStatusByOrderId(orderId, O_Status.TRANSACTION_PROCESSED);
 			Order order = db.getOrderById(orderId);
+			HttpSession mysession = request.getSession();
+			User user = (User) mysession.getAttribute("currentUser");
+
+			db.updateOrderStatusProcessed(order, user.getUserAddress(), O_Status.TRANSACTION_PROCESSED);
+
 			for (OrderItemLine o : order.getProductsOrdered()) {
 				db.updateOrderInventory(
 						db.getProductByIdWithStock(o.getProduct().getProductId()).getStock() - o.getQuantity(),

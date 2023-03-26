@@ -978,11 +978,14 @@ public class DBController {
 		PreparedStatement stmt = null;
 		try {
 			String q = String.format(
-					"UPDATE ORDER_INFORMATION SET O_Status='%s' AND O_total = %f AND Ship_Address = '%s' WHERE Order_ID = %s",
-					status.toString(), order.getO_Total(), address, order.getOrder_ID());
-			q = q.replace(",", ".");
-			stmt = connect.prepareStatement(q.replaceAll(",", "."));
+					"UPDATE order_information SET O_total = ? , Ship_Address = ? , O_Status=? WHERE Order_ID = ?",
+					order.getO_Total(), address, order.getOrder_ID());
 
+			stmt = connect.prepareStatement(q);
+			stmt.setString(3, status.toString());
+			stmt.setDouble(1, order.getO_Total());
+			stmt.setString(2, address);
+			stmt.setInt(4, order.getOrder_ID());
 			// stmt = connect.prepareStatement(query);
 			stmt.executeUpdate();
 
