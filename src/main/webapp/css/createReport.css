@@ -1,0 +1,81 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background: black;
+    font-family: 'Arial';
+}
+
+h1{
+	position: relative;
+	color: #fff;
+	font-size: 80px;
+	text-align: center;
+}
+.login{
+        width: 600px;
+        overflow: hidden;
+        margin: auto;
+        margin: 20 0 0 450px;
+        padding: 80px;
+        background: linear-gradient(0.25turn, #e02828, #ebf8e1, #f69d3c);
+        border-radius: 15px;
+        position: relative;
+
+}
+
+h2{
+    text-align: center;
+    color: black;
+    padding: 5px;
+}
+label{	
+	position: absolute;
+	left: 14%;
+    color: black;
+    font-size: 18px;
+}
+
+.box{
+	position: absolute;
+	left: 45%;
+	
+}
+
+
+.usertype{
+	position: absolute;
+	top: 50%;
+	left: 14%
+}
+.button{
+	position: absolute;
+	left: 35%;
+	text-decoration: none;
+	display: inline-block;
+	padding: 5px 40px;
+	border-radius: 20px;
+	margin-top: 5px;
+}
+
+.a1{
+	font-size: 18px;
+    padding: 2px;
+    color: Black;
+    position: absolute;
+    left: 14%;
+}
+.a2{
+	font-size: 18px;
+    padding: 2px;
+    color: black;
+    position: absolute;
+    left: 35%;
+}
+.a3{
+	font-size: 18px;
+    padding: 2px;
+    color: black;
+    position: absolute;
+	left: 57%;
+}
