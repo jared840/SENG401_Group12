@@ -7,6 +7,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Select Warehouse to View Inventory</title>
+<link rel="icon" href="image/logo.jpg">
+<link rel="stylesheet" href="css/shipItems.css">
 <link rel="stylesheet" type="text/css" href="navbar.css">
 <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
 </head>
@@ -25,27 +27,28 @@
     
         <li><a href="SelectionPage.jsp">Log Out</a></li>
       </ul>
-<form method=get action=warehouseInventServ>
-
-
-<br>
-<label>Select Warehouse to view inventory: </label>
-<br>
-<select name="WareSelected">
-<% 
-
-ArrayList<Warehouse> wares=new ArrayList();
-wares=(ArrayList)request.getAttribute("all_warehouses");
-
-for(int i=0; i<wares.size();i++){
-	out.println("<option>"+wares.get(i).getWarehouseID()+": "+wares.get(i).getAddress()+"</option>");
-}
-
-%>
-</select>
-
-<input type=submit value="SUBMIT">
-</form>
+      <jsp:include page = "background.jsp"/>
+	<form method=get action=warehouseInventServ>
+		<div class="contentbox">
+			<br>
+			<label>Select Warehouse to view inventory: </label>
+			<br>
+			<br>
+			<select name="WareSelected" class="box">
+			<% 
+			ArrayList<Warehouse> wares=new ArrayList();
+			wares=(ArrayList)request.getAttribute("all_warehouses");
+			for(int i=0; i<wares.size();i++){
+				out.println("<option>"+wares.get(i).getWarehouseID()+": "+wares.get(i).getAddress()+"</option>");
+			}
+			%>
+			</select>
+			<br>
+			<br>
+			<input type=submit value="SUBMIT" class="button">
+		</div>
+		
+	</form>
 
 </body>
 </html>

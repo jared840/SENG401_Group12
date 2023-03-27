@@ -6,9 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Create Report</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
 <link rel="stylesheet" type="text/css" href="products.css">
-<link rel="stylesheet" href="css/SelectionPage.css">
+<link rel="stylesheet" href="css/createReport.css">
  
 </head>
 <body>
@@ -25,12 +26,15 @@
       
 	<b>Fill out below fields to generate a Supplier Report:</b>
 	<br>
+	<br>
 	<form method=get action=createReportServlet>
 	 <label>Report Title: </label>
 	 <input type=text placeholder="Report Title" name=reportTitle required class="box">
 	 <br>
+	 <br>
 	 <label>Product name/Product #: </label>
 	 <input type=text placeholder="Report Product" name=reportProduct required class="box">
+	 <br>
 	 <br>
 	 <label>Report Transaction: </label>
 	 <select name="TransType" required class="box">
@@ -57,7 +61,7 @@
 	 <br><br>
 	 
 	 
-	 <input type=submit value="Generate Supplier Report">
+	 <input type=submit value="Generate Supplier Report" class="button">
 </div>
  
 </form>

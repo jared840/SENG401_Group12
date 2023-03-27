@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>WELCOME</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" href="css/SelectionPage.css">
 </head>
 <body>

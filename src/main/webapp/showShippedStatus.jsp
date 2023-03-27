@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Show Shipping Status</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
 </head>
 <body>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Credit Card Payment</title>
+<link rel="icon" href="image/logo.jpg">
 </head>
 <body>
     <h1>Credit Card Payment</h1>

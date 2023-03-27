@@ -10,6 +10,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View All Orders</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
 

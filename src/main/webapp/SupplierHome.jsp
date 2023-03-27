@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
+<title>Supplier Home</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
  <link rel="stylesheet" type="text/css" href="products.css">
   <link rel="stylesheet" href="css/SelectionPage.css">
@@ -32,21 +33,11 @@
       </ul>
       
       <div class = "login">
-      	 Hello <%= request.getAttribute("ParsedUser") %> Username: <%= request.getAttribute("userback") %> 
-
 		<%
 		Supplier in=(Supplier)request.getSession().getAttribute("currentSupplier");
-		out.println("Welcome: "+in.getName());
+		out.println("<span style=\"color: black; font-size: 25px;\">Welcome: "+in.getName());
 		%>
       </div>
-
-
-
- 
-
-
-
-
 
 </body>
 </html>

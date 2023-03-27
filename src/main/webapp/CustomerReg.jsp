@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Customer Registration</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" href="css/registration.css">
 </head>
 <body>

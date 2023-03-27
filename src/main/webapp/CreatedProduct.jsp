@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Product Creation</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
  <link rel="stylesheet" type="text/css" href="products.css">
    <link rel="stylesheet" type="text/css" href="mainwebBackground.css">

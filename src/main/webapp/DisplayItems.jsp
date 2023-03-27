@@ -8,6 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Order Items</title>
+<link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
 </head>
 
