@@ -4,39 +4,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>New Supplier</title>
-<link rel="stylesheet" href="css/supRegistration.css">
+
+<title>New supplier</title>
+<link rel="stylesheet" href="css/SelectionPage.css">
+
 </head>
 <body>
-
 	<jsp:include page = "background.jsp"/>
-	<h1>Supplier SignUp!</h1><br>
-	<div class="Signup">
+<div class = "login">
 	<form method=get action=Homeloginreg>
-		<label>Please enter the required fields</label>
+	
+	
+		<label>
+		<b>Please complete the form</b>
+		</label>
 		<br>
+		<input type=text placeholder="name" name=namesupplier required class="box">
 		<br>
-		<label>Name:</label>
-		<input type = text placeholder="Name" name=namesupplier class="box">
-		<br>
-		<br>
-		<label>Username:</label>
 		<input type=text placeholder="Username" name=usernamesupplier required class="box">
 		<br>
+		<input type=password placeholder="password" name=passwordsupplier required class="box">
+		<br><br><br>
+		<label>
+		<b>Please tell us about yourself</b>
+		</label>
 		<br>
-		<label>Password:</label>
-		<input type=password placeholder="Password" name=passwordsupplier class="box">
-		<br>
-		<br>
-		
-		<label>Please tell us about yourself:</label>
-		<input type=text placeholder=Description name=descriptionsupplier class="desbox">
-		<br>
-		<br>
-		
-		<input type=submit value="Register" class="button">
+		<input type=text placeholder=description name=descriptionsupplier required class="box">
+		<br><br>
+		<input type= submit value="register" required class="box">
 	</form>
-	</div>
 
+
+
+</div>
 </body>
 </html>
