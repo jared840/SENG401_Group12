@@ -51,10 +51,14 @@ public class WarehouseWorker extends HttpServlet {
 
 			HttpSession mysession = request.getSession();
 			mysession.setAttribute("currentWarehouseWorker", w);
+
+		
+			mysession.setAttribute("user_log", "WarehouseWorker");
 			request.getRequestDispatcher("WarehouseWorkerHome.jsp").forward(request, response);
 
 		} catch (Exception E) {
 			request.getRequestDispatcher("SelectionPage.jsp").forward(request, response);
+
 		}
 
 	}
