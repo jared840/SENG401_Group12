@@ -7,13 +7,15 @@
 <title>Stocked</title>
 <link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+
 </head>
 <body>
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="SupplierHome.jsp">Home</a></li> 
         <li><a href="CreateProduct.jsp">Create New Product</a></li>
-        <li><a href="allProductsController">View products</a></li>
+        <li><a href="viewSupplierProds">View products</a></li>
         <li><a href="SelectionPage.jsp">Logout</a></li>  
       </ul>
       
