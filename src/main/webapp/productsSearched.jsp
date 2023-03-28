@@ -10,6 +10,8 @@
 <meta charset="ISO-8859-1">
 <title>Products Searched</title>
 <link rel="icon" href="image/logo.jpg">
+  <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+
 </head>
 
 <style>
@@ -38,6 +40,7 @@ table.GeneratedTable thead {
 <%
 ArrayList<Product> prod=new ArrayList<Product>();
 prod=(ArrayList)request.getAttribute("p");
+String us = (String)request.getSession().getAttribute("user_log");
 if(prod.size()==0)
 {
 	out.println("oops...there seems to be no product matching what you're looking for");
@@ -55,7 +58,7 @@ else
 	out.println("<th>Description</th>");
 	out.println("<th>Price</th>");
 	out.println("<th>Category</th>");
-	out.println("<th>Stock</th>");
+	if(us.equals("Customer")){out.println("<th>Stock</th>");}
 	
 	out.println("</tr>");
 	out.println("</th");
@@ -70,8 +73,12 @@ else
 		out.println("<td>"+prod.get(i).getDescription()+"</td>");
 		out.println("<td>"+prod.get(i).getPrice()+"</td>");
 		out.println("<td>"+prod.get(i).getCategory()+"</td>");
-		out.println("<td>"+prod.get(i).getStock()+"</td>");
-		out.println("</tr");
+		
+		if(us.equals("Customer")){
+		out.println("<td>"+"<form action=DetailedProduct method=post> <input type=hidden name=productId value="+prod.get(i).getProductId()+"><button type=submit>View details</button>"+"</td>");
+		}
+		
+				out.println("</tr");
 			
 	}
 	out.println("</tbody>");
