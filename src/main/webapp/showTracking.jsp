@@ -24,6 +24,8 @@
 
 <%
 String result=(String)request.getAttribute("ship_progress");
+      
+
 if(result.equals("wrong"))
 {
 	out.println("Something went wrong...");
@@ -34,15 +36,17 @@ if(result.equals("wrong"))
 
 if(result.equals("true"))
 {
+	 int orderID=(Integer)request.getAttribute("o__id");
 	out.println("Your order has shipped!");
-	out.println("<br>");
+	out.println("<br>ORDER ID: "+orderID+"<br>");
 	out.println("<img src=shipping.jpg alt=Trulli width=500 height=333>");
 }
 
 if(result.equals("false"))
 {
+	 int orderID=(Integer)request.getAttribute("o__id");
 	out.println("Order placed!!!<br>Thanks you for your order. <br>Ship Progress: Your order has not been shipped");
-	out.println("<br>");
+	out.println("<br>ORDER ID: "+orderID+"<br>");
 	out.println("<img src=not.jpg alt=Trulli width=500 height=333>");
 	
 }
