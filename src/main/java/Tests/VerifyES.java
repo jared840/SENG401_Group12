@@ -23,7 +23,7 @@ public class VerifyES {
 	@Test
 	public void test() {
 		try {
-			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "vick-newton7.1");
+			DBController db = new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root", "password");
 			int es_no = db.getEventSourceNumebr();
 			Assert.assertTrue(es_no>0);
 		}catch(Exception e) {
