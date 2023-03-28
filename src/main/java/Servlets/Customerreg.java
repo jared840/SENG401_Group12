@@ -60,7 +60,7 @@ public class Customerreg extends HttpServlet {
 			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
 
 		} catch (Exception e) {
-			out.println("user registration in servlet error");
+		request.getRequestDispatcher("SelectionPage.jsp").forward(request, response);
 		}
 
 	}
