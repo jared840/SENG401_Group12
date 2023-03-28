@@ -8,8 +8,8 @@
 <title>My Website</title>
 <link rel="icon" href="image/logo.jpg">
  <link rel="stylesheet" type="text/css" href="navbar.css">
- <link rel="stylesheet" type="text/css" href="products.css">
-   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+ <!--   <link rel="stylesheet" type="text/css" href="products.css"> -->
+  <link rel="stylesheet" href="css/SelectionPage.css">
  
  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.1.117/styles/kendo.default-v2.min.css"/>
    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -37,7 +37,7 @@ text-align:center;
 </head>
 <body>
 
-
+<jsp:include page = "background.jsp"/>
 
  <!-- Navigation bar -->
       <ul id="navbar">
@@ -49,7 +49,8 @@ text-align:center;
           <li><a href="SelectionPage.jsp">Logout</a></li> 
            
       </ul>
-      
+       <div class="login">
+       <center>
       <% 
 
 User in=(User)request.getSession().getAttribute("currentUser");
@@ -57,19 +58,34 @@ out.println("Welcome: "+in.getName());
 
 %>
 
-      <h1>Warehouse Website</h1>
+      <h1>Warehouse Website</h1></center>
      <div class='fullscreen'>
      <div class="center">
+     <br>
+     <br>
+     <p class="smallfirst">
      
-     <p class="smallfirst">Have a look around using the navigation bar.<br>
-     Select View Products to see all products and start your shopping experience.
-     <br>Select View Your Cart to see your items and edit your cart.
-     <br>Select Search to search for the availability of a product by name.
-     <br>If you want to track the progress of your order(s), select Track an Order.
+     <dl>
+     <dt><b>Navigation bar</b></dt>
+     <dd>- Have a look around using the navigation bar. </dd>
+     <br>
+     <dt><b>View Products</b></dt>
+     <dd>- Select View Products to see all products and start your shopping experience.
+     </dd>
+     <br>
+     <dt><b>View Cart</b></dt>
+     <dd>-Select View Your Cart to see your items and edit your cart.</dd>
+     <br>
+     <dt><b>Search Products</b></dt>
+     <dd>-Select Search to search for the availability of a product by name.</dd>
+     <br>
+     <dt>Track Order</dt>
+     <dd>-If you want to track the progress of your order(s), select Track an Order.</dd>
      </p>
+     </dl>
      </div>
      </div>
     
-
+</div>
 </body>
 </html>
