@@ -954,18 +954,27 @@ public class DBController {
 
 	public void shipOrder2(int orderID) throws SQLException {
 
+		
 		PreparedStatement stmt = null;
-		try {
+		
+		String query = "SELECT COUNT(*) FROM ORDER_INFORMATION WHERE ORDER_ID="+orderID;
+		stmt = connect.prepareStatement(query);
+		result = stmt.executeQuery();
+		result.next();
+		String no_of = result.getString(1);
+		if(no_of.equals("0")) {
+			throw new SQLException();
+		}
 
-			String query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID=" + orderID;
+		 query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID="+orderID;
 			stmt = connect.prepareStatement(query);
 			stmt.executeUpdate();
 
+
+
 			stmt.close();
 
-		} catch (SQLException e) {
-
-		}
+		
 	}
 
 	public void updateOrderStatusByOrderId(int id, O_Status status) {
