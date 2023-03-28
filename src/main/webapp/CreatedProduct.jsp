@@ -9,11 +9,11 @@
 <link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
  <link rel="stylesheet" type="text/css" href="products.css">
-   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+   <link rel="stylesheet" href="css/SelectionPage.css">
  
 </head>
 <body>
-
+<jsp:include page = "background.jsp"/>
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="CreateProduct.jsp">Create New Product</a></li>
@@ -21,11 +21,11 @@
         <li><a href="SelectionPage.jsp">Logout</a></li> 
         
       </ul>
-
+<div class="login">
 <%
 try{
 if(request.getAttribute("productSuccess").equals("true")){
-	out.println("<b>Successfully created Product!</b><br>");
+	out.println("<h1>Successfully created Product!</h1><br>");
 	Product createdProduct=(Product)request.getSession().getAttribute("currentProduct");
 	out.println("<br>Product name: "+createdProduct.getName());
 	out.println("<br>Product price: "+createdProduct.getPrice());
@@ -41,7 +41,7 @@ out.println("<br><a href=stockItemsServlet>Stock this Product</a>");
 
 }
 else{
-	out.println("<b>Unable to create product!</b>");
+	out.println("<h1>Unable to create product!</h1>");
 	out.println("Select Create New Product from the navigation bar to try again");
 }
 }catch(Exception e){
@@ -51,7 +51,7 @@ else{
 
 %>
 
-
+</div>
 
 </body>
 </html>
