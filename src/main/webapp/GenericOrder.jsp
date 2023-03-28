@@ -81,6 +81,7 @@ out.println("<tbody>");
 
 for(int i=0;i<ODL.size();i++)
 {
+	if(ODL.get(i).getO_Total()!=0 && ODL.get(i).getShip_Address().length()>0){
 	out.println("<tr>");
 	out.println("<td>"+ODL.get(i).getOrder_ID()+"</td>");
 	out.println("<td>"+ODL.get(i).getO_Date()+"</td>");
@@ -96,7 +97,7 @@ for(int i=0;i<ODL.size();i++)
 	
 
 	out.println("</tr");
-		
+	}
 }
 
 out.println("</tbody>");
