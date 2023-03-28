@@ -7,10 +7,12 @@
 <title>Stocked</title>
 <link rel="icon" href="image/logo.jpg">
 <link rel="stylesheet" type="text/css" href="navbar.css">
-  <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+  <link rel="stylesheet" href="css/SelectionPage.css">
 
 </head>
 <body>
+
+<jsp:include page = "background.jsp"/>
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="SupplierHome.jsp">Home</a></li> 
@@ -19,7 +21,7 @@
         <li><a href="SelectionPage.jsp">Logout</a></li>  
       </ul>
       
-      
+      <div class="login">
      <%
      
      out.println("<center><b>Outcome of your stock request</b></center>");
@@ -31,5 +33,6 @@
      }
      
      %>
+     </div>
 </body>
 </html>
