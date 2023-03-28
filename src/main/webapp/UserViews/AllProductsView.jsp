@@ -94,7 +94,7 @@ $(window).load(function () {
     			"Name":"<%= data.get(i).getName().length() > 35 ? data.get(i).getName().substring(0,35)+"...":data.get(i).getName() %>",
     			"Price":<%= data.get(i).getPrice() %>,
     			"Stock":"<%= data.get(i).getStock()%>",
-    			"Uri": "http://via.placeholder.com/640x360"
+    			"Uri": "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
     			}
     	
     	colArray[<%= i %>] = x

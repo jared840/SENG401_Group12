@@ -39,7 +39,7 @@ $( document ).ready(function() {
 
 <div id="product">
     <div class="product_images">
-    	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG8Ogg1R2WkRRVnsxMlr_WqdNwhVzo9vvW_42SZm8&s" alt="No image found"/>
+    	<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No image found"/>
     </div>
     <div class="product_details">
 
