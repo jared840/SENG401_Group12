@@ -47,15 +47,19 @@ public class Homeloginreg extends HttpServlet {
 			
 			DBController d= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 			Supplier s=new Supplier(1,name,description,username,password);
+			//out.println(s.getName()+s.getDescription()+s.getPassword()+s.getUsername());
 			d.newUser(s);
 					
 					HttpSession mysession=request.getSession();
 		mysession.setAttribute("currentSupplier", s);
+		mysession.setAttribute("user_log", "Supplier");
+
 		request.getRequestDispatcher("SupplierHome.jsp").forward(request,response);
 			
 		}catch(Exception E)
 		{
-				request.getRequestDispatcher("SelectionPage.jsp").forward(request,response);
+			request.getRequestDispatcher("SelectionPage.jsp").forward(request,response);
+
 		}
 		
 		
