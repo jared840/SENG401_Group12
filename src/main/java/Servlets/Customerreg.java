@@ -57,10 +57,13 @@ public class Customerreg extends HttpServlet {
 			User user = d.getUser(email, password);
 			HttpSession mysession = request.getSession();
 			mysession.setAttribute("currentUser", user);
+			mysession.setAttribute("user_log", "Customer");
+
 			request.getRequestDispatcher("UserHome.jsp").forward(request, response);
 
 		} catch (Exception e) {
-		request.getRequestDispatcher("SelectionPage.jsp").forward(request, response);
+			request.getRequestDispatcher("SelectionPage.jsp").forward(request, response);
+
 		}
 
 	}
