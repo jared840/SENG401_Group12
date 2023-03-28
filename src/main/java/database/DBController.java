@@ -423,9 +423,9 @@ public class DBController {
 	// --------------------
 
 	// adds a new supplier to the database
-	public void newUser(Supplier s) {
+	public void newUser(Supplier s) throws SQLException{
 		PreparedStatement stmt = null;
-		try {
+		
 			String query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
 			stmt = connect.prepareStatement(query);
 			stmt.setString(1, s.getName());
@@ -440,11 +440,9 @@ public class DBController {
 			stmt.executeUpdate();
 
 			stmt.close();
-		} catch (SQLException e) {
-			closeAll();
-			System.err.println(e.getMessage());
-			// System.exit(1);
-		}
+		 
+			
+		
 	}
 
 	// returns the supplier object associated with a id
