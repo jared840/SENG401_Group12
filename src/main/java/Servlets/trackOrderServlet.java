@@ -49,6 +49,7 @@ public class trackOrderServlet extends HttpServlet {
 		DBController db= new DBController("jdbc:mysql://localhost:3306/SENG401Project", "root","password");
 		inuser=db.getUser(inuser.getuserEmail(),inuser.getPassword());
 		boolean status = db.getOrderStatus(inuser.getUser_ID(),oid);
+		request.setAttribute("o__id", oid);
 		if(status) {
 			request.setAttribute("ship_progress", "true");
 		}
@@ -58,6 +59,7 @@ public class trackOrderServlet extends HttpServlet {
 		request.getRequestDispatcher("showTracking.jsp").forward(request,response);
 
 		}catch(Exception e) {
+			//System.out.println(e.getMessage());
 			request.setAttribute("ship_progress", "wrong");
 			request.getRequestDispatcher("showTracking.jsp").forward(request,response);
 
