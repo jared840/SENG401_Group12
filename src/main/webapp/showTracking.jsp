@@ -7,10 +7,11 @@
 <title>Shipping Update</title>
 <link rel="icon" href="image/logo.jpg">
  <link rel="stylesheet" type="text/css" href="navbar.css">
-   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+   <link rel="stylesheet" href="css/SelectionPage.css">
  
 </head>
 <body>
+<jsp:include page = "background.jsp"/>
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="UserHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
@@ -21,14 +22,14 @@
           <li><a href="SelectionPage.jsp">Logout</a></li> 
            
       </ul>
-
+<div class="login">
 <%
 String result=(String)request.getAttribute("ship_progress");
       
 
 if(result.equals("wrong"))
 {
-	out.println("Something went wrong...");
+	out.println("<h1>Something went wrong...</h1>");
 	out.println("<br>");
 	out.println("<img src=error.jpg alt=Trulli width=500 height=333>");
 	
@@ -37,20 +38,20 @@ if(result.equals("wrong"))
 if(result.equals("true"))
 {
 	 int orderID=(Integer)request.getAttribute("o__id");
-	out.println("Your order has shipped!");
-	out.println("<br>ORDER ID: "+orderID+"<br>");
+	out.println("<h1>Your order has shipped!</h1>");
+	out.println("<br><b>ORDER ID: "+orderID+"</b><br>");
 	out.println("<img src=shipping.jpg alt=Trulli width=500 height=333>");
 }
 
 if(result.equals("false"))
 {
 	 int orderID=(Integer)request.getAttribute("o__id");
-	out.println("Order placed!!!<br>Thanks you for your order. <br>Ship Progress: Your order has not been shipped");
-	out.println("<br>ORDER ID: "+orderID+"<br>");
+	out.println("<h1>Order placed!</h1><br>Thanks you for your order. <br>Ship Progress: Your order has not been shipped");
+	out.println("<br><b>ORDER ID: "+orderID+"</b><br>");
 	out.println("<img src=not.jpg alt=Trulli width=500 height=333>");
 	
 }
 %>
-
+</div>
 </body>
 </html>
