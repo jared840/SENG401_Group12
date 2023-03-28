@@ -152,7 +152,7 @@ $( "#place-order" ).click(function(e) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
 	$.post("EventController", $.param(event), function(response) {	
 		$.post("ProcessOrderController", $.param({'orderId':'<%=data.getOrder_ID()%>'}), function(response) {
-			window.location='OrderComplete'
+			window.location=`trackOrderServlet?order_ID=<%=data.getOrder_ID()%>`
 		});
 	});
     
