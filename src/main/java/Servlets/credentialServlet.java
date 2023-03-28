@@ -86,6 +86,7 @@ public class credentialServlet extends HttpServlet {
 				//---------------------
 				
 				request.setAttribute("currentSupplier", supplierloggedin);
+				mysession.setAttribute("user_log", user_type);
 				request.getRequestDispatcher("SupplierHome.jsp").forward(request, response);
 				
 			
@@ -100,7 +101,8 @@ public class credentialServlet extends HttpServlet {
 				HttpSession mysession=request.getSession();
 				
 				mysession.setAttribute("currentWarehouseWorker", loggedin);
-			
+				mysession.setAttribute("user_log", user_type);
+
 			
 				//---------------------
 				
@@ -120,7 +122,8 @@ public class credentialServlet extends HttpServlet {
 			
 			mysession.setAttribute("currentUser", customerloggedin);
 		
-		
+			mysession.setAttribute("user_log", user_type);
+
 			//---------------------
 			
 			
@@ -128,6 +131,7 @@ public class credentialServlet extends HttpServlet {
 			
 		}
 		else if(correctLogin==false) {
+			
 			request.getRequestDispatcher("IncorrectLogin.jsp").forward(request,response);
 		}
 		
