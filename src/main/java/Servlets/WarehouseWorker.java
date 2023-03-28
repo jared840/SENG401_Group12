@@ -54,7 +54,7 @@ public class WarehouseWorker extends HttpServlet {
 			request.getRequestDispatcher("WarehouseWorkerHome.jsp").forward(request, response);
 
 		} catch (Exception E) {
-			out.println(E.getMessage());
+			request.getRequestDispatcher("SelectionPage.jsp").forward(request, response);
 		}
 
 	}
