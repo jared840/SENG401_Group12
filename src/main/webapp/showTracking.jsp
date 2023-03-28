@@ -7,6 +7,8 @@
 <title>Shipping Update</title>
 <link rel="icon" href="image/logo.jpg">
  <link rel="stylesheet" type="text/css" href="navbar.css">
+   <link rel="stylesheet" type="text/css" href="mainwebBackground.css">
+ 
 </head>
 <body>
 <!-- Navigation bar -->
@@ -39,7 +41,7 @@ if(result.equals("true"))
 
 if(result.equals("false"))
 {
-	out.println("Your order has not been shipped");
+	out.println("Order placed!!!<br>Thanks you for your order. <br>Ship Progress: Your order has not been shipped");
 	out.println("<br>");
 	out.println("<img src=not.jpg alt=Trulli width=500 height=333>");
 	
