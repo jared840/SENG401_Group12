@@ -7,9 +7,11 @@
 <title>Track Order</title>
 <link rel="icon" href="image/logo.jpg">
  <link rel="stylesheet" type="text/css" href="navbar.css">
+   <link rel="stylesheet" href="css/supRegistration.css">
+ 
 </head>
 <body>
-
+<jsp:include page = "background.jsp"/>
 <!-- Navigation bar -->
       <ul id="navbar">
         <li><a href="UserHome.jsp">Home</a></li> <!-- Since index page all options are in nav bar but different for each users login page-->
@@ -20,17 +22,18 @@
           <li><a href="SelectionPage.jsp">Logout</a></li> 
            
       </ul>
-
+<div class="Signup">
 
 <form method=get action=trackOrderServlet>
 <label>Enter your order ID</label>
-<input type = text placeholder="Order ID" name=order_ID>
+
+<input type = text placeholder="Order ID" name=order_ID class="box">
 
 
 
 
-<input type=submit value="submit">
+<input type=submit value="submit" class="button">
 </form>
-
+</div>
 </body>
 </html>
