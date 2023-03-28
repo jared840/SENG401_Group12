@@ -55,7 +55,7 @@ public class Homeloginreg extends HttpServlet {
 			
 		}catch(Exception E)
 		{
-			out.println(E.getMessage());
+				request.getRequestDispatcher("SelectionPage.jsp").forward(request,response);
 		}
 		
 		
