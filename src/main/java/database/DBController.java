@@ -1045,4 +1045,26 @@ ArrayList<String> ret = new ArrayList<String>();
 		
 		return ret;
 	}
+	
+	public int getEventSourceNumebr (){
+		PreparedStatement stmt = null;
+		int tr = 0;
+		try {
+
+			String query = "SELECT COUNT(*) FROM Order_Event";
+			stmt = connect.prepareStatement(query);
+			result = stmt.executeQuery();
+			
+			result.next();
+			
+			tr = result.getInt(1);
+		}catch(Exception e) {
+			return 0;
+		}
+		
+		return tr;
+		
+		
+	}
+
 }
