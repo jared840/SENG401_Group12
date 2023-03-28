@@ -1022,4 +1022,27 @@ public class DBController {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<String> prodWare(int sup_id) throws SQLException{
+		PreparedStatement stmt = null;
+		
+		
+ArrayList<String> ret = new ArrayList<String>();
+
+			String query = "SELECT I_Name,Quantity,W_Address FROM Warehouse_information,Warehouse_inventory WHERE Warehouse_ID=W_ID AND S_ID="+sup_id;
+			stmt = connect.prepareStatement(query);
+			result = stmt.executeQuery();
+			
+			while(result.next()) {
+				ret.add(result.getString("I_Name"));
+				ret.add(String.valueOf(result.getInt("Quantity")));
+				ret.add(result.getString("W_Address"));
+			}
+			
+		
+		
+		
+		
+		return ret;
+	}
 }
