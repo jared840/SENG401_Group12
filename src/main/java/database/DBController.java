@@ -599,9 +599,9 @@ public class DBController {
 	// --------------------
 
 	// add a new warehouse employee to the database
-	public void newUser(WarehouseWorkers ww) {
+	public void newUser(WarehouseWorkers ww) throws SQLException {
 		PreparedStatement stmt = null;
-		try {
+		
 			String query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
 			stmt = connect.prepareStatement(query);
 			stmt.setString(1, ww.getE_Name());
@@ -617,11 +617,9 @@ public class DBController {
 			stmt.executeUpdate();
 
 			stmt.close();
-		} catch (SQLException e) {
-			closeAll();
-			System.err.println(e.getMessage());
-			// System.exit(1);
-		}
+		 
+		
+		
 	}
 
 	// returns a WarehouseWorkers object corresponding to a specified username and
