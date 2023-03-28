@@ -124,9 +124,9 @@ public class DBController {
 	// --------------------
 
 	// adds a new customer to the database
-	public void newUser(User u) {
+	public void newUser(User u) throws SQLException{
 		PreparedStatement stmt = null;
-		try {
+		
 			String query = "INSERT INTO Customer_Information (C_Name, C_Address, C_Card_Number, C_Username) VALUES (?, ?, ?, ?)";
 			stmt = connect.prepareStatement(query);
 			stmt.setString(1, u.getName());
@@ -144,11 +144,9 @@ public class DBController {
 			stmt2.executeUpdate();
 
 			stmt2.close();
-		} catch (SQLException e) {
-			closeAll();
-			System.err.println(e.getMessage());
-			// System.exit(1);
-		}
+		
+			
+		
 	}
 
 	public User getUser(String username, String password) {
