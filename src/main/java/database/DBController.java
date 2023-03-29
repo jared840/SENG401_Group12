@@ -124,29 +124,27 @@ public class DBController {
 	// --------------------
 
 	// adds a new customer to the database
-	public void newUser(User u) throws SQLException{
+	public void newUser(User u) throws SQLException {
 		PreparedStatement stmt = null;
-		
-			String query = "INSERT INTO Customer_Information (C_Name, C_Address, C_Card_Number, C_Username) VALUES (?, ?, ?, ?)";
-			stmt = connect.prepareStatement(query);
-			stmt.setString(1, u.getName());
-			stmt.setString(2, u.getUserAddress());
-			stmt.setString(3, String.valueOf(u.getcardNumber()));
-			stmt.setString(4, u.getuserEmail());
-			stmt.executeUpdate();
-			stmt.close();
 
-			PreparedStatement stmt2 = null;
-			query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'c')";
-			stmt2 = connect.prepareStatement(query);
-			stmt2.setString(1, u.getuserEmail());
-			stmt2.setString(2, u.getPassword());
-			stmt2.executeUpdate();
+		String query = "INSERT INTO Customer_Information (C_Name, C_Address, C_Card_Number, C_Username) VALUES (?, ?, ?, ?)";
+		stmt = connect.prepareStatement(query);
+		stmt.setString(1, u.getName());
+		stmt.setString(2, u.getUserAddress());
+		stmt.setString(3, String.valueOf(u.getcardNumber()));
+		stmt.setString(4, u.getuserEmail());
+		stmt.executeUpdate();
+		stmt.close();
 
-			stmt2.close();
-		
-			
-		
+		PreparedStatement stmt2 = null;
+		query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'c')";
+		stmt2 = connect.prepareStatement(query);
+		stmt2.setString(1, u.getuserEmail());
+		stmt2.setString(2, u.getPassword());
+		stmt2.executeUpdate();
+
+		stmt2.close();
+
 	}
 
 	public User getUser(String username, String password) {
@@ -365,7 +363,7 @@ public class DBController {
 		Statement stmt = null;
 		ArrayList<Product> searchResults = new ArrayList<Product>();
 		try {
-			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID;";
+			String query = "SELECT ite.Item_ID, ite.I_Name,ite.I_Description,ite.I_Cost,ite.I_Category,ite.S_ID,inv.Quantity FROM item_information as ite join warehouse_inventory as inv on ite.Item_ID = inv.Item_ID where inv.Quantity > 0;";
 
 			stmt = connect.createStatement();
 			result = stmt.executeQuery(query);
@@ -421,26 +419,24 @@ public class DBController {
 	// --------------------
 
 	// adds a new supplier to the database
-	public void newUser(Supplier s) throws SQLException{
+	public void newUser(Supplier s) throws SQLException {
 		PreparedStatement stmt = null;
-		
-			String query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
-			stmt = connect.prepareStatement(query);
-			stmt.setString(1, s.getName());
-			stmt.setString(2, s.getDescription());
-			stmt.setString(3, s.getUsername());
-			stmt.executeUpdate();
 
-			query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
-			stmt = connect.prepareStatement(query);
-			stmt.setString(1, s.getUsername());
-			stmt.setString(2, s.getPassword());
-			stmt.executeUpdate();
+		String query = "INSERT INTO Supplier_Information (S_Name, S_Description, S_Username) VALUES (?, ?, ?)";
+		stmt = connect.prepareStatement(query);
+		stmt.setString(1, s.getName());
+		stmt.setString(2, s.getDescription());
+		stmt.setString(3, s.getUsername());
+		stmt.executeUpdate();
 
-			stmt.close();
-		 
-			
-		
+		query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 's')";
+		stmt = connect.prepareStatement(query);
+		stmt.setString(1, s.getUsername());
+		stmt.setString(2, s.getPassword());
+		stmt.executeUpdate();
+
+		stmt.close();
+
 	}
 
 	// returns the supplier object associated with a id
@@ -599,25 +595,23 @@ public class DBController {
 	// add a new warehouse employee to the database
 	public void newUser(WarehouseWorkers ww) throws SQLException {
 		PreparedStatement stmt = null;
-		
-			String query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
-			stmt = connect.prepareStatement(query);
-			stmt.setString(1, ww.getE_Name());
-			stmt.setString(2, ww.getUsername());
 
-			stmt.executeUpdate();
-			// stmt.close();
+		String query = "INSERT INTO Warehouse_Employees (E_Name, E_Username) VALUES (?, ?)";
+		stmt = connect.prepareStatement(query);
+		stmt.setString(1, ww.getE_Name());
+		stmt.setString(2, ww.getUsername());
 
-			query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'w')";
-			stmt = connect.prepareStatement(query);
-			stmt.setString(1, ww.getUsername());
-			stmt.setString(2, ww.getPassword());
-			stmt.executeUpdate();
+		stmt.executeUpdate();
+		// stmt.close();
 
-			stmt.close();
-		 
-		
-		
+		query = "INSERT INTO Login_Information (username, password, user_type) VALUES (?, ?, 'w')";
+		stmt = connect.prepareStatement(query);
+		stmt.setString(1, ww.getUsername());
+		stmt.setString(2, ww.getPassword());
+		stmt.executeUpdate();
+
+		stmt.close();
+
 	}
 
 	// returns a WarehouseWorkers object corresponding to a specified username and
@@ -729,23 +723,23 @@ public class DBController {
 	}
 
 	public boolean getOrderStatus(int customer_ID, int order_ID) throws SQLException {
-		/*Statement s = connect.createStatement();
-		result = s.executeQuery("SELECT Shipped FROM ORDER_ITEMS,ORDER_INFORMATION WHERE O_ID=ORDER_ID AND C_ID="
-				+ customer_ID + " AND ORDER_ID=" + order_ID + ";");
-		result.next();
-		boolean b = result.getBoolean(1);
-
-		return b;*/
+		/*
+		 * Statement s = connect.createStatement(); result = s.
+		 * executeQuery("SELECT Shipped FROM ORDER_ITEMS,ORDER_INFORMATION WHERE O_ID=ORDER_ID AND C_ID="
+		 * + customer_ID + " AND ORDER_ID=" + order_ID + ";"); result.next(); boolean b
+		 * = result.getBoolean(1);
+		 * 
+		 * return b;
+		 */
 		Statement s = connect.createStatement();
-		result = s.executeQuery("SELECT O_Status FROM ORDER_INFORMATION WHERE C_ID="
-				+ customer_ID + " AND ORDER_ID=" + order_ID + ";");
-	result.next();
-	if(result.getString(1).equals("shipped")){
-		return true;
-	}
-	else {
-		return false;
-	}
+		result = s.executeQuery(
+				"SELECT O_Status FROM ORDER_INFORMATION WHERE C_ID=" + customer_ID + " AND ORDER_ID=" + order_ID + ";");
+		result.next();
+		if (result.getString(1).equals("shipped")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void InsertOrderEvent(OrderEvent event) throws SQLException {
@@ -948,27 +942,23 @@ public class DBController {
 
 	public void shipOrder2(int orderID) throws SQLException {
 
-		
 		PreparedStatement stmt = null;
-		
-		String query = "SELECT COUNT(*) FROM ORDER_INFORMATION WHERE ORDER_ID="+orderID;
+
+		String query = "SELECT COUNT(*) FROM ORDER_INFORMATION WHERE ORDER_ID=" + orderID;
 		stmt = connect.prepareStatement(query);
 		result = stmt.executeQuery();
 		result.next();
 		String no_of = result.getString(1);
-		if(no_of.equals("0")) {
+		if (no_of.equals("0")) {
 			throw new SQLException();
 		}
 
-		 query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID="+orderID;
-			stmt = connect.prepareStatement(query);
-			stmt.executeUpdate();
+		query = "UPDATE ORDER_INFORMATION SET O_STATUS= 'shipped' WHERE ORDER_ID=" + orderID;
+		stmt = connect.prepareStatement(query);
+		stmt.executeUpdate();
 
+		stmt.close();
 
-
-			stmt.close();
-
-		
 	}
 
 	public void updateOrderStatusByOrderId(int id, O_Status status) {
@@ -1022,31 +1012,27 @@ public class DBController {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<String> prodWare(int sup_id) throws SQLException{
-		PreparedStatement stmt = null;
-		
-		
-ArrayList<String> ret = new ArrayList<String>();
 
-			String query = "SELECT I_Name,Quantity,W_Address FROM Warehouse_information,Warehouse_inventory WHERE Warehouse_ID=W_ID AND S_ID="+sup_id;
-			stmt = connect.prepareStatement(query);
-			result = stmt.executeQuery();
-			
-			while(result.next()) {
-				ret.add(result.getString("I_Name"));
-				ret.add(String.valueOf(result.getInt("Quantity")));
-				ret.add(result.getString("W_Address"));
-			}
-			
-		
-		
-		
-		
+	public ArrayList<String> prodWare(int sup_id) throws SQLException {
+		PreparedStatement stmt = null;
+
+		ArrayList<String> ret = new ArrayList<String>();
+
+		String query = "SELECT I_Name,Quantity,W_Address FROM Warehouse_information,Warehouse_inventory WHERE Warehouse_ID=W_ID AND S_ID="
+				+ sup_id;
+		stmt = connect.prepareStatement(query);
+		result = stmt.executeQuery();
+
+		while (result.next()) {
+			ret.add(result.getString("I_Name"));
+			ret.add(String.valueOf(result.getInt("Quantity")));
+			ret.add(result.getString("W_Address"));
+		}
+
 		return ret;
 	}
-	
-	public int getEventSourceNumebr (){
+
+	public int getEventSourceNumebr() {
 		PreparedStatement stmt = null;
 		int tr = 0;
 		try {
@@ -1054,17 +1040,16 @@ ArrayList<String> ret = new ArrayList<String>();
 			String query = "SELECT COUNT(*) FROM Order_Event";
 			stmt = connect.prepareStatement(query);
 			result = stmt.executeQuery();
-			
+
 			result.next();
-			
+
 			tr = result.getInt(1);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return 0;
 		}
-		
+
 		return tr;
-		
-		
+
 	}
 
 }
