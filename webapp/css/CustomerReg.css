@@ -1,0 +1,49 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background: black;
+    font-family: 'Arial';
+}
+
+h1{
+	position: relative;
+	color: #fff;
+	font-size: 70px;
+	text-align: center;
+}
+
+.Signup{
+        width: 600px;
+        top: 20%;
+        left: 30%;
+        overflow: hidden;
+        margin: auto;
+        margin: 20 0 0 450px;
+        padding: 80px;
+        background: linear-gradient(0.25turn, #e02828, #ebf8e1, #f69d3c);
+        border-radius: 15px;
+        position: absolute;
+}
+
+label{	
+	position: absolute;
+	left: 17%;
+    color: black;
+    font-size: 18px;
+}
+
+.box{
+	position: absolute;
+	left: 57%;
+}
+
+.button{
+	position: absolute;
+	left: 37%;
+	text-decoration: none;
+	display: inline-block;
+	padding: 5px 40px;
+	border-radius: 20px;
+	margin-top: 5px;
+}
